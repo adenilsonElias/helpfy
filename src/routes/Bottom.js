@@ -11,8 +11,7 @@ export function Bottomnavigation() {
     return (
         <Tab.Navigator>
             <Tab.Screen name="Feed" component={Feed} />
-            <Tab.Screen name="Profile" component={Profile} />
-            {/* <StackLogin /> */}
+            <Tab.Screen name="Profile" component={Profile} />            
             <Tab.Screen name="Chat" component={Chat_List} />
         </Tab.Navigator>
     )

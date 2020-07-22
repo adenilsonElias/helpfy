@@ -12,11 +12,11 @@ import { StackLogin } from '../../routes/StackLogin';
 export default Profile = () => {
     // useContext 
     const auth = useContext(AuthContext);
-    if (auth.login) {
+    if (auth.isLogged) {
         return (
             <View>
                 <Text>Profile</Text>
-                <Button title="fica false" onPress={() => auth.setlogin(false)}></Button>
+                <Button title="logout" onPress={() => auth.logOut()}></Button>
             </View>
         )
     }

@@ -7,7 +7,7 @@ import Feed from '../screens/Feed/Feed';
 import WishList from '../screens/Wish_List/Wish_List';
 import LikeList from '../screens/Like_List/Like_List';
 import LeaderBoard from '../screens/Leader_Board/Leader_Board';
-import {Bottomnavigation} from './bottom'
+import {Bottomnavigation} from './Bottom'
 
 const Drawer = createDrawerNavigator();
 

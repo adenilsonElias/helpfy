@@ -17,23 +17,14 @@ export default Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPass, setShowPass] = useState(true) 
-	const [press, setPress] = useState(false)
-
-	//showPassFunction = () => {        
-	//	if(press === false){
-	//		setShowPass(false)
-	//		setPress(true)
-	//	} else {
-	//		setShowPass(true)
-	//		setPress(false)
-	//	}
-	//}
+    const [press, setPress] = useState(false)
+    
+    function handle_entrar_button_press(){
+        auth.logIn(email,password);
+    }
 	
     return(
         <View style={styles.container}>
-            { /* <Text>Login</Text>
-            <Button title="fica false" onPress={()=> auth.setlogin(true)}></Button>
-			<Button title="Register" onPress={()=> navigation.navigate('Register')}></Button>8 */ }
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Helpfy</Text>
 			</View>
@@ -55,13 +46,11 @@ export default Login = () => {
 					secureTextEntry={showPass}
 					value={password}
 					underlineColorAndroid='transparent'
-					onChangeText={password => setPassword(password)} />
-				{/*<TouchableOpacity>
-				</TouchableOpacity>*/}                        
+					onChangeText={password => setPassword(password)} />                      
 			</View>
 			
 			<View style={styles.buttom}>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={handle_entrar_button_press}>
 					<Text style={styles.buttomText}>Entrar</Text>
 				</TouchableOpacity>
         	</View>
@@ -70,6 +59,7 @@ export default Login = () => {
 					<Text style={styles.buttomText}>Registrar</Text>
 				</TouchableOpacity>
         	</View>
+            
 
         </View>
     )
