@@ -4,7 +4,7 @@ import {
     Text,
     Button
 } from 'react-native'
-import { createPost, getPost } from '../../firebase/Post';
+import { createPost, getPost, getPostList } from '../../firebase/Post';
 import Post from '../../model/post_model';
 
 export default Chat_List = () => {
@@ -21,7 +21,7 @@ export default Chat_List = () => {
     })
     return(
         <View>
-            <Button title="save" onPress={() => getPost(1)}>
+            <Button title="save" onPress={() => getPost("YxXHvgI1SaoYPHSPxaO8").then(value => console.log(value))}>
             </Button>
         </View>
     )

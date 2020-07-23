@@ -1,6 +1,8 @@
-import firebase from './firebase_base'
+// import firebase from './firebase_base'
 
-const authentication = firebase.auth()
+import auth from '@react-native-firebase/auth'
+
+const authentication = auth();
 
 /**
  * # CreateNewUser
