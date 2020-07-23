@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { color1, color2 } from '../../global/constant/constant'
+import { color1, color2, fontTitle } from '../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {
@@ -13,13 +13,12 @@ const style = StyleSheet.create({
     title: {
         marginTop: 20,
         marginLeft: 10,
-        fontSize: 30,
-        fontFamily: 'shelter',
         color: color1,
         textShadowColor: color2, 
+        fontSize: 30,
+        fontFamily: fontTitle,
         textShadowOffset: { width: 1, height: 0 },
-        textShadowRadius: 10, 
-        
+        textShadowRadius: 10,         
     },
 })
 

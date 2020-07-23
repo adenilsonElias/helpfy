@@ -8,12 +8,13 @@ import WishList from '../screens/Wish_List/Wish_List';
 import LikeList from '../screens/Like_List/Like_List';
 import LeaderBoard from '../screens/Leader_Board/Leader_Board';
 import {Bottomnavigation} from './Bottom'
+import DrawerCustom from '../global/components/DrawerCustom/DrawerCustom'
 
 const Drawer = createDrawerNavigator();
 
 export default DrawerNavigation = () => {
     return (
-        <Drawer.Navigator >            
+        <Drawer.Navigator drawerContent={DrawerCustom}>            
             <Drawer.Screen name="Home" component={Bottomnavigation}/> 
             <Drawer.Screen name="Wish List" component={WishList} />  
             <Drawer.Screen name="Like List" component={LikeList} /> 
