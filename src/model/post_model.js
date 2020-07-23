@@ -1,15 +1,19 @@
 
-function Post(postJSON) {
-    this.title = postJSON['title']
-    this.author = postJSON['author']
-    this.image = postJSON['image']
-    this.comments = postJSON['comments']
-    this.description = postJSON['description']
-    this.postId = postJSON['postId']
-    this.emailPost = postJSON['emailPost']
-    this.timePost = postJSON['timePost']
-    this.userId = postJSON['userId']
-    this.postDonated = postJSON['postDonated']
+class Post {
+    constructor(postJSON) {
+        // if (postJSON.)
+        for(let key in postJSON){
+            this[key] = postJSON[key];
+        }
+    }
+
+    toJson() {
+        return Object.getOwnPropertyNames(this).reduce((json,index) =>{
+            json[index] = this[index]
+            return json
+        }, {})
+    }
+
 }
 
 export default Post
