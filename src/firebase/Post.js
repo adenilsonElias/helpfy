@@ -4,18 +4,18 @@ import Post from '../model/post_model';
 const firestore = Firestore()
 
 
-export async function createPost(Post) {
-    try{
+export async function createPost(Post: Post) {
+    try {
         let post = await firestore.collection('Post').add(Post.toJson())
     }
-    catch (e){
+    catch (e) {
         console.error(e)
         throw "Erro ao criar post"
     }
 }
 
-export async function getPost(id) {
-    try{
+export async function getPost(id: String){
+    try {
         let post = await firestore.collection('Post').doc(id).get();
         return new Post(post.data())
     }
@@ -26,14 +26,14 @@ export async function getPost(id) {
 
 }
 
-export async  function getPostList(filter = null,pagination = null) {
+export async function getPostList(filter = null, pagination = null) {
     // @TODO fazer filtros
     // @TODO fazer paginacao
-    try{
+    try {
         let post = await firestore.collection('Post').get()
         return post.docs.map(post => new Post(post._data))
     }
-    catch (e){
+    catch (e) {
         console.error(e)
         throw "Erro ao coletar posts"
     }

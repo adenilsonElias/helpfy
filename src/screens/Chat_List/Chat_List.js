@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     View,
-    Text,
     Button
 } from 'react-native'
 import { createPost, getPost, getPostList } from '../../firebase/Post';
@@ -19,7 +18,7 @@ export default Chat_List = () => {
         userId: 1,
         postDonated: 'teste',
     })
-    return(
+    return (
         <View>
             <Button title="save" onPress={() => getPost("YxXHvgI1SaoYPHSPxaO8").then(value => console.log(value))}>
             </Button>
