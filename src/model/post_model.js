@@ -1,19 +1,20 @@
 
-interface IPost {
-    author: String;
-    comments: String;
-    description: String;
-    emailPost: String;
-    image: String;
-    postDonated: String;
-    timePost: Date;
-    title: String;
-    userId: String;
-    IdPost?: String
-}
 
 class Post {
-    constructor(postJSON : IPost) {
+
+    author: String
+    comments: String
+    description: String
+    emailPost: String
+    image: String
+    postDonated: String
+    timePost: Date
+    title: String
+    userId: String
+    IdPost: String
+    category : String
+
+    constructor(postJSON : Post) {
         for (let key in postJSON) {
             this[key] = postJSON[key];
         }
