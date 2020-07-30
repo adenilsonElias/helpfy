@@ -25,13 +25,7 @@ export default Login = () => {
     }
 
     const showPassFuntion = () => {        
-        if(press === false){
-            setShowPass(false)
-            setPress(true)
-        } else {
-            setShowPass(true)
-            setPress(false)
-        }
+        setShowPass(!showPass)
     }
 	
     return(

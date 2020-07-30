@@ -1,6 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { View, Text } from 'react-native'
-import { MakeLogin, createAuthObserver, CreateNewUser, MakeLogout } from '../firebase/Authentication'
+import { MakeLogin, createAuthObserver, CreateNewUser, MakeLogout, getUser } from '../firebase/Authentication'
+import { useDispatch } from 'react-redux'
+import { setUser, makeLogout } from '../store/actions/user'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import User from '../model/user'
 
 // cria o contexto
 const AuthContext = createContext({})
@@ -9,40 +13,51 @@ const AuthContext = createContext({})
 export const AuthContextProvider = ({ children }) => {
     const [isLogged, setIsLogged] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const dispatch = useDispatch()
 
-    useEffect(()=>{
-        createAuthObserver((user) =>{
-            if(user){
-               setIsLogged(true)
+    function addUserToRedux(user: User) {
+        dispatch(setUser(user))
+    }
+
+    useEffect(() => {
+        createAuthObserver((user: FirebaseAuthTypes.User) => {
+            if (user) {
+                getUser(user.uid).then((value) => {
+                    addUserToRedux(value);
+                }).catch((error) => {
+                    console.error(error)
+                })
+                setIsLogged(true)
             }
             else {
+                dispatch(makeLogout())
                 setIsLogged(false)
             }
         })
-    },[])
+    }, [])
 
-    function logIn(username,password){
+    function logIn(username, password) {
         setIsLoading(true)
-        MakeLogin(username,password).then((value) =>{
+        MakeLogin(username, password).then((value) => {
             setIsLoading(false);
         })
     }
 
-    function createUser(user){
+    function createUser(user) {
         setIsLoading(true)
-        CreateNewUser(user).then((value)=>{
+        CreateNewUser(user, addUserToRedux).then((value) => {
             setIsLoading(false)
         })
     }
 
-    function logOut(){
+    function logOut() {
         setIsLoading(true)
         MakeLogout().then(() => {
             setIsLoading(false)
         })
     }
 
-    if (isLoading){
+    if (isLoading) {
         return (
             <View>
                 <Text> Verificando autenticação do usuario...</Text>
