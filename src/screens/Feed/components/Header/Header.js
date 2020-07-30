@@ -4,6 +4,7 @@ import AuthContext from '../../../../context/auth_context';
 import Icon from 'react-native-vector-icons/Feather';
 import style from './style'
 import { color1 } from '../../../../global/constant/constant'
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * # Cabeçalho
@@ -14,6 +15,7 @@ import { color1 } from '../../../../global/constant/constant'
 
 const Header = () => {
     const auth = useContext(AuthContext)
+    const navigation = useNavigation()
     
     const avatar = auth.isLogged ?
         <Image source={require('../../../../assets/imgs/icon.png')} style={style.profile} /> :
@@ -31,7 +33,8 @@ const Header = () => {
                 <TouchableOpacity style={style.icon}>
                     <Icon name={'bell'} size={30} color={color1}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={style.icon}>                    
+                <TouchableOpacity style={style.icon} 
+                    onPress={()=> {navigation.navigate('Search')}}>                    
                     <Icon name={'search'} size={30} color={color1}/>
                 </TouchableOpacity>
             </View>
