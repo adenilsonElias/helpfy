@@ -4,7 +4,6 @@ import { color1, color2 } from '../../../../global/constant/constant'
 const style = StyleSheet.create({
     container: {
         // backgroundColor: 'red',
-        // height: Dimensions.get('window').width / 6,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'center',

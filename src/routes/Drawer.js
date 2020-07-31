@@ -12,13 +12,13 @@ import DrawerCustom from '../global/components/DrawerCustom/DrawerCustom'
 
 const Drawer = createDrawerNavigator();
 
-export default DrawerNavigation = () => {
+export default DrawerNavigation = () => {    
     return (
         <Drawer.Navigator drawerContent={DrawerCustom}>            
-            <Drawer.Screen name="Home" component={Bottomnavigation}/> 
-            <Drawer.Screen name="Wish List" component={WishList} />  
-            <Drawer.Screen name="Like List" component={LikeList} /> 
-            <Drawer.Screen name="Ranking" component={LeaderBoard} /> 
+            <Drawer.Screen name="Tela Inicial" component={Bottomnavigation}/> 
+            <Drawer.Screen name="Lista de Desejos" component={WishList} />
+            <Drawer.Screen name="Lista de Curtidas" component={LikeList} /> 
+            <Drawer.Screen name="Classificação" component={LeaderBoard} /> 
         </Drawer.Navigator>
     )
 }
