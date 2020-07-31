@@ -1,7 +1,7 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Register from '../screens/Register/Register';
-import Profile from '../screens/Profile/Profle';
+import Profile from '../screens/Profile/Profile';
 import Login from '../screens/Login/Login';
 import Feed from '../screens/Feed/Feed';
 import WishList from '../screens/Wish_List/Wish_List';

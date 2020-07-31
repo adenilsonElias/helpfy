@@ -1,18 +1,96 @@
-import React, { useContext } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useState } from 'react'
 import {
     View,
     Text,
-    Button
+	TouchableOpacity,
+    TextInput,
+    ScrollView
 } from 'react-native'
+import AuthContext from '../../context/auth_context'
+import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/Feather'
+import style from './style'
+
 
 export default Register = () => {
     const navigation = useNavigation()
 
+
+    const [email, setEmail] = useState('')
+    const [name, setName] = useState('') 
+    const [birth, setBirth] = useState('')
+    const [local, setLocal] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPass, setConfirmPass] = useState('')
+    const [score, setScore] = useState(0)
+	
+
     return (
-        <View style={{ flex: 1 }}>
-            <Text>Register</Text>
-            <Button title="Register" onPress={() => navigation.openDrawer()}></Button>
+        <View style={style.container}>
+                <View style={style.inputContainer}>
+			    	<TextInput style={style.input}
+			    		placeholder='E-mail'
+			    		placeholderTextColor='#fff'                        
+			    		autoFocus={true} 
+			    		keyboardType='email-address'
+			    		value={email}
+			    		underlineColorAndroid='transparent'
+			    		onChangeText={email => setEmail(email)} />
+			    </View>
+                <View style={style.inputContainer}>
+			    	<TextInput style={style.input}
+			    		placeholder='Nome'
+			    		placeholderTextColor='#fff'                        
+			    		autoFocus={true} 
+			    		keyboardType='email-address'
+			    		value={name}
+			    		underlineColorAndroid='transparent'
+			    		onChangeText={name => setName(name)} />
+			    </View>
+                <View style={style.inputContainer}>
+			    	<TextInput style={style.input}
+			    		placeholder='Data de Nascimento'
+			    		placeholderTextColor='#fff'                        
+			    		autoFocus={true} 
+			    		keyboardType='email-address'
+			    		value={birth}
+			    		underlineColorAndroid='transparent'
+			    		onChangeText={birth => setBirth(birth)} />
+			    </View>
+                <View style={style.inputContainer}>
+			    	<TextInput style={style.input}
+			    		placeholder='Estado'
+			    		placeholderTextColor='#fff'                        
+			    		autoFocus={true} 
+			    		keyboardType='email-address'
+			    		value={local}
+			    		underlineColorAndroid='transparent'
+			    		onChangeText={local => setLocal(local)} />
+			    </View>
+                <View style={style.inputContainer}>
+			    	<TextInput style={style.input}
+			    		placeholder='Senha' 
+			    		placeholderTextColor='#fff'
+			    		secureTextEntry={true}
+			    		value={password}
+			    		underlineColorAndroid='transparent'
+			    		onChangeText={password => setPassword(password)} />                      
+			    </View>
+                <View style={style.inputContainer}>
+			    	<TextInput style={style.input}
+			    		placeholder='Confirmar senha' 
+			    		placeholderTextColor='#fff'
+			    		secureTextEntry={true}
+			    		value={confirmPass}
+			    		underlineColorAndroid='transparent'
+			    		onChangeText={confirmPass => setConfirmPass(confirmPass)} />                      
+			    </View>
+
+            <View style={style.buttom}>
+				<TouchableOpacity onPress={()=> navigation.navigate('Register')}>
+					<Text style={style.buttomText}>Salvar</Text>
+				</TouchableOpacity>
+        	</View>
         </View>
     )
 }
