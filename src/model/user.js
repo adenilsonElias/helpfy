@@ -1,6 +1,7 @@
 // @flow
 
 export default class User {
+    name: String
     email : String
     senha : String
     id : String
