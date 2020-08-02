@@ -7,7 +7,7 @@ import {
 import AuthContext from '../../context/auth_context'
 import Login from '../Login/Login';
 import { StackLogin } from '../../routes/StackLogin';
-
+import Top from './components/BackgroundTop/BackgroundTop'
 
 export default Profile = () => {
     // useContext 
@@ -15,7 +15,7 @@ export default Profile = () => {
     if (auth.isLogged) {
         return (
             <View>
-                <Text>Profile</Text>
+                <BackgroundTop />
                 <Button title="logout" onPress={() => auth.logOut()}></Button>
             </View>
         )

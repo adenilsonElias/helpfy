@@ -1,6 +1,6 @@
 import React from 'react'
 // import Feed from '../screens/Feed/Feed';
-import Profile from '../screens/Profile/Profle';
+import Profile from '../screens/Profile/Profile';
 import Chat_List from '../screens/Chat_List/Chat_List';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackFeed } from './StackFeed'
