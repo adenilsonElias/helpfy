@@ -17,6 +17,9 @@ function getTabBarVisible(route) {
     if (routeName === 'Search') {
         return false;
     }
+    if (routeName === 'AddPost') {
+        return false;
+    }
     return true;
 }
 

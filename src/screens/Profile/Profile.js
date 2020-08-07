@@ -7,7 +7,7 @@ import {
 import AuthContext from '../../context/auth_context'
 import Login from '../Login/Login';
 import { StackLogin } from '../../routes/StackLogin';
-import Top from './components/BackgroundTop/BackgroundTop'
+// import Top from './components/BackgroundTop/BackgroundTop'
 
 export default Profile = () => {
     // useContext 
