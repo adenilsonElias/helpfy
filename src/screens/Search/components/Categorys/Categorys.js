@@ -1,50 +1,10 @@
 import React, { useState } from 'react'
 import { FlatList, TouchableOpacity, Image, Text, View } from 'react-native'
 import style from './style'
+import { categorys } from '../../../../global/constant/constant'
 
 const Categorys = (props) => {
-    const [category, setCategory] = useState([{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Brinquedos'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Calçados'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Eletrodomésticos'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Higiene Pessoal'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Livros'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Material de Construção'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Material de Limpeza'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Material Escolar'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Móveis'
-        },{
-            id: Math.random(),
-            image: require('../../../../assets/imgs/mao.png'),
-            title: 'Roupas'
-        }
-    ])
+    const [category, setCategory] = useState(categorys)
 
     return(
         <FlatList numColumns={2}

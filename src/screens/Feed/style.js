@@ -20,6 +20,17 @@ const style = StyleSheet.create({
         textShadowOffset: { width: 1, height: 0 },
         textShadowRadius: 10,         
     },
+    buttonAdd: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 25,
+        bottom: 25,
+        backgroundColor: color1,
+    }
 })
 
 export default style
