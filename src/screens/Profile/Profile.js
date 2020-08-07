@@ -19,7 +19,8 @@ export default Profile = () => {
             <View>
                 <BackgroundTop />
                 <ToolbarMid />
-                <ProfileInfoBot title={'Nome'} item={this.props.name} icon={'user'}/>
+                <ProfileInfoBot title={'Nome'} content={'FAbio'} icon={'user'}/>
+                <ProfileInfoBot title={'Fabio'} content={'nome'} icon={'user'}/>
                 <Button title="logout" onPress={() => auth.logOut()}></Button>
             </View>
         )

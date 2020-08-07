@@ -11,7 +11,7 @@ const style = StyleSheet.create({
     iconContainer: {
         justifyContent: 'center'
     },
-    profileText: {
+    profileContent: {
         fontWeight: 'bold',
         textAlign: 'justify',
         fontSize: 22,
@@ -21,12 +21,15 @@ const style = StyleSheet.create({
         textShadowOffset: { width: 1, height: 0 },
         textShadowRadius: 10,
     },
-    profileItem: {
+    profileHeader: {
         textAlign: 'justify',
         fontSize: 15,
         paddingLeft: 10,
-        color: "#eee",
-    }
+        color: 'black',
+    },
+    contentContainer: {
+		flex: 1,
+	},
 
 
 })
