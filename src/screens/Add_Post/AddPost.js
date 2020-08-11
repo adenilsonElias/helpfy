@@ -7,13 +7,18 @@ import { color2, categorys, color1 } from '../../global/constant/constant'
 import RNPickerSelect from 'react-native-picker-select';
 import Title from './components/Title/Title'
 import SliderBoxImg from './components/SliderBox/SliderBoxImg'
+import Post from '../../model/post_model'
+import { useSelector } from 'react-redux'
+import User from '../../model/user'
+import { createPost } from '../../firebase/Post'
 
 export default AddPost = () => {
     const navigation = useNavigation()
     const [title, setTitle] = useState()
     const [description, setDescription] = useState()
     const [category, setCategory] = useState([])
-    const [choiceCategory, setChoiceCategory] = useState()    
+    const [choiceCategory, setChoiceCategory] = useState()
+    const user : User | null  = useSelector(state => state.userState.user);
     //testes, ideal max 14    
     const [images, setImages] = useState([
         "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
@@ -32,6 +37,26 @@ export default AddPost = () => {
         "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
     ])
 
+    function handleSavePost(){
+        console.log(user);
+        if(user == null){
+            return;
+        }
+        const newPost = new Post({
+            title,
+            description,
+            category: choiceCategory,
+            image : images[0],
+            author: user.name,
+            userId: user.id,
+            emailPost: user.email,
+            timePost: Date.now().toString(),
+        })
+        createPost(newPost).then((response)=>{
+            console.log('Post criado com sucesso')
+        });
+        console.log(newPost);
+    }
 
     // Converte a lista coletada da constante declarada em outro arquivo no formato de valor para RNPickerSelect utilizar
     const converToPickerItem = (category, batata) => {
@@ -99,7 +124,7 @@ export default AddPost = () => {
                         onChangeText={setDescription} />
                 </View>
                 <View style={style.buttonContainer}>
-                    <TouchableOpacity style={style.button}>
+                    <TouchableOpacity style={style.button} onPress={handleSavePost}>
                         <Text style={style.buttonText}>Salvar</Text>
                     </TouchableOpacity>
                 </View>

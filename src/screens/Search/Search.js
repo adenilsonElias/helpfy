@@ -7,6 +7,8 @@ import { color1 } from '../../global/constant/constant'
 import { useHeaderHeight, HeaderBackButton } from '@react-navigation/stack'
 import Result from './components/Result/Result'
 import Categorys from './components/Categorys/Categorys'
+import Post from '../../model/post_model'
+import { getPostList } from '../../firebase/Post'
 
 const Search = () => {
     const [data, setData] = useState([])
@@ -38,6 +40,7 @@ const Search = () => {
     const [renderResult, setRenderResult] = useState(false)
     const navigation = useNavigation()
     const size = useHeaderHeight()
+    const [postList,setPostList] = useState()
     const parameter = {
         data,
         setData,
@@ -71,9 +74,16 @@ const Search = () => {
                     }
                 /> )
         })
-    })
+    });
 
-    const condition = renderResult ? <Result parameter={parameter} /> : <Categorys />
+    useEffect(()=>{
+        getPostList({title : value},{limit: 10}).then((response)=>{
+            // console.log(response);
+            setPostList(response);
+        })
+    } , [value])
+
+    const condition = renderResult ? <Result postsList={postList} /> : <Categorys />
 
     return (
         <View style={style.container}>

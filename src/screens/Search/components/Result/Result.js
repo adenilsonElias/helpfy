@@ -3,8 +3,10 @@ import { FlatList, View } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import style from './style'
 import { useNavigation } from '@react-navigation/native'
+import Post from '../../../../model/post_model'
 
-const Result = (props) => {
+
+const Result = ({ parameter, postsList}) => {
     const navigation = useNavigation()
 
     const renderSeparator = () => {
@@ -13,10 +15,10 @@ const Result = (props) => {
         )
     }
 
-    return(
+    return (
         <FlatList
-            data={props.parameter.data}
-            renderItem={({ item }) => (
+            data={ postsList}
+            renderItem={({ item, index }) => (
                 <ListItem
                     leftAvatar={{ source: { uri: item.image } }}
                     title={`${item.title}`}
@@ -26,21 +28,13 @@ const Result = (props) => {
                     subtitleStyle={style.colorText}
                     onPress={() => {
                         navigation.navigate('ThePost', {
-                            title: item.title,
-                            author: item.author,
-                            image: item.image,
-                            comments: item.comments,
-                            description: item.description,
-                            postId: item.id,
-                            emailPost: item.emailPost,
-                            timePost: item.timePost,
-                            userId: item.userId
+                            post: postsList[index]
                         })
                     }}
                 />
             )}
-            keyExtractor={item => item.emailPost}
-            // ItemSeparatorComponent={renderSeparator}
+            keyExtractor={item => item.id}
+        // ItemSeparatorComponent={renderSeparator}
         />
     )
 }
