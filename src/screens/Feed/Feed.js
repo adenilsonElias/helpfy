@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import style from './style';
 import { SliderBox } from "react-native-image-slider-box";
 import Header from './components/Header/Header';
 import Post from '../../model/post_model';
 import PostList from './components/Post_List/Post_List';
+import Icon from 'react-native-vector-icons/Feather';
+import { color2, color1 } from '../../global/constant/constant'
+import { useNavigation } from '@react-navigation/native';
 
 export default Feed = () => {
+    const navigation = useNavigation()
 
     const images = [
         "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
@@ -61,7 +65,9 @@ export default Feed = () => {
             <Header />
             <View style={style.containerBody}>
                 <ScrollView>
-                    <SliderBox images={images} />
+                    <SliderBox images={images} 
+                        circleLoop={true}
+                        autoplay={true} />
                     <Text style={style.title}>Destaques</Text>
                     <PostList postList={posts} />
                     <Text style={style.title}>Recentes</Text>
@@ -70,6 +76,10 @@ export default Feed = () => {
                     <PostList postList={posts} />
                 </ScrollView>
             </View>
+            <TouchableOpacity style={style.buttonAdd}
+                onPress={() => {navigation.navigate('AddPost')}}>
+                <Icon name={'plus'} size={30} color={color2} />
+            </TouchableOpacity>
         </View>
     )
 }
