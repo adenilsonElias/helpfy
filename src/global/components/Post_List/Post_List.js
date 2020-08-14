@@ -21,7 +21,7 @@ const PostList = (props) => {
                     <Text style={style.textTitle}>{props.post.title}</Text>
                     <Text style={style.textAuthor}>{props.post.author}</Text>
                 </View>
-                <TouchableOpacity onPress={()=>{console.log('Button')}}
+                <TouchableOpacity onPress={()=>{}}
                     style={style.iconContainer}>
                     <Icon name={'trash-2'} size={30} color={color1}/>
                 </TouchableOpacity>

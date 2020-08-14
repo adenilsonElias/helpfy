@@ -16,8 +16,6 @@ export default SliderBoxImg = (props) => {
                 dotColor={color1}
                 inactiveDotColor={color2}
                 onCurrentImagePressed={index => {
-                    console.log(`image ${index} pressed`)
-                    console.log('Slider Box funcao teste quando clicado')
                 }}
                 circleLoop={true} />
         </View>

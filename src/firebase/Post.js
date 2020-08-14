@@ -40,22 +40,31 @@ interface pag {
     next(): Function,
 }
 
-export async function getPostList(filter: filter = null, pagination: pag = null) {
+interface sort {
+    field : String,
+    direction : 'asc' | 'desc'
+}
+
+export async function getPostList(filter: filter = null, pagination: pag = null,sort :sort=null) {
     try {
         let post = Firestore().collection('Post')
         let filtedPost = null
         let paginationPost = null
+        let sortedPost = null;
         if (filter) {
             for (let key in filter) {
                 filtedPost = post.where(key, '==', filter[key])
             }
-            console.log((await filtedPost.get()).docs)
         }
         post = filtedPost ? filtedPost : post
         if (pagination) {
             paginationPost = post.limit(pagination.limit)
         }
         post = paginationPost ? paginationPost : post
+        if (sort){
+            sortedPost = post.orderBy(sort.field,sort.direction);
+        }
+        post = sortedPost ? sortedPost : post
         const finalPost = await post.get()
         return finalPost.docs.map(post => new Post({ ...post._data, IdPost: post.id }))
     }

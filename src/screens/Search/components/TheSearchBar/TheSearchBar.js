@@ -3,24 +3,24 @@ import { SearchBar, ListItem } from 'react-native-elements'
 import { ScrollView, View, FlatList } from 'react-native'
 import style, { placeholderTextColor } from './style'
 
-const TheSearchBar = (props) => {    
+const TheSearchBar = ({parameter , headerSize}) => {    
     const renderResultFunction = (text) => {
-        if (props.parameter.renderResult === false) {
-            props.parameter.setRenderResult(true)
+        if (parameter.renderResult === false) {
+            parameter.setRenderResult(true)
         }
         if (text === '') {
-            props.parameter.setRenderResult(false)
+            parameter.setRenderResult(false)
         }
     }
 
     const searchFilterFunction = text => {
-        props.parameter.setValue(text)        
-        const newData = props.parameter.arrayHolder.filter(item => {
+        parameter.setValue(text)        
+        const newData = parameter.arrayHolder.filter(item => {
             const itemData = `${item.title.toUpperCase()}`
             const textData = text.toUpperCase()        
             return itemData.indexOf(textData) > -1
         })
-        props.parameter.setData(newData)        
+         parameter.setData(newData)        
     }
 
     const renderHeader = () => {        
@@ -36,11 +36,11 @@ const TheSearchBar = (props) => {
                     renderResultFunction(text)
                 }}
                 autoCorrect={false}
-                value={props.parameter.value}                
+                value={parameter.value}                
                 searchIcon={null}
                 cancelIcon={null}
                 // height fora do style porque o seu valor é adquirido em tempo de execulção
-                containerStyle={{...style.containerSearchBar , height: props.headerSize}}                
+                containerStyle={{...style.containerSearchBar , height: headerSize}}                
                 inputContainerStyle={style.inputContainer}
                 inputStyle={style.input}
             />

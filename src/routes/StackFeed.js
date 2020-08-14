@@ -14,16 +14,7 @@ export function StackFeed() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Feed" component={Feed} options={{ headerShown: false }} />
-            <Stack.Screen name="ThePost" component={ThePost}
-                options={{
-                    title: title,
-                    headerStyle: {
-                        backgroundColor: color1,
-                    },
-                    headerTintColor: color2,
-                    headerTitleAlign: 'center',
-                    headerTitleStyle: styleTitle,
-                }} />
+            <Stack.Screen name="ThePost" component={ThePost}/>
             <Stack.Screen name='Search' component={Search} />
             <Stack.Screen name='AddPost' component={AddPost}
                 options={{
