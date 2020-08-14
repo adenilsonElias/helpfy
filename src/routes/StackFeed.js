@@ -6,6 +6,7 @@ import Search from '../screens/Search/Search'
 import { color1, color2, styleTitle } from '../global//constant/constant'
 import { Button, TextInput } from 'react-native';
 import AddPost from '../screens/Add_Post/AddPost'
+import Category from '../screens/Category/Category';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,15 @@ export function StackFeed() {
             <Stack.Screen name='AddPost' component={AddPost}
                 options={{
                     title: 'Nova Postagem',
+                    headerStyle: {
+                        backgroundColor: color1,
+                    },
+                    headerTintColor: color2,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }} />
+            <Stack.Screen name='Category' component={Category} 
+                options={{                    
                     headerStyle: {
                         backgroundColor: color1,
                     },

@@ -1,6 +1,7 @@
 export const color1 = 'rgb(84, 76, 126)'
 export const color2 = 'rgb(255, 255, 255)'
 export const color3 = 'rgb(84, 76, 100)'
+export const color4 = 'rgb(120, 120, 120)'
 
 export const fontTitle = 'shelter'
 

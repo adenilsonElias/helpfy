@@ -3,11 +3,10 @@ import { color1, color2, fontTitle } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingVertical: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        width: Dimensions.get('window').width / 2,
+        width: Dimensions.get('window').width / 2        
     },
     iconCateogry: {
         width: Dimensions.get('window').width / (5 / 2),

@@ -20,6 +20,9 @@ function getTabBarVisible(route) {
     if (routeName === 'AddPost') {
         return false;
     }
+    if (routeName === 'Category') {
+        return false;
+    }
     return true;
 }
 
