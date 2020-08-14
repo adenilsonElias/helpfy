@@ -78,7 +78,6 @@ const Search = () => {
 
     useEffect(()=>{
         getPostList({title : value},{limit: 10}).then((response)=>{
-            // console.log(response);
             setPostList(response);
         })
     } , [value])

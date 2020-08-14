@@ -5,10 +5,11 @@ import Post from '../../../../global/components/Post/Post'
 
 // List<Post> post
 const PostList = (props) => {
+    console.log(props.postList)
     return (
         <FlatList horizontal
             data={props.postList}
-            keyExtractor={post => `${post.postId}`}
+            keyExtractor={post => `${post.IdPost}`}
             style={style.container}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) =>

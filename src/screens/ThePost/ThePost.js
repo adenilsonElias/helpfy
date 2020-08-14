@@ -10,7 +10,6 @@ const ThePost = () => {
 
     const post: Post = useRoute().params.post;
     const {setOptions} = useNavigation();
-    console.log(post)
 
     useEffect(()=>{
         setOptions({

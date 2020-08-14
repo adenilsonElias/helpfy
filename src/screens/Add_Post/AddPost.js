@@ -36,9 +36,7 @@ export default AddPost = () => {
         "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
         "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
     ])
-
     function handleSavePost(){
-        console.log(user);
         if(user == null){
             return;
         }
@@ -55,7 +53,6 @@ export default AddPost = () => {
         createPost(newPost).then((response)=>{
             console.log('Post criado com sucesso')
         });
-        console.log(newPost);
     }
 
     // Converte a lista coletada da constante declarada em outro arquivo no formato de valor para RNPickerSelect utilizar
@@ -85,7 +82,6 @@ export default AddPost = () => {
                     }}
                 />)
         })
-        console.log(title)
     }, [])
 
     return (
@@ -105,7 +101,6 @@ export default AddPost = () => {
                 <RNPickerSelect
                     onValueChange={value => {
                         setChoiceCategory(value)
-                        console.log(value)
                     }}
                     items={category}
                     placeholder={placeholderValue}

@@ -25,11 +25,11 @@ export async function CreateNewUser(user : User , setUserReduxCallback : Functio
         // Cria um usuario e pega como retorno a referencia para este usuario
         const userCredential = await authentication.createUserWithEmailAndPassword(user.email,user.senha)
         // salva o usuario no firestore
-        await firestore().collection("User").doc(userCredential.user.uid).set({...user.ToJson() , senha:""})
+        await firestore().collection("User").doc(userCredential.user.uid).set({...user.ToJson() , senha:"", id:userCredential.user.uid})
         // coleta o usuario salvo no firestore
         const newUser = await firestore().collection("User").doc(userCredential.user.uid).get()
         // adiciona o usuario no redux 
-        setUserReduxCallback(new User(newUser.data()))
+        setUserReduxCallback(new User({...newUser.data(),id : userCredential.user.uid}))
         //retorno qualquer 
         return userCredential;
     }

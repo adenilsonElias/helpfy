@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import style from './style';
 import { SliderBox } from "react-native-image-slider-box";
@@ -8,8 +8,10 @@ import PostList from './components/Post_List/Post_List';
 import Icon from 'react-native-vector-icons/Feather';
 import { color2, color1 } from '../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native';
+import { getPostList, getPost } from '../../firebase/Post';
 
 export default Feed = () => {
+    //@ TODO Resolver problema de que a tela so puxa os post uma vez
     const navigation = useNavigation()
 
     const images = [
@@ -27,7 +29,7 @@ export default Feed = () => {
             image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
             comments: 'teste',
             description: 'teste',
-            postId: 1,
+            IdPost: 1,
             emailPost: 'teste',
             timePost: 'teste',
             userId: 1,
@@ -39,7 +41,7 @@ export default Feed = () => {
             image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
             comments: 'teste',
             description: 'teste',
-            postId: 2,
+            IdPost: 2,
             emailPost: 'teste',
             timePost: 'teste',
             userId: 1,
@@ -51,7 +53,7 @@ export default Feed = () => {
             image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
             comments: 'teste',
             description: 'teste',
-            postId: 3,
+            IdPost: 3,
             emailPost: 'teste',
             timePost: 'teste',
             userId: 1,
@@ -59,6 +61,16 @@ export default Feed = () => {
         }),
 
     ]
+
+    const [recentes,setRecentes] = useState([])
+
+    useEffect(()=>{
+        async function getPostRecentes(){
+            const post = await getPostList(null,{limit: 5},{field: 'timePost', direction:'desc'});
+            setRecentes(post);
+        }
+        getPostRecentes()
+    },[])
 
     return (
         <View style={style.container}>
@@ -71,7 +83,7 @@ export default Feed = () => {
                     <Text style={style.title}>Destaques</Text>
                     <PostList postList={posts} />
                     <Text style={style.title}>Recentes</Text>
-                    <PostList postList={posts} />
+                    <PostList postList={recentes} />
                     <Text style={style.title}>Comentados</Text>
                     <PostList postList={posts} />
                 </ScrollView>
