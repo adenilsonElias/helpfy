@@ -4,7 +4,11 @@ import style from './style'
 import Post from '../../../../global/components/Post/Post'
 
 // List<Post> post
+<<<<<<< HEAD
 const PostList = (props) => {    
+=======
+const PostList = (props) => {
+>>>>>>> 03f57fbf09dbc900996e6d4999bd3603b1310452
     return (
         <FlatList horizontal
             data={props.postList}
