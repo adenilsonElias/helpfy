@@ -13,7 +13,7 @@ const style = StyleSheet.create({
     infoContainer: {
         flexDirection: 'row',
         alignItems: 'center',    
-        width: '78%'        
+        width: '75%',    
     },
     profile: {
         height: 40,
@@ -28,10 +28,10 @@ const style = StyleSheet.create({
         fontFamily: 'shelter',        
         fontSize: 28,
         color: color1,
-        maxWidth: '78%',        
+        maxWidth: '75%',        
     },
     timeContainer:{
-        width: '22%',
+        width: '25%',
         flexDirection: 'row',
         justifyContent: "flex-end"        
     },

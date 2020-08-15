@@ -52,12 +52,12 @@ export default Login = () => {
 					value={password}
 					underlineColorAndroid='transparent'
 					onChangeText={password => setPassword(password)} />                      
+				<TouchableOpacity style={style.btnEye} 
+					onPress={showPassFuntion}>
+				<Icon name={press === false ? 'eye' : 'eye-off'} 
+					size={26} color='rgba(255, 255, 255, 0.7)' />
+				</TouchableOpacity>
 			</View>
-            <TouchableOpacity style={style.btnEye} 
-                onPress={showPassFuntion}>
-            <Icon name={press === false ? 'eye' : 'eye-off'} 
-                size={26} color='rgba(255, 255, 255, 0.7)' />
-            </TouchableOpacity>
 			<View style={style.buttom}>
 				<TouchableOpacity onPress={handle_entrar_button_press}>
 					<Text style={style.buttomText}>Entrar</Text>

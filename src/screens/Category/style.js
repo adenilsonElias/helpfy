@@ -4,7 +4,8 @@ import { color1, color2, fontTitle, color4 } from '../../global/constant/constan
 const style = StyleSheet.create({
     container: {
         // padding: '3%'        
-        backgroundColor: 'rgb(220, 220, 220)'
+        flex: 1,
+        backgroundColor: 'rgb(220, 220, 220)',
     },  
     postContainer: {
         justifyContent: "space-between",

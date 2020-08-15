@@ -12,8 +12,7 @@ const ThePost = () => {
     const {setOptions} = useNavigation();
 
     useEffect(()=>{
-        setOptions({
-            
+        setOptions({            
                 title: post.title,
                 headerStyle: {
                     backgroundColor: color1,

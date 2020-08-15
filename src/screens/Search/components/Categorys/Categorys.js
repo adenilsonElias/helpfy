@@ -16,7 +16,9 @@ const Categorys = (props) => {
                 return (
                     <View style={style.container}>
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate('Category')
+                            navigation.navigate('Category', {
+                                title: item.title
+                            })
                         }}>
                             <Image source={item.image} style={style.iconCateogry} />
                             <Text style={style.textCategory}>{item.title}</Text>

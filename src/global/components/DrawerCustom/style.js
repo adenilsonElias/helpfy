@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native'
 import { color1 , color2, color3, fontTitle } from '../../constant/constant'
 
 const style = StyleSheet.create({
+    container: {        
+        flex: 1,       
+        // backgroundColor: 'yellow',
+    },
     imageBackground: {
         width: undefined, 
         padding: 16,
@@ -9,7 +13,7 @@ const style = StyleSheet.create({
     },
     perfilContainer: {
         flexDirection: 'row',
-        justifyContent: "center",        
+        justifyContent: "center",
     },
     profile: {
         width: 80,
@@ -19,8 +23,9 @@ const style = StyleSheet.create({
         borderColor: color1,        
         backgroundColor: color2
     },
-    container: {
-        flex: 1,    
+    listItensContainer: {        
+        justifyContent: "space-evenly",
+        height: '35%'
     },
     name: {
         color: color1,        
@@ -32,6 +37,29 @@ const style = StyleSheet.create({
         marginHorizontal: 10,
         fontFamily: fontTitle        
     },
+    logoutContainer: {        
+        flex: 1,
+        justifyContent: "flex-end",
+        alignItems: 'center',
+        paddingBottom: '0%',
+        // backgroundColor: 'red',
+        // marginTop: -60
+    },
+    logoutButton: {
+        flexDirection: 'row',
+        // backgroundColor: 'green',
+        alignItems: 'center',
+        width: '100%',
+        height: 50,
+    },
+    icon: {
+        paddingLeft: 10,
+        paddingRight: 30
+    },
+    text: {
+        fontWeight: '500',
+        color: color1        
+    }
 })
 
 export default style

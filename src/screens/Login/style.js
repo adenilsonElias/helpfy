@@ -21,7 +21,7 @@ const style = StyleSheet.create({
         height: 45,
         marginBottom: 20,
         width: '45%',
-        borderRadius: 25,                
+        borderRadius: 5,                
         justifyContent: 'center',
 		alignContent: 'center',
 		backgroundColor: 'blue'
@@ -35,21 +35,22 @@ const style = StyleSheet.create({
     input: {                
         backgroundColor: 'rgba(0, 0, 0, 0.25)',
         height: 45,
-        borderRadius: 25,
+        borderRadius: 5,
         color: '#fff',
         fontSize: 16,
         paddingLeft: 45,
-        marginHorizontal: 25,        
+        // marginHorizontal: 25,
+        width: '80%',
+        alignSelf: 'center'
     },
     inputContainer: {
         marginBottom: 20,
         width: '100%',    
-        justifyContent: 'center',        
+        justifyContent: 'center',
     },
     btnEye: {
         position: 'absolute',
-        top: 230,
-        right: 45
+        right: '15%'
     },
 })
 

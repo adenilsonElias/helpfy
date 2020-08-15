@@ -48,7 +48,7 @@ export default AddPost = () => {
             author: user.name,
             userId: user.id,
             emailPost: user.email,
-            timePost: Date.now().toString(),
+            timePost: Date.now()
         })
         createPost(newPost).then((response)=>{
             console.log('Post criado com sucesso')

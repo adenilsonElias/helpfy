@@ -1,140 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../global/components/Header/Header'
 import { View, FlatList, TouchableOpacity, Text, Image } from 'react-native'
 import style from './style'
 import Post from '../../model/post_model'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { color1, color4 } from '../../global/constant/constant'
 import { HeaderBackButton } from '@react-navigation/stack'
 import HeaderPost from './Header_Post/Header_Post'
 import Icon from 'react-native-vector-icons/Feather';
+import { getPostList } from '../../firebase/Post'
 
-export default Category = () => {
+export default Category = (props) => {
 
     const navigation = useNavigation()
-
-    const posts = [
-        new Post({
-            title: 'teste asdhjkahdjkahsdjkhadhkajkshd',
-            author: 'testeasgdhjagsdhjagshjdgahjsgdhjagsdhjgashjgdahjsdghjg',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'testealsdkl;askdl;aksl;dkal;skdl;akl;dkal;sdkl;aksdl;akdl;asdjahdjahsdjkh',
-            postId: 1,
-            emailPost: 'teste',
-            timePost: '315d Ago',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'Sao Paulo'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 2,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 3,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 4,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 5,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 6,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 7,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 8,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: require('../../assets/imgs/planeta.jpg'),
-            comments: 'teste',
-            description: 'teste',
-            postId: 9,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-            location: 'SP'
-        }),
-    ]
+    const category = useRoute().params.title
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         navigation.setOptions({
+            title: category,
             // Quando clicar em voltar, coloca novamente o bottomBar
             headerLeft: (props) => (
                 < HeaderBackButton 
@@ -147,22 +31,33 @@ export default Category = () => {
                     }
                 /> )
         })
-    })
+    }, [])
+
+    useEffect(() => {
+        async function collectPost(){
+            const post = await getPostList({ category: category }, { limit: 10 })            
+            setPosts(post)
+        }
+
+        collectPost()
+    }, [])
 
     return (
         <View style={style.container}>
             <FlatList
                 data={posts}
-                keyExtractor={item => `${item.postId}`}
+                keyExtractor={item => `${item.IdPost}`}
                 showsVerticalScrollIndicator={false}                
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity style={style.postContainer}
                             onPress={() => {
-                                navigation.navigate('ThePost')
+                                navigation.navigate('ThePost', {
+                                    post: item
+                                })
                             }}>
                             <HeaderPost name={item.author} timePost={item.timePost}/>
-                            <Image source={item.image} style={style.iconCateogry} />
+                            <Image source={{ uri: item.image }} style={style.iconCateogry} />
                             <View style={style.textContainer}>
                                 <Text style={style.textTitle}>{item.title}</Text>
                                 <Text style={style.textDescription}>{item.description}</Text>
