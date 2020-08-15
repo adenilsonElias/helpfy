@@ -5,7 +5,6 @@ import Post from '../../../../global/components/Post/Post'
 
 // List<Post> post
 const PostList = (props) => {
-    console.log(props.postList)
     return (
         <FlatList horizontal
             data={props.postList}
