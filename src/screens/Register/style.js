@@ -1,45 +1,56 @@
 import { StyleSheet } from "react-native"
+import { color1, color2, fontTitle } from "../../global/constant/constant"
  
 const style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',        
+        justifyContent: 'center',
+        // backgroundColor: 'red'
+    },
+    titleContainer: {
+        alignItems: 'center',
+        marginBottom: '10%'
+    },
+    title: {       
+        fontSize: 50,
+        color: color1,
+        fontFamily: fontTitle
     },
     buttom: {
         height: 45,
-        marginBottom: 20,
         width: '45%',
-        borderRadius: 25,                
+        borderRadius: 5,                
         justifyContent: 'center',
 		alignContent: 'center',
-		backgroundColor: 'blue'
+		backgroundColor: color1
     },
     buttomText: {
         fontSize: 20,
-        color: 'white',
+        color: color2,
         textAlignVertical: 'center',
         textAlign: 'center'
     },
     input: {                
-        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        backgroundColor: 'transparent',
         height: 45,
-        borderRadius: 25,
-        color: '#fff',
+        borderRadius: 5,
+        borderWidth: 1,
+        color: color1,
         fontSize: 16,
-        paddingLeft: 45,
-        marginHorizontal: 25,        
+        paddingLeft: '15%',
+        width: '90%',        
     },
     inputContainer: {
         marginBottom: 20,
         width: '100%',    
-        justifyContent: 'center',        
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    btnEye: {
+    icon: {
         position: 'absolute',
-        top: 230,
-        right: 45
-    },
+        left: '10%'
+    }
 })
 
 export default style

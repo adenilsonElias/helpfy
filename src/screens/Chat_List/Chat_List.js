@@ -1,55 +1,48 @@
-import React from 'react';
-import {
-    View,
-    Button,
-} from 'react-native'
-import Post from '../../model/post_model';
-import User from '../../model/user';
-import { createPost, getPostList, getPost, editPost, deletePost } from '../../firebase/Post';
+import React, { useState } from 'react';
+import Header from '../../global/components/Header/Header'
+import style from './style'
+import { View, Image, Text, TouchableOpacity, FlatList } from 'react-native';
 
 export default Chat_List = () => {
-    const mocPost = new Post({
-        title: 'teste32',
-        author: 'teste1',
-        image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-        comments: 'teste',
-        description: 'teste',
-        emailPost: 'teste',
-        timePost: 'teste',
-        userId: 1,
-        postDonated: 'teste',
-    })
+    const data = [{
+        id: 1,
+        name: 'teste'
+    },{
+        id: 2,
+        name: 'teste'
+    },{
+        id: 3,
+        name: 'teste'
+    },{
+        id: 4,
+        name: 'teste'
+    },{
+        id: 5,
+        name: 'teste'
+    },{
+        id: 6,
+        name: 'teste'
+    },{
+        id: 7,
+        name: 'teste'
+    },]
 
     return (
-        <View>
-            <Button title="getAllPost" onPress={() => { 
-                getPostList(null,{limit: 1}).then((value) =>{
-                    console.log(value)
-                })
-             }}></Button>
-            <Button title="getOnePost" onPress={() => {
-                getPost('WStOADkSYZyPHsJqnBDB').then((value)=>{
-                    console.log(value)
-                })
-            }}></Button>
-            <Button title="createPost" onPress={() => { 
-                createPost(mocPost).then(() =>{
-                    console.log("sucesso")
-                })
-            }}></Button>
-            <Button title="EditPost" onPress={() => {
-                getPost('WStOADkSYZyPHsJqnBDB').then((value)=>{
-                    value.title = "Fui editado"
-                    editPost(value).then(() =>{
-                        console.log("editado com sucesso")
-                    })
-                })
-            }}></Button>
-            <Button title="DeletePost" onPress={() => {
-                deletePost('hUyN7gwkURzoif0nIj6O').then(()=>{
-                    console.log("deletado com sucesso")
-                })
-            }}></Button>
+        <View style={style.container}>
+            <Header title={'Pessoas'} icon={'users'}/>            
+            <FlatList
+                data={data}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                    <View style={style.containerListItem}>
+                        <TouchableOpacity style={style.ListItem}
+                            onPress={() => {}}>
+                            <Image source={require('../../assets/imgs/icon.png')} style={style.profile} />
+                            <Text style={style.name}>{item.name}</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            />
         </View>
     )
 }

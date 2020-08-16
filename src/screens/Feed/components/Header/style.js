@@ -28,16 +28,13 @@ const style = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 40,
         borderColor: color1,
-        marginRight: 20,
+        marginHorizontal: 20,
         backgroundColor: color2
     },
     title: {        
         fontFamily: 'shelter',        
         fontSize: 28,
         color: color1,
-        // textShadowColor: color2, 
-        // textShadowOffset: { width: 1, height: 0 },
-        // textShadowRadius: 10, 
     },
     icon: {
         paddingHorizontal: 10              

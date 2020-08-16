@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import WishList from '../screens/Wish_List/Wish_List';
 import LikeList from '../screens/Like_List/Like_List';
@@ -9,28 +9,40 @@ import { useSelector } from 'react-redux';
 import { View, Text } from 'react-native';
 import { color1, color4 } from '../global/constant/constant'
 import Icon from 'react-native-vector-icons/Feather';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import Logout from '../screens/Logout/Logout'
+import AuthContext from '../context/auth_context';
 
 const Drawer = createDrawerNavigator();
 
 export default DrawerNavigation = () => {
-    const user = useSelector(state => state.userState.user)
+    const auth = useContext(AuthContext);    
+    const user = useSelector(state => state.userState.user)    
+    const condition = auth.isLogged ?
+        <Drawer.Screen name="Sair" component={Logout}
+            options={{
+                drawerIcon: ({ focused, size }) => (
+                    <Icon name="log-out" size={size} color={focused ? color1 : color4} />
+                )
+            }} /> : null
+
     return (
         <Drawer.Navigator drawerContent={DrawerCustom} drawerContentOptions={{
             user,
             activeTintColor: color1,
-            itemStyle: { 
-                width: '100%', 
-                marginHorizontal: 0, 
-                marginVertical: 0, 
-                height: 50, 
-                justifyContent: 'center' 
+            itemStyle: {
+                width: '100%',
+                marginHorizontal: 0,
+                marginVertical: 0,
+                height: 50,
+                justifyContent: 'center'
             },
         }}>
             <Drawer.Screen name="Tela Inicial" component={Bottomnavigation}
                 options={{
                     drawerIcon: ({ focused, size }) => (
-                        <Icon name="home" size={size} color={focused ? color1 : color4} />
+                        <Icon2 name="ios-home-outline" size={size} color={focused ? color1 : color4} />
                     )
                 }} />
             <Drawer.Screen name="Lista de Desejos" component={WishList}
@@ -45,12 +57,14 @@ export default DrawerNavigation = () => {
                         <Icon name="thumbs-up" size={size} color={focused ? color1 : color4} />
                     )
                 }} />
-            <Drawer.Screen name="Sair" component={LeaderBoard}
-                options={{
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon name="bar-chart-2" size={size} color={focused ? color1 : color4} />
-                    )
-                }} />
+            <Drawer.Screen name="Classificação" component={LeaderBoard}
+            options={{
+                drawerIcon: ({ focused, size }) => (
+                    <Icon name="bar-chart-2" size={size} color={focused ? color1 : color4} />
+                )
+            }} />
+
+            { condition }
         </Drawer.Navigator>
     )
 }

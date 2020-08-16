@@ -48,11 +48,7 @@ interface sort {
     direction: 'asc' | 'desc'
 }
 
-<<<<<<< HEAD
-export async function getPostList(filter: filter = null, pagination: pag = null, sort: sort=null) {
-=======
 export async function getPostList(filter: filter = null, pagination: pag = null, sort: sort = null) {
->>>>>>> 03f57fbf09dbc900996e6d4999bd3603b1310452
     try {
         let post = Firestore().collection('Post')
         let filtedPost = null

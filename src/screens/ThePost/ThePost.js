@@ -20,18 +20,6 @@ const ThePost = () => {
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
 
-<<<<<<< HEAD
-    useEffect(()=>{
-        setOptions({            
-                title: post.title,
-                headerStyle: {
-                    backgroundColor: color1,
-                },
-                headerTintColor: color2,
-                headerTitleAlign: 'center',
-                headerTitleStyle: styleTitle,
-                
-=======
     useEffect(() => {
         setOptions({
 
@@ -58,7 +46,6 @@ const ThePost = () => {
         })
         adicionarComentarios(post.IdPost, newCommnent).then(() => {
             console.log("Comentario criado com sucesso")
->>>>>>> 03f57fbf09dbc900996e6d4999bd3603b1310452
         })
     }
 

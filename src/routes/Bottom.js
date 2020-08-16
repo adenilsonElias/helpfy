@@ -4,23 +4,26 @@ import Profile from '../screens/Profile/Profile';
 import Chat_List from '../screens/Chat_List/Chat_List';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackFeed } from './StackFeed'
+import { color1 } from '../global/constant/constant';
+import Icon from 'react-native-vector-icons/Feather';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 // import StackLogin from './StackLogin';
 
 const Tab = createBottomTabNavigator();
 
 function getTabBarVisible(route) {
-    // Tela Search esconde o bottomBar
+    // Tela Search esconde o bottomBar    
     const routeName = route.state
         ? route.state.routes[route.state.index].name
-        : route.params?.screen || 'Home';
+        : route.params?.screen || 'Home';    
 
-    if (routeName === 'Search') {
+    if (routeName === 'Search') {        
         return false;
     }
-    if (routeName === 'AddPost') {
+    if (routeName === 'AddPost') {        
         return false;
     }
-    if (routeName === 'Category') {
+    if (routeName === 'Category') {        
         return false;
     }
     return true;
@@ -28,13 +31,27 @@ function getTabBarVisible(route) {
 
 export function Bottomnavigation({ route }) {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Feed" component={StackFeed} 
+        <Tab.Navigator tabBarOptions={{ 
+            activeTintColor: color1, 
+            keyboardHidesTabBar: true,
+            showLabel: false, 
+        }}>
+            <Tab.Screen name="Home" component={StackFeed}
                 options={({ route }) => ({
-                    tabBarVisible: getTabBarVisible(route) })
-                }/>
-            <Tab.Screen name="Profile" component={Profile} />
-            <Tab.Screen name="Chat" component={Chat_List} />
+                    tabBarVisible: getTabBarVisible(route),
+                    tabBarIcon: ({ color }) => <Icon2 name="ios-home-outline" size={26} color={color} /> })
+                }
+            />
+            <Tab.Screen name="Profile" component={Profile}
+                options={{                    
+                    tabBarIcon: ({ color }) => <Icon name="user" size={26} color={color} />
+                }}
+            />
+            <Tab.Screen name="Chat" component={Chat_List}
+                options={{                    
+                    tabBarIcon: ({ color }) => <Icon name="message-circle" size={26} color={color} />
+                }}
+            />
         </Tab.Navigator>
     )
 }
