@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, Dimensions, ScrollView, ImageBackground, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Dimensions, ImageBackground, Image } from 'react-native'
 import { DrawerItemList } from '@react-navigation/drawer';
 import * as Progress from 'react-native-progress';
 import style from './style'
 import { color2, color1 } from '../../constant/constant'
-import Icon from 'react-native-vector-icons/Feather';
 
 const DrawerCustom = ({ ...props }) => {
     return (
@@ -30,13 +29,6 @@ const DrawerCustom = ({ ...props }) => {
 
             <View style={style.listItensContainer}>
                 <DrawerItemList {...props} />
-            </View>
-
-            <View style={style.logoutContainer}>
-                <TouchableOpacity style={style.logoutButton}>
-                    <Icon name={'log-out'} size={24} color={color1} style={style.icon}/>
-                    <Text style={style.text}>Sair</Text>
-                </TouchableOpacity>
             </View>
         </View>
     )

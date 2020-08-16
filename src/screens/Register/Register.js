@@ -1,24 +1,18 @@
 import React, { useContext, useState } from 'react'
-import {
-	View,
-	Text,
-	TouchableOpacity,
-	TextInput,
-	ScrollView
-} from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import AuthContext from '../../context/auth_context'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import style from './style'
 import User from '../../model/user'
 import { CreateNewUser } from '../../firebase/Authentication'
+import { color1 } from '../../global/constant/constant'
 
 
 export default Register = () => {
 	const navigation = useNavigation()
 	const auth = useContext(AuthContext);
-
-
 	const [email, setEmail] = useState('')
 	const [name, setName] = useState('')
 	const [birth, setBirth] = useState('')
@@ -33,59 +27,65 @@ export default Register = () => {
 
 	return (
 		<View style={style.container}>
+			<View style={style.titleContainer}>
+				<Text style={style.title}>Registrar</Text>
+			</View>	
+
 			<View style={style.inputContainer}>
+				<Icon name={'at-sign'} size={26} color={color1} style={style.icon}/>
 				<TextInput style={style.input}
 					placeholder='E-mail'
-					placeholderTextColor='#fff'
-					autoFocus={true}
+					placeholderTextColor={color1}					
 					keyboardType='email-address'
 					value={email}
 					underlineColorAndroid='transparent'
 					onChangeText={email => setEmail(email)} />
 			</View>
 			<View style={style.inputContainer}>
+				<Icon name={'user'} size={26} color={color1} style={style.icon}/>
 				<TextInput style={style.input}
 					placeholder='Nome'
-					placeholderTextColor='#fff'
-					autoFocus={true}
+					placeholderTextColor={color1}					
 					keyboardType='email-address'
 					value={name}
 					underlineColorAndroid='transparent'
 					onChangeText={name => setName(name)} />
 			</View>
 			<View style={style.inputContainer}>
+				<Icon2 name={'cake-variant'} size={26} color={color1} style={style.icon}/>
 				<TextInput style={style.input}
 					placeholder='Data de Nascimento'
-					placeholderTextColor='#fff'
-					autoFocus={true}
+					placeholderTextColor={color1}					
 					keyboardType='email-address'
 					value={birth}
 					underlineColorAndroid='transparent'
 					onChangeText={birth => setBirth(birth)} />
 			</View>
 			<View style={style.inputContainer}>
+				<Icon name={'map-pin'} size={26} color={color1} style={style.icon}/>
 				<TextInput style={style.input}
 					placeholder='Estado'
-					placeholderTextColor='#fff'
-					autoFocus={true}
+					placeholderTextColor={color1}					
 					keyboardType='email-address'
 					value={local}
 					underlineColorAndroid='transparent'
 					onChangeText={local => setLocal(local)} />
 			</View>
 			<View style={style.inputContainer}>
+				<Icon name={'lock'} size={26} color={color1} style={style.icon}/>
 				<TextInput style={style.input}
 					placeholder='Senha'
-					placeholderTextColor='#fff'
+					placeholderTextColor={color1}
 					secureTextEntry={true}
 					value={password}
 					underlineColorAndroid='transparent'
 					onChangeText={password => setPassword(password)} />
 			</View>
 			<View style={style.inputContainer}>
+				<Icon name={'lock'} size={26} color={color1} style={style.icon}/>
 				<TextInput style={style.input}
 					placeholder='Confirmar senha'
-					placeholderTextColor='#fff'
+					placeholderTextColor={color1}
 					secureTextEntry={true}
 					value={confirmPass}
 					underlineColorAndroid='transparent'
@@ -94,7 +94,7 @@ export default Register = () => {
 
 			<View style={style.buttom}>
 				<TouchableOpacity onPress={() => {
-					if(password != confirmPass){
+					if (password != confirmPass) {
 						//@ TODO Colocar error para quando senhas forem diferentes
 						return
 					}

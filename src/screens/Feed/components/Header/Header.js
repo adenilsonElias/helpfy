@@ -26,6 +26,9 @@ const Header = () => {
     return (
         <View style={style.container}>
             <View style={style.infoContainer}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <Icon name={'menu'} size={30} color={color1}/>
+                </TouchableOpacity>
                 {avatar}                
                 <Text style={style.title}>Helpfy</Text>
             </View>

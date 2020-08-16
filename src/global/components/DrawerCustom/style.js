@@ -24,8 +24,7 @@ const style = StyleSheet.create({
         backgroundColor: color2
     },
     listItensContainer: {        
-        justifyContent: "space-evenly",
-        height: '35%'
+        flex: 1
     },
     name: {
         color: color1,        
@@ -37,29 +36,6 @@ const style = StyleSheet.create({
         marginHorizontal: 10,
         fontFamily: fontTitle        
     },
-    logoutContainer: {        
-        flex: 1,
-        justifyContent: "flex-end",
-        alignItems: 'center',
-        paddingBottom: '0%',
-        // backgroundColor: 'red',
-        // marginTop: -60
-    },
-    logoutButton: {
-        flexDirection: 'row',
-        // backgroundColor: 'green',
-        alignItems: 'center',
-        width: '100%',
-        height: 50,
-    },
-    icon: {
-        paddingLeft: 10,
-        paddingRight: 30
-    },
-    text: {
-        fontWeight: '500',
-        color: color1        
-    }
 })
 
 export default style

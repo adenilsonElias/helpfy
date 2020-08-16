@@ -4,6 +4,7 @@ import { MakeLogin, createAuthObserver, CreateNewUser, MakeLogout, getUser } fro
 import { useDispatch } from 'react-redux'
 import { setUser, makeLogout } from '../store/actions/user'
 import { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import Loading from '../screens/Loading/Loading'
 import User from '../model/user'
 
 // cria o contexto
@@ -59,9 +60,7 @@ export const AuthContextProvider = ({ children }) => {
 
     if (isLoading) {
         return (
-            <View>
-                <Text> Verificando autenticação do usuario...</Text>
-            </View>
+            <Loading />
         )
     }
 

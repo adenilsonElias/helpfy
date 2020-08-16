@@ -1,21 +1,21 @@
 import { StyleSheet } from "react-native"
+import { color1, color2, fontTitle } from '../../global/constant/constant'
  
 const style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',        
+        justifyContent: 'center',
+        backgroundColor: color2
     },
     titleContainer: {
         alignItems: 'center',
-        marginBottom: 40
+        marginBottom: '20%'
     },
     title: {       
         fontSize: 50,
-        color: 'black',
-        textShadowColor: '#fff', 
-        textShadowOffset: { width: 1, height: 0 },
-        textShadowRadius: 10,        
+        color: color1,
+        fontFamily: fontTitle
     },
     buttom: {
         height: 45,
@@ -24,7 +24,7 @@ const style = StyleSheet.create({
         borderRadius: 5,                
         justifyContent: 'center',
 		alignContent: 'center',
-		backgroundColor: 'blue'
+		backgroundColor: color1
     },
     buttomText: {
         fontSize: 20,
@@ -33,25 +33,30 @@ const style = StyleSheet.create({
         textAlign: 'center'
     },
     input: {                
-        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        backgroundColor: 'transparent',
         height: 45,
+        borderWidth: 1,
         borderRadius: 5,
-        color: '#fff',
+        color: color1,
         fontSize: 16,
-        paddingLeft: 45,
-        // marginHorizontal: 25,
+        paddingLeft: '15%',
+        paddingRight: '5%',
         width: '80%',
         alignSelf: 'center'
     },
     inputContainer: {
         marginBottom: 20,
         width: '100%',    
-        justifyContent: 'center',
+        justifyContent: 'center',        
     },
     btnEye: {
         position: 'absolute',
         right: '15%'
     },
+    icon: {
+        position: 'absolute',
+        left: '15%'
+    }
 })
 
 export default style
