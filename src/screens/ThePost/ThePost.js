@@ -8,8 +8,9 @@ import { color1, color2, styleTitle } from '../../global/constant/constant'
 import { TextInput, TouchableOpacity, FlatList } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 import User from '../../model/user'
-import { adicionarComentarios } from '../../firebase/Post'
+import { adicionarComentarios, responderComentarios } from '../../firebase/Post'
 import Comentario from '../../model/comments'
+import ComentarioComponent from './components/comentarios'
 
 const ThePost = () => {
 
@@ -19,19 +20,8 @@ const ThePost = () => {
     const { setOptions } = useNavigation();
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
+    const [responseField, setResponseField] = useState(-1)
 
-<<<<<<< HEAD
-    useEffect(()=>{
-        setOptions({            
-                title: post.title,
-                headerStyle: {
-                    backgroundColor: color1,
-                },
-                headerTintColor: color2,
-                headerTitleAlign: 'center',
-                headerTitleStyle: styleTitle,
-                
-=======
     useEffect(() => {
         setOptions({
 
@@ -58,7 +48,6 @@ const ThePost = () => {
         })
         adicionarComentarios(post.IdPost, newCommnent).then(() => {
             console.log("Comentario criado com sucesso")
->>>>>>> 03f57fbf09dbc900996e6d4999bd3603b1310452
         })
     }
 
@@ -66,7 +55,7 @@ const ThePost = () => {
 
     return (
         <SafeAreaView style={style.container}>
-            <ScrollView>
+            <ScrollView nestedScrollEnabled={true}>
                 <Image source={{ uri: post.image }}
                     style={style.image} />
                 <View style={style.descriptionContainer}>
@@ -86,26 +75,24 @@ const ThePost = () => {
                     </View>
 
                 </View>
-            </ScrollView>
-            <View style={style.CommentsListContainer}>
                 <FlatList
                     data={comentarios}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => {
+                    renderItem={({ item, index }) => {
                         return (
-                            <View style={style.comentario}>
-                                <View>
-                                    <Text>
-                                        {item.message}
-                                    </Text>
-                                    <Text>
-                                        {item.author}
-                                    </Text>
-                                </View>
-                            </View>
+                            <ComentarioComponent
+                                comentario={item}
+                                post={post}
+                                index={index}
+                                user={user}
+                                setResponseField={setResponseField}
+                                responseField={responseField}
+                            />
                         )
                     }}
                 />
+            </ScrollView>
+            <View style={style.CommentsListContainer}>
             </View>
         </SafeAreaView>
     )

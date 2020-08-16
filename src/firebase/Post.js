@@ -30,7 +30,7 @@ export async function getPost(id: String) {
 interface filter {
     category: 'Brinquedos' | 'Calçados' | 'Eletrodomésticos' | 'Higiene Pessoal' |
     'Livros' | 'Material de Construção' | 'Material de Limpeza' |
-        'Livros' | 'Material de Construção' | 'Material de Limpeza' | 
+    'Livros' | 'Material de Construção' | 'Material de Limpeza' |
     'Livros' | 'Material de Construção' | 'Material de Limpeza' |
     'Material Escolar' | 'Móveis' | 'Roupas',
     author: String,
@@ -48,11 +48,7 @@ interface sort {
     direction: 'asc' | 'desc'
 }
 
-<<<<<<< HEAD
-export async function getPostList(filter: filter = null, pagination: pag = null, sort: sort=null) {
-=======
 export async function getPostList(filter: filter = null, pagination: pag = null, sort: sort = null) {
->>>>>>> 03f57fbf09dbc900996e6d4999bd3603b1310452
     try {
         let post = Firestore().collection('Post')
         let filtedPost = null
@@ -112,27 +108,27 @@ export async function adicionarComentarios(postId: String, comentario: Comentari
     }
 }
 
-export async function responderComentarios (postId: String, novoComentario: Comentario){
-    try{
-        if (novoComentario.depth <= 2){
+export async function responderComentarios(postId: String, novoComentario: Comentario) {
+    try {
+        if (novoComentario.depth <= 2) {
             const alteredPost = await Firestore().collection('Post').doc(postId).collection('comments').doc(novoComentario.id).update(novoComentario)
             return
         }
         throw "Profundidade de resposta não pode ser maior que dois"
 
     }
-    catch(e){
+    catch (e) {
         console.error(e);
         throw "Erro ao adicionar resposta a comentario"
     }
 }
 
-export async function getComentarios (postid : String){
-    try{
+export async function getComentarios(postid: String) {
+    try {
         const Comments = await Firestore().collection('Post').doc(postid).collection('comments').get()
-        return Comments.docs.map(comentario => new Comentario({...comentario.data(),id: comentario.id}))
+        return Comments.docs.map(comentario => new Comentario({ ...comentario.data(), id: comentario.id }))
     }
-    catch (e){
+    catch (e) {
         console.error(e)
         throw "Erro ao coletar comentarios do post"
     }
