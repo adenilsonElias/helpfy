@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const color1 = 'rgb(84, 76, 126)'
 export const color2 = 'rgb(255, 255, 255)'
 export const color3 = 'rgb(84, 76, 100)'
@@ -57,3 +59,26 @@ export const categorys = [{
     image: require('../../assets/imgs/mao.png'),
     title: 'Roupas'
 }]
+
+export const converTime = () => {
+    moment.updateLocale('en', {
+        relativeTime : {
+            future: "em %s",
+            past:   "%s atrás",
+            s  : 'alguns segundos',
+            ss : '%d segundos',
+            m:  "um minuto",
+            mm: "%d minutos",
+            h:  "um hora",
+            hh: "%d horas",
+            d:  "um dia",
+            dd: "%d dias",
+            w:  "uma semana",
+            ww: "%d semanas",
+            M:  "um mês",
+            MM: "%d meses",
+            y:  "um ano",
+            yy: "%d anos"
+        }
+    });
+}

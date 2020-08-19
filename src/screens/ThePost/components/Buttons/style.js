@@ -1,36 +1,39 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { color3, color2, borderRadius } from '../../../global/constant/constant'
+import { color3, color2, borderRadius, color1 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
-    buttonContainer: {
+    container: {
         height: 70,
         flexDirection: 'row',
         alignContent: 'center',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center',        
     },
-    buttonContainer2: {
-        height: 70,
-        flexDirection: 'row',
-        alignContent: 'center',        
-        alignItems: 'center',
+    container2: {
         justifyContent: 'space-around',
         paddingLeft: 40,
         paddingRight: 20
     },
+    buttonList:{
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 5,
+        borderColor: color1
+    },
     buttonText: {
         fontSize: 20,
-        color: color2,
+        color: color1,
         textAlignVertical: 'center',
         textAlign: 'center',
     },
     wantButton: {
-        height: 45,
-        width: Dimensions.get('window').width * 3 / 5,
+        paddingVertical: 10,
+        paddingHorizontal: 30,
         borderRadius: borderRadius,
         justifyContent: 'center',
         alignContent: 'center',
-        backgroundColor: color3
+        borderWidth: 1,
+        borderColor: color1
     },
 })
 

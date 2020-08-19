@@ -17,20 +17,6 @@ const style = StyleSheet.create({
         color: color1,
         fontFamily: fontTitle
     },
-    buttom: {
-        height: 45,
-        width: '45%',
-        borderRadius: 5,                
-        justifyContent: 'center',
-		alignContent: 'center',
-		backgroundColor: color1
-    },
-    buttomText: {
-        fontSize: 20,
-        color: color2,
-        textAlignVertical: 'center',
-        textAlign: 'center'
-    },
     input: {                
         backgroundColor: 'transparent',
         height: 45,
@@ -42,7 +28,7 @@ const style = StyleSheet.create({
         width: '90%',        
     },
     inputContainer: {
-        marginBottom: 20,
+        marginBottom: '5%',
         width: '100%',    
         justifyContent: 'center',
         alignItems: 'center'
@@ -50,7 +36,31 @@ const style = StyleSheet.create({
     icon: {
         position: 'absolute',
         left: '10%'
-    }
+    },
+    buttomContainer: {
+        width: '100%',
+        flexDirection: 'row',        
+        justifyContent: 'center'
+    },
+    buttom: {
+        justifyContent: 'center',
+        height: 45,        
+        width: '40%',
+        borderRadius: 5,
+        backgroundColor: color1,
+        marginTop: '5%',
+        marginHorizontal: '5%'
+    },
+    buttomText: {
+        fontSize: 20,
+        color: color2,
+        // textAlignVertical: 'center',
+        textAlign: 'center'
+    },
+    btnEye: {
+        position: 'absolute',
+        right: '10%'
+    },
 })
 
 export default style
