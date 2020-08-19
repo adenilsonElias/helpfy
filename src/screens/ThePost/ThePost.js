@@ -46,7 +46,7 @@ const ThePost = () => {
             timeCreated: Date.now(),
             response: []
         })
-        adicionarComentarios(post.IdPost, newCommnent).then(() => {
+        adicionarComentarios(newCommnent, post).then(() => {
             console.log("Comentario criado com sucesso")
         })
     }
