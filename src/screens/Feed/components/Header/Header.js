@@ -33,7 +33,8 @@ const Header = () => {
                 <Text style={style.title}>Helpfy</Text>
             </View>
             <View style={style.iconContainer}>
-                <TouchableOpacity style={style.icon}>
+                <TouchableOpacity style={style.icon}
+                onPress={()=> {navigation.navigate('Notification')}}>
                     <Icon name={'bell'} size={30} color={color1}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={style.icon} 

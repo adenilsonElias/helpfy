@@ -7,6 +7,7 @@ import { color1, color2, styleTitle } from '../global//constant/constant'
 import { Button, TextInput } from 'react-native';
 import AddPost from '../screens/Add_Post/AddPost'
 import Category from '../screens/Category/Category';
+import Notification from '../screens/Notification/Notification'
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ export function StackFeed() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
+            <Stack.Screen name='Notification' component={Notification} />
         </Stack.Navigator>
     )
 }

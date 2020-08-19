@@ -44,7 +44,27 @@ const ThePost = () => {
         })
         post.getComments().then(value => setComentarios(value))
     }, [])
+<<<<<<< HEAD
     
+=======
+
+    function handleCreateComment() {
+        const newCommnent = new Comentario({
+            message: message,
+            author: user.name,
+            creatorId: user.id,
+            depth: 0,
+            timeCreated: Date.now(),
+            response: []
+        })
+        adicionarComentarios(newCommnent, post).then(() => {
+            console.log("Comentario criado com sucesso")
+        })
+    }
+
+    console.log(post)
+
+>>>>>>> 8b4318d1d0424d93f98c66220d7cb57452d84ac2
     return (
         <SafeAreaView style={style.container}>
             <ScrollView nestedScrollEnabled={true}>

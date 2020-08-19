@@ -1,6 +1,7 @@
 import Firestore from '@react-native-firebase/firestore'
 import Post from '../model/post_model';
 import Comentario from '../model/comments';
+import SendNotification from '../model/notification'
 
 const firestore = Firestore()
 
@@ -98,9 +99,19 @@ export async function deletePost(id: String) {
     }
 }
 
-export async function adicionarComentarios(postId: String, comentario: Comentario) {
+export async function adicionarComentarios(comentario: Comentario, post: Post) {
     try {
-        const newComment = await Firestore().collection('Post').doc(postId).collection('comments').add(comentario.toJson())
+        const newComment = await Firestore().collection('Post').doc(post.IdPost).collection('comments')
+            .add(comentario.toJson())
+
+        const notificationClass = new SendNotification({
+            senderName: comentario.author,
+            type: 'comment',
+            postId: post.IdPost,
+            senderId: comentario.creatorId
+        }, post)
+        const notification = await Firestore().collection('User').doc(post.userId).collection('Notification')
+            .add(notificationClass.toJson())    
     }
     catch (e) {
         console.error(e)
@@ -111,7 +122,8 @@ export async function adicionarComentarios(postId: String, comentario: Comentari
 export async function responderComentarios(postId: String, novoComentario: Comentario) {
     try {
         if (novoComentario.depth <= 2) {
-            const alteredPost = await Firestore().collection('Post').doc(postId).collection('comments').doc(novoComentario.id).update(novoComentario)
+            const alteredPost = await Firestore().collection('Post').doc(postId).collection('comments')
+                .doc(novoComentario.id).update(novoComentario)
             return
         }
         throw "Profundidade de resposta não pode ser maior que dois"
