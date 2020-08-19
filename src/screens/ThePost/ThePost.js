@@ -9,8 +9,15 @@ import Post from '../../model/post_model'
 import AddComment from './components/Add_Comment/Add_Comment'
 import Comments from './components/Comments/Comments'
 import { SliderBox } from "react-native-image-slider-box";
+import { responderComentarios } from '../../firebase/Post'
+import ComentarioComponent from './components/comentarios'
 
-const ThePost = () => {    
+import { useSelector } from 'react-redux'
+
+const ThePost = () => {
+
+    const user: User = useSelector(state => state.userState.user)
+
     const post: Post = useRoute().params.post;
     const { setOptions } = useNavigation();
     const [message, setMessage] = useState("");
@@ -22,6 +29,7 @@ const ThePost = () => {
         setComentarios,
         post
     }
+    const [responseField, setResponseField] = useState(-1)
 
     useEffect(() => {
         setOptions({
@@ -47,9 +55,41 @@ const ThePost = () => {
                 </View>
                 <Buttons />
                 <Text style={style.title}>Comentários</Text>
-                <Comments parameter={parameter} />
-                <AddComment parameter={parameter} />
-            </ScrollView>            
+                {/* <Comments parameter={parameter} />
+                <AddComment parameter={parameter} /> */}            
+
+                {/* <View style={style.commentContainer}>
+                    <Text style={style.descriptionText}>Testando Comentario</Text>
+                    <View style={style.addComent}>
+                        <TextInput onChangeText={(e) => setMessage(e)} placeholder="Faça um comentario sobre o item"></TextInput>
+                        <TouchableOpacity
+                            style={style.sendButton}
+                            // onPress={handleCreateComment}
+                        >
+                            <Text>Enviar</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </View> */}
+                <FlatList
+                    data={comentarios}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <ComentarioComponent
+                                comentario={item}
+                                post={post}
+                                index={index}
+                                user={user}
+                                setResponseField={setResponseField}
+                                responseField={responseField}
+                            />
+                        )
+                    }}
+                />
+            </ScrollView>
+            <View style={style.CommentsListContainer}>
+            </View>
         </SafeAreaView>
     )
 }
