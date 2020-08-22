@@ -21,7 +21,7 @@ const  ComentarioComponent = ({ post, index,responseField, setResponseField , us
             response: []
         })
         comentario.response.push(newCommnent);
-        responderComentarios(post.IdPost, comment).then(() => console.log("resposta feita com sucesso"))
+        responderComentarios(post, comment).then(() => console.log("resposta feita com sucesso"))
     }
 
     return (

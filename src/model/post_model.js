@@ -14,6 +14,8 @@ class Post {
     userId: String
     IdPost: String
     category : String
+    commentNumber : Number
+    likeNumber : Number
 
 
     constructor(postJSON : Post) {

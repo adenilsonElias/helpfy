@@ -2,6 +2,7 @@ import Firestore from '@react-native-firebase/firestore'
 import Post from '../model/post_model';
 import Comentario from '../model/comments';
 import SendNotification from '../model/notification'
+import { IncrementComment, incrementLike } from './incremeters';
 
 const firestore = Firestore()
 
@@ -104,6 +105,8 @@ export async function adicionarComentarios(comentario: Comentario, post: Post) {
         const newComment = await Firestore().collection('Post').doc(post.IdPost).collection('comments')
             .add(comentario.toJson())
 
+        await IncrementComment(post.IdPost)
+
         const notificationClass = new SendNotification({
             senderName: comentario.author,
             type: 'comment',
@@ -119,11 +122,12 @@ export async function adicionarComentarios(comentario: Comentario, post: Post) {
     }
 }
 
-export async function responderComentarios(postId: String, novoComentario: Comentario) {
+export async function responderComentarios(post: Post, novoComentario: Comentario) {
     try {
         if (novoComentario.depth <= 2) {
-            const alteredPost = await Firestore().collection('Post').doc(postId).collection('comments')
+            const alteredPost = await Firestore().collection('Post').doc(post.IdPost).collection('comments')
                 .doc(novoComentario.id).update(novoComentario)
+            await IncrementComment(post.IdPost)
             return
         }
         throw "Profundidade de resposta não pode ser maior que dois"
@@ -135,13 +139,26 @@ export async function responderComentarios(postId: String, novoComentario: Comen
     }
 }
 
-export async function getComentarios(postid: String) {
+export async function getComentarios(postId: String) {
     try {
-        const Comments = await Firestore().collection('Post').doc(postid).collection('comments').get()
+        const Comments = await Firestore().collection('Post').doc(postId).collection('comments').get()
         return Comments.docs.map(comentario => new Comentario({ ...comentario.data(), id: comentario.id }))
     }
     catch (e) {
         console.error(e)
         throw "Erro ao coletar comentarios do post"
+    }
+}
+
+export async function addLike(post : Post, userId : String){
+    try{
+        await Firestore().collection('Post').doc(post.IdPost).collection('likes').doc(userId).set({})
+        await Firestore().collection('User').doc(userId).collection('liked').doc(post.IdPost).set({})
+        await incrementLike(post.IdPost)
+        console.info("Like adicionado com sucesso")
+    }
+    catch (e){
+        console.error(e)
+        throw "Erro ao adicionar Like"
     }
 }
