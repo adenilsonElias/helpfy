@@ -64,20 +64,20 @@ export const converTime = () => {
     moment.updateLocale('en', {
         relativeTime : {
             future: "em %s",
-            past:   "%s atrás",
-            s  : 'alguns segundos',
-            ss : '%d segundos',
-            m:  "um minuto",
+            past: "%s atrás",
+            s: 'alguns segundos',
+            ss: '%d segundos',
+            m: "um minuto",
             mm: "%d minutos",
-            h:  "uma hora",
+            h: "uma hora",
             hh: "%d horas",
-            d:  "um dia",
+            d: "um dia",
             dd: "%d dias",
-            w:  "uma semana",
+            w: "uma semana",
             ww: "%d semanas",
-            M:  "um mês",
+            M: "um mês",
             MM: "%d meses",
-            y:  "um ano",
+            y: "um ano",
             yy: "%d anos"
         }
     });

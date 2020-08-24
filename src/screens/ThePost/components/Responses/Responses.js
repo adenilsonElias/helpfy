@@ -11,7 +11,7 @@ export default Responses = ({ itens }) => {
             <View style={style.infoContainer}>
                 <View style={style.headerContainer}>
                     <Text style={style.author}>{itens.author}</Text>
-                    <Text style={style.time}>{moment(itens.timeCreated).startOf('hour').fromNow()}</Text>
+                    <Text style={style.time}>{moment(itens.timeCreated).fromNow()}</Text>
                 </View>
                 <Text style={style.comment}>{itens.message}</Text>
             </View>
