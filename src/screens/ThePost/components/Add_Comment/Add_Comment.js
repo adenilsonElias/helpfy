@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import style from './style'
-import { adicionarComentarios } from '../../../../firebase/Post'
+import { adicionarComentarios } from '../../../../firebase/comentarios'
 import Comentario from '../../../../model/comments'
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Feather'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import Comentario from '../../../../model/comments'
-import { responderComentarios } from '../../../../firebase/Post'
+import { responderComentarios } from '../../../../firebase/comentarios'
 import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'

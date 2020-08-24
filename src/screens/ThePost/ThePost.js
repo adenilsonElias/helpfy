@@ -9,13 +9,17 @@ import Post from '../../model/post_model'
 import AddComment from './components/Add_Comment/Add_Comment'
 import Comments from './components/Comments/Comments'
 import { SliderBox } from "react-native-image-slider-box";
-import { responderComentarios } from '../../firebase/Post'
 import { useSelector } from 'react-redux'
+import User from '../../model/user'
+import Comentario from '../../model/comments'
+import { adicionarComentarios, getComentarios } from '../../firebase/comentarios'
+import { addLike, getPost, isLiked, removeLike } from '../../firebase/Post'
 
 const ThePost = () => {
 
     const user: User = useSelector(state => state.userState.user)
-    const post: Post = useRoute().params.post;
+    const postParam: Post = useRoute().params.post;
+    const [post, setPost] = useState(postParam)
     const { setOptions } = useNavigation();
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
@@ -31,6 +35,7 @@ const ThePost = () => {
         setRenderInput,
         showComment
     }
+    const [notLiked, setNotLiked] = useState(true)
 
     useEffect(() => {
         setOptions({
@@ -43,9 +48,15 @@ const ThePost = () => {
             headerTitleStyle: styleTitle,
 
         })
-        post.getComments().then(value => setComentarios(value))        
+        getComentarios(post.IdPost).then(value => setComentarios(value))
     }, [])
 
+    useEffect(() => {
+        isLiked(post, user.id).then((value) => {
+            setNotLiked(value)
+        })
+    }, [post])
+    
     function showComment() {        
         if (renderInput) {
             setRenderInput(false)
@@ -54,11 +65,34 @@ const ThePost = () => {
         }        
     }
 
+    function handleLikes() {
+        if (notLiked) {
+            addLike(post, user.id).then(() => {
+                getPost(post.IdPost).then((value) => {
+                    setPost(value)
+                    console.info('Post atualizado com sucesso')
+                })
+            })
+        } else {
+            removeLike(post, user.id).then(() => {
+                getPost(post.IdPost).then((value) => {
+                    setPost(value)
+                    console.info('Post atualizado com sucesso')
+                })
+            })
+        }
+    }
+
     const conditionRenderInput = renderInput ?
         <AddComment parameter={parameter} /> : null
 
     return (
         <SafeAreaView style={style.container}>
+            <TouchableOpacity onPress={handleLikes}>
+                <Text>
+                    {notLiked ? "Teste Like" : "Teste Deslike"}
+                </Text>
+            </TouchableOpacity>
             <ScrollView nestedScrollEnabled={true}>
                 <Image source={{ uri: post.image }}
                     style={style.image} />

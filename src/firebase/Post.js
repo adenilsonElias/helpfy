@@ -2,6 +2,7 @@ import Firestore from '@react-native-firebase/firestore'
 import Post from '../model/post_model';
 import Comentario from '../model/comments';
 import SendNotification from '../model/notification'
+import { IncrementComment, incrementLike } from './incremeters';
 
 const firestore = Firestore()
 
@@ -36,7 +37,6 @@ interface filter {
     'Material Escolar' | 'Móveis' | 'Roupas',
     author: String,
     title: String,
-    mostComments: Boolean,
 }
 
 interface pag {
@@ -78,6 +78,22 @@ export async function getPostList(filter: filter = null, pagination: pag = null,
     }
 }
 
+export async function getPostListLike(userId: String) {
+    try {
+        const postsRef = await Firestore().collection('User').doc(userId).collection('liked').get()
+        let finalPost = [] 
+        for(let item of postsRef.docs){
+            const getedPost = await item.data().post.get()
+            finalPost.push(getedPost)
+        }
+        return finalPost.map(post => new Post({ ...post._data, IdPost: post.id }))
+    }
+    catch (e) {
+        console.error(e)
+        throw "Erro ao coletar posts com likes do usuario"
+    }
+}
+
 export async function editPost(post: Post) {
     try {
         await firestore.collection('Post').doc(post.IdPost).update(post.toJson())
@@ -99,49 +115,52 @@ export async function deletePost(id: String) {
     }
 }
 
-export async function adicionarComentarios(comentario: Comentario, post: Post) {
-    try {
-        const newComment = await Firestore().collection('Post').doc(post.IdPost).collection('comments')
-            .add(comentario.toJson())
 
-        const notificationClass = new SendNotification({
-            senderName: comentario.author,
-            type: 'comment',
-            postId: post.IdPost,
-            senderId: comentario.creatorId
-        }, post)
-        const notification = await Firestore().collection('User').doc(post.userId).collection('Notification')
-            .add(notificationClass.toJson())    
+
+export async function addLike(post: Post, userId: String) {
+    try {
+
+        const userRef = Firestore().collection('User').doc(userId).collection('liked').doc(post.IdPost)
+        const postRef = Firestore().collection('Post').doc(post.IdPost).collection('likes').doc(userId)
+        const counterRef = Firestore().collection('Post').doc(post.IdPost)
+
+        await firestore.runTransaction(async (transaction) => {
+            transaction.set(userRef, {
+                post: Firestore().collection('Post').doc(post.IdPost)
+            })
+            transaction.set(postRef, {
+                user: Firestore().collection('User').doc(userId)
+            })
+            transaction.update(counterRef, {
+                likeNumber: Firestore.FieldValue.increment(1)
+            })
+        })
     }
     catch (e) {
         console.error(e)
-        throw "Erro ao criar comentario"
+        throw "Erro ao adicionar Like"
     }
 }
 
-export async function responderComentarios(postId: String, novoComentario: Comentario) {
-    try {
-        if (novoComentario.depth <= 1) {
-            const alteredPost = await Firestore().collection('Post').doc(postId).collection('comments')
-                .doc(novoComentario.id).update(novoComentario)
-            return
-        }
-        throw "Profundidade de resposta não pode ser maior que dois"
+export async function removeLike(post: Post, userId: String) {
+    const userRef = Firestore().collection('User').doc(userId).collection('liked').doc(post.IdPost)
+    const postRef = Firestore().collection('Post').doc(post.IdPost).collection('likes').doc(userId)
+    const counterRef = Firestore().collection('Post').doc(post.IdPost)
 
-    }
-    catch (e) {
-        console.error(e);
-        throw "Erro ao adicionar resposta a comentario"
-    }
+    await firestore.runTransaction(async (transaction) => {
+        transaction.delete(userRef)
+        transaction.delete(postRef)
+        transaction.update(counterRef, {
+            likeNumber: Firestore.FieldValue.increment(-1)
+        })
+    })
 }
 
-export async function getComentarios(postid: String) {
-    try {
-        const Comments = await Firestore().collection('Post').doc(postid).collection('comments').get()
-        return Comments.docs.map(comentario => new Comentario({ ...comentario.data(), id: comentario.id }))
-    }
-    catch (e) {
-        console.error(e)
-        throw "Erro ao coletar comentarios do post"
-    }
+/**
+ * Função para verificar se o usuario deu like no post
+ * Se estiver vazio usuario ainda não deu like
+ */
+export async function isLiked(post: Post, userId: String) {
+    const liked = await Firestore().collection('Post').doc(post.IdPost).collection('likes').where('user', '==', Firestore().collection('User').doc(userId)).get()
+    return liked.empty
 }

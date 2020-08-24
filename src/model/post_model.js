@@ -1,4 +1,3 @@
-import { getComentarios } from "../firebase/Post"
 
 
 class Post {
@@ -14,6 +13,8 @@ class Post {
     userId: String
     IdPost: String
     category : String
+    commentNumber : Number
+    likeNumber : Number
 
 
     constructor(postJSON : Post) {
@@ -27,10 +28,6 @@ class Post {
             json[index] = this[index]
             return json
         }, {})
-    }
-
-    async getComments(){
-        return await getComentarios(this.IdPost);
     }
 
 }
