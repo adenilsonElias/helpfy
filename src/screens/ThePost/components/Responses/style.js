@@ -17,7 +17,7 @@ const style = StyleSheet.create({
         width: 40,
         borderWidth: 1,
         borderRadius: 40,
-        borderColor: color1,        
+        borderColor: color1,
         backgroundColor: color2
     },
     infoContainer:{
@@ -51,10 +51,6 @@ const style = StyleSheet.create({
         width: 70,
         marginLeft: 60,
         marginBottom: 10,        
-    },
-    textResponse: {
-        color: color1,
-        fontStyle: "italic"
     }
 })
 

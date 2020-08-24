@@ -121,7 +121,7 @@ export async function adicionarComentarios(comentario: Comentario, post: Post) {
 
 export async function responderComentarios(postId: String, novoComentario: Comentario) {
     try {
-        if (novoComentario.depth <= 2) {
+        if (novoComentario.depth <= 1) {
             const alteredPost = await Firestore().collection('Post').doc(postId).collection('comments')
                 .doc(novoComentario.id).update(novoComentario)
             return

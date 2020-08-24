@@ -19,7 +19,7 @@ const style = StyleSheet.create({
     descriptionText: {
         fontSize: 15,
         textAlign: "justify",
-        color: color4        
+        color: color4
     },
     title: {
         padding: 10,

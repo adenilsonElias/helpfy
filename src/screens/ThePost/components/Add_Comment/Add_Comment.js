@@ -22,7 +22,7 @@ export default AddComment = ({ parameter }) => {
             timeCreated: Date.now(),
             response: []
         })
-        adicionarComentarios(parameter.post.IdPost, newCommnent).then(() => {
+        adicionarComentarios(newCommnent, parameter.post).then(() => {
             console.log("Comentario criado com sucesso")
         })
     }

@@ -69,7 +69,7 @@ export const converTime = () => {
             ss : '%d segundos',
             m:  "um minuto",
             mm: "%d minutos",
-            h:  "um hora",
+            h:  "uma hora",
             hh: "%d horas",
             d:  "um dia",
             dd: "%d dias",

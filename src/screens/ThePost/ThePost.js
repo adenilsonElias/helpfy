@@ -10,26 +10,27 @@ import AddComment from './components/Add_Comment/Add_Comment'
 import Comments from './components/Comments/Comments'
 import { SliderBox } from "react-native-image-slider-box";
 import { responderComentarios } from '../../firebase/Post'
-import ComentarioComponent from './components/comentarios'
-
 import { useSelector } from 'react-redux'
 
 const ThePost = () => {
 
     const user: User = useSelector(state => state.userState.user)
-
     const post: Post = useRoute().params.post;
     const { setOptions } = useNavigation();
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
+    const [responseField, setResponseField] = useState(-1)
+    const [renderInput, setRenderInput] = useState(true)
     const parameter = {
         message,
         setMessage,
         comentarios,
         setComentarios,
-        post
+        post,
+        renderInput,
+        setRenderInput,
+        showComment
     }
-    const [responseField, setResponseField] = useState(-1)
 
     useEffect(() => {
         setOptions({
@@ -42,29 +43,20 @@ const ThePost = () => {
             headerTitleStyle: styleTitle,
 
         })
-        post.getComments().then(value => setComentarios(value))
+        post.getComments().then(value => setComentarios(value))        
     }, [])
-<<<<<<< HEAD
-    
-=======
 
-    function handleCreateComment() {
-        const newCommnent = new Comentario({
-            message: message,
-            author: user.name,
-            creatorId: user.id,
-            depth: 0,
-            timeCreated: Date.now(),
-            response: []
-        })
-        adicionarComentarios(newCommnent, post).then(() => {
-            console.log("Comentario criado com sucesso")
-        })
+    function showComment() {        
+        if (renderInput) {
+            setRenderInput(false)
+        } else {
+            setRenderInput(true)
+        }        
     }
 
-    console.log(post)
+    const conditionRenderInput = renderInput ?
+        <AddComment parameter={parameter} /> : null
 
->>>>>>> 8b4318d1d0424d93f98c66220d7cb57452d84ac2
     return (
         <SafeAreaView style={style.container}>
             <ScrollView nestedScrollEnabled={true}>
@@ -75,41 +67,25 @@ const ThePost = () => {
                 </View>
                 <Buttons />
                 <Text style={style.title}>Comentários</Text>
-                {/* <Comments parameter={parameter} />
-                <AddComment parameter={parameter} /> */}            
-
-                {/* <View style={style.commentContainer}>
-                    <Text style={style.descriptionText}>Testando Comentario</Text>
-                    <View style={style.addComent}>
-                        <TextInput onChangeText={(e) => setMessage(e)} placeholder="Faça um comentario sobre o item"></TextInput>
-                        <TouchableOpacity
-                            style={style.sendButton}
-                            // onPress={handleCreateComment}
-                        >
-                            <Text>Enviar</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                </View> */}
                 <FlatList
                     data={comentarios}
                     keyExtractor={item => item.id}
                     renderItem={({ item, index }) => {
                         return (
-                            <ComentarioComponent
+                            <Comments
                                 comentario={item}
                                 post={post}
                                 index={index}
                                 user={user}
                                 setResponseField={setResponseField}
                                 responseField={responseField}
+                                parameter={parameter}
                             />
                         )
                     }}
                 />
+                { conditionRenderInput }
             </ScrollView>
-            <View style={style.CommentsListContainer}>
-            </View>
         </SafeAreaView>
     )
 }
