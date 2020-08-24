@@ -4,14 +4,13 @@ import { View, Text } from 'react-native'
 import style from './style'
 import { TouchableOpacity, FlatList, TextInput } from 'react-native-gesture-handler'
 import Comentario from '../../../model/comments'
-import { responderComentarios } from '../../../firebase/Post'
+import { responderComentarios } from '../../../firebase/comentarios'
 
 const  ComentarioComponent = ({ post, index,responseField, setResponseField , user , comentario }) => {
     const [response, setResponse] = useState("")
 
 
     function handleCreateResponse(comment: Comentario) {
-        console.log(comentario.depth)
         const newCommnent = new Comentario({
             message: response,
             author: user.name,
@@ -21,7 +20,7 @@ const  ComentarioComponent = ({ post, index,responseField, setResponseField , us
             response: []
         })
         comentario.response.push(newCommnent);
-        responderComentarios(post, comment).then(() => console.log("resposta feita com sucesso"))
+        responderComentarios(post, comment).then(() => console.info("resposta feita com sucesso"))
     }
 
     return (

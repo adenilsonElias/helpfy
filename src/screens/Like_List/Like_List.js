@@ -1,136 +1,38 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../../global/components/Header/Header'
 import style from './style'
 import PostList from '../../global/components/Post_List/Post_List'
 import { View, FlatList } from 'react-native';
-import Post from '../../model/post_model'
+import { getPostListLike, removeLike } from '../../firebase/Post';
+import User from '../../model/user';
+import { useSelector } from 'react-redux';
 
 export default LikeList = () => {
-    const navigation = useNavigation()
+    const [posts,setPost] = useState([])
+    const [updateScreen, setUpdateScreen] = useState(false);
+    const user: User = useSelector(state => state.userState.user)
 
-    const posts = [
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 1,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 2,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 3,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 4,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 5,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 6,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 7,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 8,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            postId: 9,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-    ]
+    useEffect(()=>{
+        async function getPostsLiked(){
+            setPost(await getPostListLike(user.id))
+        }
+        getPostsLiked().then(()=>{
+            console.info("Posts coletados com sucesso")
+        })
+    },[updateScreen])
 
     return (
         <View style={style.container}>
             <Header title={'Lista de Curtidas'} icon={'thumbs-up'}/>
             <FlatList
                 data={posts}
-                keyExtractor={item => `${item.postId}`}
+                keyExtractor={item => `${item.IdPost}`}
                 // Padding com mesmo valor do margins container do PostList
                 style={{ paddingTop: 10 }}
                 renderItem={({ item }) => {
                     return (
-                        <PostList post={item}/>
+                        <PostList post={item} updateScreen={updateScreen} setUpdateScreen={setUpdateScreen} />
                     )
                 }}
             />

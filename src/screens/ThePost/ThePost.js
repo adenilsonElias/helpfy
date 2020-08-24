@@ -8,19 +8,22 @@ import { color1, color2, styleTitle } from '../../global/constant/constant'
 import { TextInput, TouchableOpacity, FlatList } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 import User from '../../model/user'
-import { adicionarComentarios, responderComentarios } from '../../firebase/Post'
 import Comentario from '../../model/comments'
 import ComentarioComponent from './components/comentarios'
+import { adicionarComentarios, getComentarios } from '../../firebase/comentarios'
+import { addLike, getPost, isLiked, removeLike } from '../../firebase/Post'
 
 const ThePost = () => {
 
     const user: User = useSelector(state => state.userState.user)
 
-    const post: Post = useRoute().params.post;
+    const postParam: Post = useRoute().params.post;
+    const [post, setPost] = useState(postParam)
     const { setOptions } = useNavigation();
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
     const [responseField, setResponseField] = useState(-1)
+    const [notLiked, setNotLiked] = useState(true)
 
     useEffect(() => {
         setOptions({
@@ -34,8 +37,15 @@ const ThePost = () => {
             headerTitleStyle: styleTitle,
 
         })
-        post.getComments().then(value => setComentarios(value))
+        getComentarios(post.IdPost).then(value => setComentarios(value))
+
     }, [])
+
+    useEffect(() => {
+        isLiked(post, user.id).then((value) => {
+            setNotLiked(value)
+        })
+    }, [post])
 
     function handleCreateComment() {
         const newCommnent = new Comentario({
@@ -47,14 +57,34 @@ const ThePost = () => {
             response: []
         })
         adicionarComentarios(newCommnent, post).then(() => {
-            console.log("Comentario criado com sucesso")
+            console.info("Comentario criado com sucesso")
         })
     }
 
-    console.log(post)
-
+    function handleLikes() {
+        if (notLiked) {
+            addLike(post, user.id).then(() => {
+                getPost(post.IdPost).then((value) => {
+                    setPost(value)
+                    console.info('Post atualizado com sucesso')
+                })
+            })
+        } else {
+            removeLike(post, user.id).then(() => {
+                getPost(post.IdPost).then((value) => {
+                    setPost(value)
+                    console.info('Post atualizado com sucesso')
+                })
+            })
+        }
+    }
     return (
         <SafeAreaView style={style.container}>
+            <TouchableOpacity onPress={handleLikes}>
+                <Text>
+                    {notLiked ? "Teste Like" : "Teste Deslike"}
+                </Text>
+            </TouchableOpacity>
             <ScrollView nestedScrollEnabled={true}>
                 <Image source={{ uri: post.image }}
                     style={style.image} />
