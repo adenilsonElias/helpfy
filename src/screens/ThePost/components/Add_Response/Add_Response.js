@@ -19,7 +19,7 @@ export default AddResponse = ({ comentario, user, post, parameter }) => {
             response: []
         })
         comentario.response.push(newCommnent);
-        responderComentarios(post.IdPost, comment).then(() => console.log("Resposta feita com sucesso"))
+        responderComentarios(post, comment).then(() => console.info("Resposta feita com sucesso"))
     }
 
     return (

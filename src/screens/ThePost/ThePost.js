@@ -56,13 +56,13 @@ const ThePost = () => {
             setNotLiked(value)
         })
     }, [post])
-    
-    function showComment() {        
+
+    function showComment() {
         if (renderInput) {
             setRenderInput(false)
         } else {
             setRenderInput(true)
-        }        
+        }
     }
 
     function handleLikes() {
@@ -101,24 +101,21 @@ const ThePost = () => {
                 </View>
                 <Buttons />
                 <Text style={style.title}>Comentários</Text>
-                <FlatList
-                    data={comentarios}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <Comments
-                                comentario={item}
-                                post={post}
-                                index={index}
-                                user={user}
-                                setResponseField={setResponseField}
-                                responseField={responseField}
-                                parameter={parameter}
-                            />
-                        )
-                    }}
-                />
-                { conditionRenderInput }
+                { comentarios.length ? comentarios.map((item, index) => {
+                    return (
+                        <Comments
+                            key={item.id}
+                            comentario={item}
+                            post={post}
+                            index={index}
+                            user={user}
+                            setResponseField={setResponseField}
+                            responseField={responseField}
+                            parameter={parameter}
+                        />
+                    )
+                }) : null }
+                {conditionRenderInput}
             </ScrollView>
         </SafeAreaView>
     )

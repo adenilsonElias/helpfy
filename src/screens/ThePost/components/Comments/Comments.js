@@ -7,7 +7,7 @@ import { converTime } from '../../../../global/constant/constant'
 import AddResponse from '../Add_Response/Add_Response'
 import Responses from '../Responses/Responses'
 
-const Comments = ({ post, index, responseField, setResponseField, user, comentario, parameter }) => {    
+const Comments = ({ post, index, responseField, setResponseField, user, comentario, parameter }) => {
 
     useEffect(() => {
         converTime()
@@ -26,17 +26,7 @@ const Comments = ({ post, index, responseField, setResponseField, user, comentar
                     <Text style={style.comment}>{comentario.message}</Text>
                 </View>
             </View>
-            <View>
-                <FlatList
-                    data={comentario.response}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => {
-                        return (
-                            <Responses itens={item}/>
-                        )
-                    }}
-                />
-            </View>
+            <Responses itens={comentario.response} />
             <View style={{ width: '100%' }}>
                 {
                     responseField == index && !parameter.renderInput ?
