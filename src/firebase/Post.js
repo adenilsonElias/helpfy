@@ -1,4 +1,4 @@
-import Firestore from '@react-native-firebase/firestore'
+import Firestore, { firebase } from '@react-native-firebase/firestore'
 import Post from '../model/post_model';
 import Comentario from '../model/comments';
 import SendNotification from '../model/notification'
@@ -81,12 +81,14 @@ export async function getPostList(filter: filter = null, pagination: pag = null,
 export async function getPostListLike(userId: String) {
     try {
         const postsRef = await Firestore().collection('User').doc(userId).collection('liked').get()
-        let finalPost = [] 
-        for(let item of postsRef.docs){
-            const getedPost = await item.data().post.get()
-            finalPost.push(getedPost)
+        if (postsRef.empty){
+            return []
         }
-        return finalPost.map(post => new Post({ ...post._data, IdPost: post.id }))
+        const idList = postsRef.docs.map((value) => {
+            return value.id
+        })
+        const finalPost = await Firestore().collection('Post').where(Firestore.FieldPath.documentId(), 'in', idList).get();
+        return finalPost.docs.map(post => new Post({ ...post._data, IdPost: post.id }))
     }
     catch (e) {
         console.error(e)
