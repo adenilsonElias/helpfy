@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Header from '../../global/components/Header/Header'
 import style from './style'
 import PostList from '../../global/components/Post_List/Post_List'
@@ -9,22 +9,25 @@ import User from '../../model/user';
 import { useSelector } from 'react-redux';
 
 export default LikeList = () => {
-    const [posts,setPost] = useState([])
+    const [posts, setPost] = useState([])
     const [updateScreen, setUpdateScreen] = useState(false);
     const user: User = useSelector(state => state.userState.user)
+    const navigation = useNavigation()
 
-    useEffect(()=>{
-        async function getPostsLiked(){
-            setPost(await getPostListLike(user.id))
-        }
-        getPostsLiked().then(()=>{
-            console.info("Posts coletados com sucesso")
-        })
-    },[updateScreen])
+    useFocusEffect(
+        useCallback(() => {
+            async function getPostsLiked() {
+                setPost(await getPostListLike(user.id))
+            }
+            getPostsLiked().then(() => {
+                console.info("Posts coletados com sucesso")
+            })
+        }, [updateScreen])
+    )
 
     return (
         <View style={style.container}>
-            <Header title={'Lista de Curtidas'} icon={'thumbs-up'}/>
+            <Header title={'Lista de Curtidas'} icon={'thumbs-up'} />
             <FlatList
                 data={posts}
                 keyExtractor={item => `${item.IdPost}`}
