@@ -22,54 +22,22 @@ export default Feed = () => {
         "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
     ]
 
-    const posts = [
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            IdPost: 1,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            IdPost: 2,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-        new Post({
-            title: 'teste',
-            author: 'teste',
-            image: "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-            comments: 'teste',
-            description: 'teste',
-            IdPost: 3,
-            emailPost: 'teste',
-            timePost: 'teste',
-            userId: 1,
-            postDonated: 'teste',
-        }),
-
-    ]
-
+    const [mostLiked, setMostLiked] = useState([])
     const [recentes,setRecentes] = useState([])
+    const [mostComments, setMostComments] = useState([])
 
     useEffect(()=>{
-        async function getPostRecentes(){
+        async function getPosts(){
+            const liked = await getPostList(null,{limit: 5}, {field: 'likeNumber', direction: "desc"})
             const post = await getPostList(null,{limit: 5},{field: 'timePost', direction:'desc'});
+            const comments = await getPostList(null,{limit:5},{field: 'commentNumber', direction:'desc'})
+            
+            setMostLiked(liked)
             setRecentes(post);
+            setMostComments(comments)
+
         }
-        getPostRecentes()
+        getPosts()
     },[])
 
     return (
@@ -81,11 +49,11 @@ export default Feed = () => {
                         circleLoop={true}
                         autoplay={true} />
                     <Text style={style.title}>Destaques</Text>
-                    <PostList postList={posts} />
+                    <PostList postList={mostLiked} />
                     <Text style={style.title}>Recentes</Text>
                     <PostList postList={recentes} />
                     <Text style={style.title}>Comentados</Text>
-                    <PostList postList={posts} />
+                    <PostList postList={mostComments} />
                 </ScrollView>
             </View>
             <TouchableOpacity style={style.buttonAdd}
