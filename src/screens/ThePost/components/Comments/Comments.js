@@ -7,8 +7,7 @@ import { converTime } from '../../../../global/constant/constant'
 import Responses from '../Responses/Responses'
 import Add_Comments from '../Add_Comments/Add_Comments'
 
-const Comments = ({ post, index, responseField, setResponseField, user,
-    comentario, parameter, visible, toggleOverlay }) => {
+const Comments = ({ index, comentario, setResponseField, toggleOverlay }) => {
 
     useEffect(() => {
         converTime()
@@ -28,13 +27,11 @@ const Comments = ({ post, index, responseField, setResponseField, user,
                 </View>
             </View>
             <Responses itens={comentario.response} />
-            <View style={{ width: '100%' }}>
-                
+            <View style={{ width: '100%' }}>                
                 <View style={style.responseButton}>
                     <TouchableOpacity onPress={() => {
                         setResponseField(index)
-                        toggleOverlay()
-                        parameter.setTypeComment('response')
+                        toggleOverlay('response')                        
                     }}>
                         <Text style={style.textResponse}>Responder</Text>
                     </TouchableOpacity>

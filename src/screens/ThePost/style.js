@@ -12,7 +12,7 @@ const style = StyleSheet.create({
         resizeMode: "contain",
         backgroundColor: color2,
     },
-    descriptionContainer: {        
+    descriptionContainer: {
         flex: 1,
         padding: 10,
     },

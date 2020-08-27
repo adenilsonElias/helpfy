@@ -9,17 +9,13 @@ import { adicionarComentarios, responderComentarios } from '../../../../firebase
 import Comentario from '../../../../model/comments';
 import { useSelector } from 'react-redux';
 
-export default AddComments = ({ visible, toggleOverlay, typeComment, setTypeComment,
+export default AddComments = ({ visible, toggleOverlay, typeComment,
     parameter, comentario, post }) => {
-    const [response, setResponse] = useState("")    
+    const [response, setResponse] = useState("")
     const user: User = useSelector(state => state.userState.user)
 
     const thePlaceHolderText = typeComment == 'comment' ? 'Adicione um comentário...' :
         'Adicione uma resposta...'
-
-    useEffect(() => {
-        console.log('Comentario aqui', comentario)
-    }, [])
 
     function handleCreateComment() {
         const newCommnent = new Comentario({
@@ -29,10 +25,9 @@ export default AddComments = ({ visible, toggleOverlay, typeComment, setTypeComm
             depth: 0,
             timeCreated: Date.now(),
             response: []
-        })
-        console.log(typeComment)
-        adicionarComentarios(newCommnent, parameter.post).then(() => {
-            console.log("Comentario criado com sucesso")
+        })        
+        adicionarComentarios(newCommnent, post).then(() => {
+            console.info("Comentario criado com sucesso")
         })
     }
 
@@ -46,12 +41,11 @@ export default AddComments = ({ visible, toggleOverlay, typeComment, setTypeComm
             response: []
         })
         comentario.response.push(newCommnent);
-        console.log(typeComment)
         responderComentarios(post, comment).then(() => console.info("Resposta feita com sucesso"))
-    }    
+    }
 
     return (
-        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}
+        <Overlay isVisible={visible} onBackdropPress={() => toggleOverlay()}
             overlayStyle={style.container}>
             <View style={style.inputContainer}>
                 <View style={style.avatarContainer}>
@@ -78,7 +72,7 @@ export default AddComments = ({ visible, toggleOverlay, typeComment, setTypeComm
                         } else {
                             handleCreateResponse(comentario)
                         }
-                        toggleOverlay()                        
+                        toggleOverlay()
                     }}>
                     <Icon name={'send'} size={26} color={color1} />
                 </TouchableOpacity>

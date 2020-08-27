@@ -35,10 +35,10 @@ const ThePost = () => {
         setTypeComment,
     }
 
-    // Quando overlay ativado, renderiza input para comentario
-    const toggleOverlay = () => {
-        setVisible(!visible)
-        setTypeComment('')
+    // Quando overlay ativado, renderiza input para comentario ou resposta
+    const toggleOverlay = (type: String = '') => {
+        setVisible(!visible)        
+        setTypeComment(type)
     }
 
     useEffect(() => {
@@ -53,18 +53,22 @@ const ThePost = () => {
 
         })
         getComentarios(post.IdPost).then(value => setComentarios(value))
+        console.debug('Get Comentarios')
     }, [])
 
     useEffect(() => {
         isLiked(post, user.id).then((value) => {
             setNotLiked(value)
         })
+        console.debug('Vamos ver se cai aqui depois de responder')
     }, [post])
 
-    useEffect(() => {
-        console.log(typeComment)
-        console.log(visible)
-    }, [typeComment, visible])
+    // useEffect(() => {
+    //     console.log('**********')
+    //     console.log(typeComment)
+    //     console.log(visible)
+    //     console.log('==========')
+    // }, [typeComment, visible])
 
     function handleLikes() {
         if (notLiked) {
@@ -99,10 +103,10 @@ const ThePost = () => {
                 </View>
                 <Buttons />
                 <Text style={style.comentariosTitle}>Comentários</Text>
+                {/* Overlay do Comentario */}
                 <TouchableOpacity style={style.containerAddComentario}
                     onPress={() => {
-                        toggleOverlay()
-                        setTypeComment('comment')
+                        toggleOverlay('comment')                        
                     }}>
                     <The_Avatar size={'medium'} />
                     <Text style={style.addComentarioText}>Adicione um comentário...</Text>
@@ -114,28 +118,22 @@ const ThePost = () => {
                     return (
                         <View key={item.id}>
                             <Comments
-                                comentario={item}
-                                post={post}
+                                comentario={item}                                
                                 index={index}
-                                user={user}
                                 setResponseField={setResponseField}
-                                responseField={responseField}
-                                parameter={parameter}
-                                visible={visible}
                                 toggleOverlay={toggleOverlay}
                             />
                             {
                                 responseField == index ?
                                     // Overlay da resposta
                                     <Add_Comments visible={visible} toggleOverlay={toggleOverlay}
-                                        typeComment={parameter.typeComment} setTypeComment={parameter.setTypeComment}
-                                        comentario={item} parameter={parameter} post={post} />
+                                        typeComment={typeComment} comentario={item}
+                                        parameter={parameter} post={post} />
                                     : null
                             }
                         </View>
                     )
-                }) : null}
-                {/* Overlay do Comentario */}                
+                }) : null}                
             </ScrollView>
         </SafeAreaView>
     )
