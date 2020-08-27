@@ -4,10 +4,11 @@ import style from './style'
 import { TouchableOpacity, FlatList, TextInput } from 'react-native-gesture-handler'
 import moment from 'moment';
 import { converTime } from '../../../../global/constant/constant'
-import AddResponse from '../Add_Response/Add_Response'
 import Responses from '../Responses/Responses'
+import Add_Comments from '../Add_Comments/Add_Comments'
 
-const Comments = ({ post, index, responseField, setResponseField, user, comentario, parameter }) => {
+const Comments = ({ post, index, responseField, setResponseField, user,
+    comentario, parameter, visible, toggleOverlay }) => {
 
     useEffect(() => {
         converTime()
@@ -28,23 +29,16 @@ const Comments = ({ post, index, responseField, setResponseField, user, comentar
             </View>
             <Responses itens={comentario.response} />
             <View style={{ width: '100%' }}>
-                {
-                    responseField == index && !parameter.renderInput ?
-                        <AddResponse
-                            comentario={comentario}
-                            post={post}
-                            user={user}
-                            parameter={parameter} />
-                        :
-                        <View style={style.responseButton}>
-                            <TouchableOpacity onPress={() => {
-                                setResponseField(index)
-                                parameter.setRenderInput(false)
-                            }}>
-                                <Text style={style.textResponse}>Responder</Text>
-                            </TouchableOpacity>
-                        </View>
-                }
+                
+                <View style={style.responseButton}>
+                    <TouchableOpacity onPress={() => {
+                        setResponseField(index)
+                        toggleOverlay()
+                        parameter.setTypeComment('response')
+                    }}>
+                        <Text style={style.textResponse}>Responder</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )

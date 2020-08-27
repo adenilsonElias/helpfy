@@ -4,7 +4,7 @@ import { color2 , color3, color4, color1 } from '../../global/constant/constant'
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color2
+        backgroundColor: color2               
     },
     image: {
         width: Dimensions.get('window').width,
@@ -21,10 +21,19 @@ const style = StyleSheet.create({
         textAlign: "justify",
         color: color4
     },
-    title: {
+    comentariosTitle: {
         padding: 10,
         color: color1,
         fontSize: 20
+    },
+    containerAddComentario:{
+        flexDirection: 'row',
+        padding: '2%',
+        alignItems: 'center',
+    },
+    addComentarioText: {
+        padding: 10,
+        color: color1,
     }
 })
 

@@ -8,7 +8,7 @@ import style from './style'
 import User from '../../model/user'
 import { CreateNewUser } from '../../firebase/Authentication'
 import { color1 } from '../../global/constant/constant'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 export default Register = () => {
 	const navigation = useNavigation()
@@ -21,6 +21,7 @@ export default Register = () => {
 	const [confirmPass, setConfirmPass] = useState('')
 	const [showPass, setShowPass] = useState(true)
 	const [showPassConfirm, setShowPassConfirm] = useState(true)
+	const [textInputRef, setTextInputRef] = useState(0)
 
 	function handleCreateUser() {
 		const user = new User({ email, name, senha: password })
@@ -36,7 +37,11 @@ export default Register = () => {
 	}
 
 	return (
-		<View style={style.container}>
+		<KeyboardAwareScrollView
+			scrollEnabled={true}
+			enableAutomaticScroll={true}
+			contentContainerStyle={style.container}>
+			{/* <View style={style.container}> */}
 			<View style={style.titleContainer}>
 				<Text style={style.title}>Registrar</Text>
 			</View>
@@ -82,7 +87,7 @@ export default Register = () => {
 			</View>
 			<View style={style.inputContainer}>
 				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-				<TextInput style={[style.input, { paddingRight: '15%'}]}
+				<TextInput style={[style.input, { paddingRight: '15%' }]}
 					placeholder='Senha'
 					placeholderTextColor={color1}
 					secureTextEntry={showPass}
@@ -97,7 +102,7 @@ export default Register = () => {
 			</View>
 			<View style={style.inputContainer}>
 				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-				<TextInput style={[style.input, { paddingRight: '15%'}]}
+				<TextInput style={[style.input, { paddingRight: '15%' }]}
 					placeholder='Confirmar senha'
 					placeholderTextColor={color1}
 					secureTextEntry={showPassConfirm}
@@ -130,6 +135,7 @@ export default Register = () => {
 					</TouchableOpacity>
 				</View>
 			</View>
-		</View>
+			{/* </View> */}
+		</KeyboardAwareScrollView>
 	)
 }

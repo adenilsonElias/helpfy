@@ -3,9 +3,11 @@ import { color1, color2, fontTitle } from "../../global/constant/constant"
  
 const style = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // flex: 1,
+        paddingTop: '20%',
+        paddingBottom: '10%'
+        // alignItems: 'center',
+        // justifyContent: 'center',
         // backgroundColor: 'red'
     },
     titleContainer: {
