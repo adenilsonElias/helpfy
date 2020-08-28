@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import style from './style'
 import Buttons from './components/Buttons/Buttons'
@@ -14,16 +14,18 @@ import { adicionarComentarios, getComentarios } from '../../firebase/comentarios
 import { addLike, getPost, isLiked, removeLike } from '../../firebase/Post'
 import The_Avatar from '../../global/components/Avatar/The_Avatar'
 import Add_Comments from './components/Add_Comments/Add_Comments'
+import AuthContext from '../../context/auth_context'
 
 const ThePost = () => {
+    const auth = useContext(AuthContext)
     const user: User = useSelector(state => state.userState.user)
     const postParam: Post = useRoute().params.post;
     const [post, setPost] = useState(postParam)
     const { setOptions } = useNavigation();
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
-    const [responseField, setResponseField] = useState(-1)
-    const [notLiked, setNotLiked] = useState(true)
+    const [update, setUpdate] = useState(false)
+    const [responseField, setResponseField] = useState(-1)    
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
     const parameter = {
@@ -37,7 +39,7 @@ const ThePost = () => {
 
     // Quando overlay ativado, renderiza input para comentario ou resposta
     const toggleOverlay = (type: String = '') => {
-        setVisible(!visible)        
+        setVisible(!visible)
         setTypeComment(type)
     }
 
@@ -52,73 +54,43 @@ const ThePost = () => {
             headerTitleStyle: styleTitle,
 
         })
-        getComentarios(post.IdPost).then(value => setComentarios(value))
-        console.debug('Get Comentarios')
     }, [])
 
     useEffect(() => {
-        isLiked(post, user.id).then((value) => {
-            setNotLiked(value)
-        })
-        console.debug('Vamos ver se cai aqui depois de responder')
-    }, [post])
+        // @TODO adicionar butao de ordenacao
+        getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
+    }, [update])
 
-    // useEffect(() => {
-    //     console.log('**********')
-    //     console.log(typeComment)
-    //     console.log(visible)
-    //     console.log('==========')
-    // }, [typeComment, visible])
-
-    function handleLikes() {
-        if (notLiked) {
-            addLike(post, user.id).then(() => {
-                getPost(post.IdPost).then((value) => {
-                    setPost(value)
-                    console.info('Post atualizado com sucesso')
-                })
-            })
-        } else {
-            removeLike(post, user.id).then(() => {
-                getPost(post.IdPost).then((value) => {
-                    setPost(value)
-                    console.info('Post atualizado com sucesso')
-                })
-            })
-        }
-    }
+    const renderAddComment = auth.isLogged ?
+        <TouchableOpacity style={style.containerAddComentario}
+            onPress={() => {
+                toggleOverlay('comment')
+            }}>
+            <The_Avatar size={'medium'} />
+            <Text style={style.addComentarioText}>Adicione um comentário...</Text>
+        </TouchableOpacity> : null
 
     return (
         <SafeAreaView style={style.container}>
-            <TouchableOpacity onPress={handleLikes}>
-                <Text>
-                    {notLiked ? "Teste Like" : "Teste Deslike"}
-                </Text>
-            </TouchableOpacity>
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}>
                 <Image source={{ uri: post.image }}
                     style={style.image} />
                 <View style={style.descriptionContainer}>
                     <Text style={style.descriptionText}>{post.description}</Text>
                 </View>
-                <Buttons />
+                <Buttons post={post} setPost={setPost} />
                 <Text style={style.comentariosTitle}>Comentários</Text>
-                {/* Overlay do Comentario */}
-                <TouchableOpacity style={style.containerAddComentario}
-                    onPress={() => {
-                        toggleOverlay('comment')                        
-                    }}>
-                    <The_Avatar size={'medium'} />
-                    <Text style={style.addComentarioText}>Adicione um comentário...</Text>
-                </TouchableOpacity>
-                <Add_Comments visible={visible} toggleOverlay={toggleOverlay} 
-                    typeComment={typeComment} setTypeComment={setTypeComment} 
-                    parameter={parameter} post={post}/>
+                { renderAddComment }
+                {/* Overlay de Comentario */}
+                <Add_Comments visible={visible} toggleOverlay={toggleOverlay}
+                    typeComment={typeComment} setTypeComment={setTypeComment}
+                    setUpdate={setUpdate} update={update}
+                    parameter={parameter} post={post} />
                 {comentarios.length ? comentarios.map((item, index) => {
                     return (
                         <View key={item.id}>
                             <Comments
-                                comentario={item}                                
+                                comentario={item}
                                 index={index}
                                 setResponseField={setResponseField}
                                 toggleOverlay={toggleOverlay}
@@ -127,13 +99,13 @@ const ThePost = () => {
                                 responseField == index ?
                                     // Overlay da resposta
                                     <Add_Comments visible={visible} toggleOverlay={toggleOverlay}
-                                        typeComment={typeComment} comentario={item}
-                                        parameter={parameter} post={post} />
+                                        typeComment={typeComment} comentario={item} setUpdate={setUpdate}
+                                        update={update} parameter={parameter} post={post} />
                                     : null
                             }
                         </View>
                     )
-                }) : null}                
+                }) : null}
             </ScrollView>
         </SafeAreaView>
     )

@@ -57,9 +57,9 @@ export async function responderComentarios(post: Post, novoComentario: Comentari
     }
 }
 
-export async function getComentarios(postId: String) {
+export async function getComentarios(postId: String, orderBy: 'asc' | 'desc') {
     try {
-        const Comments = await Firestore().collection('Post').doc(postId).collection('comments').get()
+        const Comments = await Firestore().collection('Post').doc(postId).collection('comments').orderBy('timeCreated', orderBy).get()
         return Comments.docs.map(comentario => new Comentario({ ...comentario.data(), id: comentario.id }))
     }
     catch (e) {

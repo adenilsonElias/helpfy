@@ -9,7 +9,7 @@ import { adicionarComentarios, responderComentarios } from '../../../../firebase
 import Comentario from '../../../../model/comments';
 import { useSelector } from 'react-redux';
 
-export default AddComments = ({ visible, toggleOverlay, typeComment,
+export default AddComments = ({ visible, toggleOverlay, typeComment, update, setUpdate,
     parameter, comentario, post }) => {
     const [response, setResponse] = useState("")
     const user: User = useSelector(state => state.userState.user)
@@ -28,6 +28,8 @@ export default AddComments = ({ visible, toggleOverlay, typeComment,
         })        
         adicionarComentarios(newCommnent, post).then(() => {
             console.info("Comentario criado com sucesso")
+            //gatilho para atualizar comentario na tela
+            setUpdate(!update)
         })
     }
 
