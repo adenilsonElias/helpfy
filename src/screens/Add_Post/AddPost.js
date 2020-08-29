@@ -90,8 +90,8 @@ export default AddPost = () => {
                 <Title title={'Título da Postagem'} />
                 <View style={style.inputContainer}>
                     <TextInput style={style.input}
-                        placeholder='Insira o título'
-                        placeholderTextColor={color2}
+                        placeholder='Insira o título...'
+                        placeholderTextColor={color1}
                         // maxLength={20}
                         // autoFocus={true}
                         value={title}
@@ -109,10 +109,10 @@ export default AddPost = () => {
                 />
                 <SliderBoxImg images={images}/>
                 <Title title={'Descrição'} />
-                <View style={[style.inputContainer, { height: 150 }]}>
+                <View style={[style.inputContainer, { height: 150, justifyContent: "flex-start" }]}>
                     <TextInput style={style.input}
-                        placeholder='Insira a descrição'
-                        placeholderTextColor={color2}                        
+                        placeholder='Insira a descrição...'
+                        placeholderTextColor={color1}                        
                         multiline={true}
                         // autoFocus={true}
                         value={description}

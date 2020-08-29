@@ -17,9 +17,26 @@ import AuthContext from '../context/auth_context';
 const Drawer = createDrawerNavigator();
 
 export default DrawerNavigation = () => {
-    const auth = useContext(AuthContext);    
-    const user = useSelector(state => state.userState.user)    
-    const condition = auth.isLogged ?
+    const auth = useContext(AuthContext);
+    const user = useSelector(state => state.userState.user)
+
+    const condition1 = auth.isLogged ?
+        <Drawer.Screen name="Lista de Desejos" component={WishList}
+            options={{
+                drawerIcon: ({ focused, size }) => (
+                    <Icon name="bookmark" size={size} color={focused ? color1 : color4} />
+                )
+            }} /> : null
+
+    const condition2 = auth.isLogged ?
+        <Drawer.Screen name="Lista de Curtidas" component={LikeList}
+            options={{
+                drawerIcon: ({ focused, size }) => (
+                    <Icon name="thumbs-up" size={size} color={focused ? color1 : color4} />
+                )
+            }} /> : null
+
+    const condition3 = auth.isLogged ?
         <Drawer.Screen name="Sair" component={Logout}
             options={{
                 drawerIcon: ({ focused, size }) => (
@@ -45,26 +62,16 @@ export default DrawerNavigation = () => {
                         <Icon2 name="ios-home-outline" size={size} color={focused ? color1 : color4} />
                     )
                 }} />
-            <Drawer.Screen name="Lista de Desejos" component={WishList}
-                options={{
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon name="bookmark" size={size} color={focused ? color1 : color4} />
-                    )
-                }} />
-            <Drawer.Screen name="Lista de Curtidas" component={LikeList}
-                options={{
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon name="thumbs-up" size={size} color={focused ? color1 : color4} />
-                    )
-                }} />
+            { condition1 }
+            { condition2 }
             <Drawer.Screen name="Classificação" component={LeaderBoard}
-            options={{
-                drawerIcon: ({ focused, size }) => (
-                    <Icon name="bar-chart-2" size={size} color={focused ? color1 : color4} />
-                )
-            }} />
+                options={{
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon name="bar-chart-2" size={size} color={focused ? color1 : color4} />
+                    )
+                }} />
 
-            { condition }
+            {condition3}
         </Drawer.Navigator>
     )
 }

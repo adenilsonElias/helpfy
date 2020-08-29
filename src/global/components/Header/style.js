@@ -3,7 +3,8 @@ import { styleTitle, color1, color2 } from '../../constant/constant'
 
 const style = StyleSheet.create({
     container: {        
-        padding: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         width: '100%',
         backgroundColor: color2,
         flexDirection: 'row',

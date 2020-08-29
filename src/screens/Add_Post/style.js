@@ -6,15 +6,17 @@ const style = StyleSheet.create({
         justifyContent: 'center',
     },
     inputContainer: {
-        backgroundColor: color1,
+        backgroundColor: color2,
         height: 50,
         justifyContent: 'center',
         marginHorizontal: 10,
         borderRadius: 5,
         paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: color1
     },
     input: {
-        color: color2,
+        color: color1,
     },
     pickerSelect: {
         backgroundColor: color1
@@ -48,20 +50,24 @@ export const placeholderValue = {
 
 export const placeHolderStyle = {
     placeholder: {
-        color: color2,
-        backgroundColor: color1,
+        color: color1,
+        backgroundColor: color2,
         borderRadius: 5,
         paddingHorizontal: 10,
         marginHorizontal: 10,
+        borderWidth: 1,
+        borderColor: color1
     },
     inputAndroid: {
-        backgroundColor: color1,
-        color: color2,
+        backgroundColor: color2,
+        color: color1,
         height: 50,
         justifyContent: 'center',
         marginHorizontal: 10,
         borderRadius: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: color1
     },
 }
 

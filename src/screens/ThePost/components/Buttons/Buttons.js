@@ -9,29 +9,29 @@ import { color4, color1 } from '../../../../global/constant/constant';
 
 const Buttons = ({ post, setPost }) => {
     const auth = useContext(AuthContext)
-    const user: User = useSelector(state => state.userState.user)
     const [notLiked, setNotLiked] = useState(true)
     const [loading, setLoading] = useState(false)
     const wantOrNoText = auth.isLogged ? 'Eu não quero!' : 'Eu quero!'
-    const colorLike = notLiked ? color4 : color1
+    const colorLike = notLiked ? color4 : color1    
+    const user: User = useSelector(state => state.userState.user)
     
     useEffect(() => {
-        isLiked(post, user.id).then((value) => {
-            setNotLiked(value)
-        })
+        if(auth.isLogged){            
+            console.debug('teste')
+            isLiked(post, user.id).then((value) => {
+                setNotLiked(value)
+            })
+        }
     }, [post])
 
-    const toggleLoading = () => {
-        setLoading(!loading)
-    }
-
     function handleLikes() {
-        toggleLoading()
+        setLoading(true)
         if (notLiked) {
             addLike(post, user.id).then(() => {
                 getPost(post.IdPost).then((value) => {
                     setPost(value)
                     console.info('Post atualizado com sucesso')
+                    setLoading(false)                    
                 })
             })
         } else {
@@ -39,13 +39,13 @@ const Buttons = ({ post, setPost }) => {
                 getPost(post.IdPost).then((value) => {
                     setPost(value)
                     console.info('Post atualizado com sucesso')
+                    setLoading(false)                    
                 })
             })
         }
-        toggleLoading()
-    }
+    }    
 
-    const buttom = post.userId == user.id ?
+    const buttom = user && post.userId == user.id ?
         <View style={style.container}>
             <TouchableOpacity style={style.buttonList}
                 onPress={()=>{}}>
@@ -61,10 +61,10 @@ const Buttons = ({ post, setPost }) => {
                 onPress={()=>{}}>
                 <Text style={style.buttonText}>{wantOrNoText}</Text>
             </TouchableOpacity>
-        </View>
-
-    const isLogged = auth.isLogged ? buttom : null
+        </View>    
     
+    const isLogged = auth.isLogged ? buttom : null
+
     return(
         <View>
             { isLogged }
