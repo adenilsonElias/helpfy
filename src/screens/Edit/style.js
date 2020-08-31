@@ -19,7 +19,7 @@ const style = StyleSheet.create({
     },
     editInfo: {
         marginLeft: 20,
-        marginTop: 15
+        marginTop: 15,
     },
     textInfo: {
         fontWeight: 'bold',
@@ -43,7 +43,7 @@ const style = StyleSheet.create({
         paddingLeft: '5%',
         width: '95%',
         backgroundColor: '#E5E5E5',
-
+        color: 'white',
     },
     buttom: {
         justifyContent: 'center',
@@ -61,6 +61,10 @@ const style = StyleSheet.create({
         color: color2,
         textAlign: 'center'
     },
+    placeholderStyle: {
+        color: color1,
+        backgroundColor: color2,
+    }
 })
 
 export default style

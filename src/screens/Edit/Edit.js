@@ -9,7 +9,7 @@ export default Edit = () => {
     const [email, setEmail] = useState('')
 	const [name, setName] = useState('')
 	const [birth, setBirth] = useState('')
-	const [local, setLocal] = useState('')
+	const [local, setLocal] = useState()
     const [password, setPassword] = useState('')
     
     const placeholder = {
@@ -19,33 +19,32 @@ export default Edit = () => {
     }
 
     const stateLocal = [
-        { label: 'Acre', value: 'Brinquedos' },
-        { label: 'Alagoas', value: 'Calçados'},
-        { label: 'Amapá', value: 'Eletrodomésticos' },
-        { label: 'Amazonas', value: 'Higiene Pessoal'},
-        { label: 'Livros', value: 'Livros' },
-        { label: 'Bahia', value: 'Material de Contrução'},
-        { label: 'Ceará', value: 'Material de Limpeza' },
-        { label: 'Espírito Santo', value: 'Material Escolar'},
-        { label: 'Goiás', value: 'Móveis' },
-        { label: 'Maranhão', value: 'Roupas'},
-        { label: 'Mato Grosso', value: 'Roupas'},
-        { label: 'Mato Grosso do Sul', value: 'Roupas'},
-        { label: 'Minas Gerais', value: 'Roupas'},
-        { label: 'Pará', value: 'Roupas'},
-        { label: 'Paraíba', value: 'Roupas'},
-        { label: 'Paraná', value: 'Roupas'},
-        { label: 'Pernambuco', value: 'Roupas'},
-        { label: 'Rio de Janeiro', value: 'Roupas'},
-        { label: 'Rio Grande do Norte', value: 'Roupas'},
-        { label: 'Rio Grande do Sul', value: 'Roupas'},
-        { label: 'Rondônia', value: 'Roupas'},
-        { label: 'Roraima', value: 'Roupas'},
-        { label: 'Santa Catarina', value: 'Roupas'},
-        { label: 'São Paulo', value: 'Roupas'},
-        { label: 'Sergipe', value: 'Roupas'},
-        { label: 'Tocantins', value: 'Roupas'},
-        { label: 'Distrito Federal', value: 'Roupas'},
+        { label: 'Acre', value: 'ac' },
+        { label: 'Alagoas', value: 'al'},
+        { label: 'Amapá', value: 'ap' },
+        { label: 'Amazonas', value: 'am'},
+        { label: 'Bahia', value: 'ba'},
+        { label: 'Ceará', value: 'ce' },
+        { label: 'Espírito Santo', value: 'es'},
+        { label: 'Goiás', value: 'go' },
+        { label: 'Maranhão', value: 'ma'},
+        { label: 'Mato Grosso', value: 'mt'},
+        { label: 'Mato Grosso do Sul', value: 'ms'},
+        { label: 'Minas Gerais', value: 'mg'},
+        { label: 'Pará', value: 'pa'},
+        { label: 'Paraíba', value: 'pb'},
+        { label: 'Paraná', value: 'pr'},
+        { label: 'Pernambuco', value: 'pe'},
+        { label: 'Rio de Janeiro', value: 'rj'},
+        { label: 'Rio Grande do Norte', value: 'rn'},
+        { label: 'Rio Grande do Sul', value: 'rs'},
+        { label: 'Rondônia', value: 'ro'},
+        { label: 'Roraima', value: 'rr'},
+        { label: 'Santa Catarina', value: 'sc'},
+        { label: 'São Paulo', value: 'sp'},
+        { label: 'Sergipe', value: 'se'},
+        { label: 'Tocantins', value: 'to'},
+        { label: 'Distrito Federal', value: 'df'},
 
     ]
     return (
@@ -75,7 +74,7 @@ export default Edit = () => {
                         keyboardType='email-address'
                         value={email}
                         underlineColorAndroid='transparent'
-                        onChangeText={email => setName(email)} />
+                        onChangeText={email => setEmail(email)} />
 
                 </View>
                 <View style={style.editInfo}>
@@ -86,17 +85,17 @@ export default Edit = () => {
                         keyboardType='email-address'
                         value={birth}
                         underlineColorAndroid='transparent'
-                        onChangeText={birth => setName(birth)} />
+                        onChangeText={birth => setBirth(birth)} />
                 </View>
                 
                 <View style={style.editInfo}>
                     <Text style={style.textInfo}> Estado </Text>
                     <View style={style.editPicker}>
                         <RNPickerSelect
-                            onValueChange={local => setLocal({ local })}
+                            onValueChange={value => { setLocal(value)}}
                             useNativeAndroidPickerStyle={false}
+                            style={style.placeholderStyle}
                             placeholder={placeholder} items={stateLocal}
-                            placeholderTextColor={'black'}
                         />
                     </View>
                 </View>
@@ -108,7 +107,7 @@ export default Edit = () => {
                         keyboardType='email-address'
                         value={password}
                         underlineColorAndroid='transparent'
-                        onChangeText={password => setName(password)} />
+                        onChangeText={password => setPassword(password)} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <View style={style.buttom}>
