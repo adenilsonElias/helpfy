@@ -4,6 +4,7 @@ import Profile from '../screens/Profile/Profile';
 import Chat_List from '../screens/Chat_List/Chat_List';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackFeed } from './StackFeed'
+import { StackProfile} from './StackProfile'
 import { color1 } from '../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -42,7 +43,7 @@ export function Bottomnavigation({ route }) {
                     tabBarIcon: ({ color }) => <Icon2 name="ios-home-outline" size={26} color={color} /> })
                 }
             />
-            <Tab.Screen name="Profile" component={Profile}
+            <Tab.Screen name="Profile" component={StackProfile}
                 options={{                    
                     tabBarIcon: ({ color }) => <Icon name="user" size={26} color={color} />
                 }}
