@@ -7,7 +7,7 @@ import style from './style'
 export default SliderBoxImg = (props) => {
     return (
         <View style={style.container}>
-            <SliderBox images={props.images}
+            <SliderBox images={props.images}                 
                 ImageComponentStyle={style.images}
                 // Tamanho da largura menos a soma do tamanho dos paddings horizontais
                 parentWidth={Dimensions.get('window').width - 20}
@@ -15,8 +15,7 @@ export default SliderBoxImg = (props) => {
                 imageLoadingColor={color1}
                 dotColor={color1}
                 inactiveDotColor={color2}
-                onCurrentImagePressed={index => {
-                }}
+                onCurrentImagePressed={props.pickerImage}
                 circleLoop={true} />
         </View>
     )

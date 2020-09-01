@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { HeaderBackButton } from '@react-navigation/stack'
 import style, { placeHolderStyle, placeholderValue } from './style'
 import { color2, categorys, color1 } from '../../global/constant/constant'
+import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select';
 import Title from './components/Title/Title'
 import SliderBoxImg from './components/SliderBox/SliderBoxImg'
@@ -11,6 +12,7 @@ import Post from '../../model/post_model'
 import { useSelector } from 'react-redux'
 import User from '../../model/user'
 import { createPost } from '../../firebase/Post'
+import ImagePicker from 'react-native-image-picker'
 
 export default AddPost = () => {
     const navigation = useNavigation()
@@ -21,21 +23,9 @@ export default AddPost = () => {
     const user : User | null  = useSelector(state => state.userState.user);
     //testes, ideal max 14    
     const [images, setImages] = useState([
-        "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-        "https://images.unsplash.com/photo-1485550409059-9afb054cada4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80",
-        "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-        "https://images.unsplash.com/photo-1485550409059-9afb054cada4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80",
-        "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-        "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-        "https://images.unsplash.com/photo-1485550409059-9afb054cada4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80",
-        "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+        "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",        
     ])
+    
     function handleSavePost(){
         if(user == null){
             return;
@@ -68,6 +58,18 @@ export default AddPost = () => {
         setCategory(list)
     }
 
+    pickImage = () => {
+        ImagePicker.showImagePicker({
+            title: 'Selecione a imagem',
+            maxHeight: 200,
+            maxWidth: 400
+        }, res => {            
+            if (!res.didCancel) {
+                setImages([...images, res.uri])
+            }
+        }) 
+    }
+
     useEffect(() => {
         converToPickerItem(categorys)
         navigation.setOptions({
@@ -83,6 +85,10 @@ export default AddPost = () => {
                 />)
         })
     }, [])
+
+    const teste = () => {
+        console.log('teste')
+    }
 
     return (
         <ScrollView>
@@ -104,10 +110,10 @@ export default AddPost = () => {
                     }}
                     items={category}
                     placeholder={placeholderValue}
-                    style={placeHolderStyle}                    
+                    style={placeHolderStyle}
                     useNativeAndroidPickerStyle={false}
                 />
-                <SliderBoxImg images={images}/>
+                <SliderBoxImg images={images} pickerImage={pickImage}/>
                 <Title title={'Descrição'} />
                 <View style={[style.inputContainer, { height: 150, justifyContent: "flex-start" }]}>
                     <TextInput style={style.input}
