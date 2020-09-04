@@ -7,12 +7,12 @@ import { color2, categorys, color1 } from '../../global/constant/constant'
 import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select';
 import Title from './components/Title/Title'
-import SliderBoxImg from './components/SliderBox/SliderBoxImg'
 import Post from '../../model/post_model'
 import { useSelector } from 'react-redux'
 import User from '../../model/user'
 import { createPost } from '../../firebase/Post'
 import ImagePicker from 'react-native-image-picker'
+import SliderImages from './components/SliderImages/SliderImages'
 
 export default AddPost = () => {
     const navigation = useNavigation()
@@ -20,27 +20,25 @@ export default AddPost = () => {
     const [description, setDescription] = useState()
     const [category, setCategory] = useState([])
     const [choiceCategory, setChoiceCategory] = useState()
-    const user : User | null  = useSelector(state => state.userState.user);
+    const user: User | null = useSelector(state => state.userState.user);
     //testes, ideal max 14    
-    const [images, setImages] = useState([
-        "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",        
-    ])
-    
-    function handleSavePost(){
-        if(user == null){
+    const [images, setImages] = useState([])
+
+    function handleSavePost() {
+        if (user == null) {
             return;
         }
         const newPost = new Post({
             title,
             description,
             category: choiceCategory,
-            image : images[0],
+            image: images[0],
             author: user.name,
             userId: user.id,
             emailPost: user.email,
             timePost: Date.now()
         })
-        createPost(newPost).then((response)=>{
+        createPost(newPost).then((response) => {
             console.log('Post criado com sucesso')
         });
     }
@@ -63,11 +61,11 @@ export default AddPost = () => {
             title: 'Selecione a imagem',
             maxHeight: 200,
             maxWidth: 400
-        }, res => {            
+        }, res => {
             if (!res.didCancel) {
                 setImages([...images, res.uri])
             }
-        }) 
+        })
     }
 
     useEffect(() => {
@@ -80,18 +78,14 @@ export default AddPost = () => {
                         navigation.setOptions({
                             tabBarVisible: true
                         }),
-                        navigation.goBack()
+                            navigation.goBack()
                     }}
                 />)
         })
     }, [])
 
-    const teste = () => {
-        console.log('teste')
-    }
-
     return (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View style={style.container}>
                 <Title title={'Título da Postagem'} />
                 <View style={style.inputContainer}>
@@ -113,12 +107,14 @@ export default AddPost = () => {
                     style={placeHolderStyle}
                     useNativeAndroidPickerStyle={false}
                 />
-                <SliderBoxImg images={images} pickerImage={pickImage}/>
+                <Title title={`Imagem (${images.length}/5)`} />
+                <SliderImages images={images} pickerImage={pickImage} setImages={setImages}/>
+                {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
                 <Title title={'Descrição'} />
-                <View style={[style.inputContainer, { height: 150, justifyContent: "flex-start" }]}>
+                <View style={[style.inputContainer, style.inputDescriptionContainer]}>
                     <TextInput style={style.input}
                         placeholder='Insira a descrição...'
-                        placeholderTextColor={color1}                        
+                        placeholderTextColor={color1}
                         multiline={true}
                         // autoFocus={true}
                         value={description}

@@ -18,6 +18,10 @@ const style = StyleSheet.create({
     input: {
         color: color1,
     },
+    inputDescriptionContainer:{
+        height: 150, 
+        justifyContent: "flex-start"
+    },
     pickerSelect: {
         backgroundColor: color1
     },

@@ -23,29 +23,32 @@ export default Feed = () => {
     ]
 
     const [mostLiked, setMostLiked] = useState([])
-    const [recentes,setRecentes] = useState([])
+    const [recentes, setRecentes] = useState([])
     const [mostComments, setMostComments] = useState([])
 
-    useEffect(()=>{
-        async function getPosts(){
-            const liked = await getPostList(null,{limit: 5}, {field: 'likeNumber', direction: "desc"})
-            const post = await getPostList(null,{limit: 5},{field: 'timePost', direction:'desc'});
-            const comments = await getPostList(null,{limit:5},{field: 'commentNumber', direction:'desc'})
-            
+    useEffect(() => {
+        async function getPosts() {
+            const liked = await getPostList(null, { limit: 5 }, { field: 'likeNumber', direction: "desc" })
+            const post = await getPostList(null, { limit: 5 }, { field: 'timePost', direction: 'desc' });
+            const comments = await getPostList(null, { limit: 5 }, { field: 'commentNumber', direction: 'desc' })
+
             setMostLiked(liked)
             setRecentes(post);
             setMostComments(comments)
 
         }
         getPosts()
-    },[])
+    }, [])
 
     return (
         <View style={style.container}>
             <Header />
             <View style={style.containerBody}>
                 <ScrollView>
-                    <SliderBox images={images} 
+                    <SliderBox images={images}
+                        imageLoadingColor={color1}
+                        dotColor={color1}
+                        inactiveDotColor={color2}
                         circleLoop={true}
                         autoplay={true} />
                     <Text style={style.title}>Destaques</Text>
@@ -57,7 +60,7 @@ export default Feed = () => {
                 </ScrollView>
             </View>
             <TouchableOpacity style={style.buttonAdd}
-                onPress={() => {navigation.navigate('AddPost')}}>
+                onPress={() => { navigation.navigate('AddPost') }}>
                 <Icon name={'plus'} size={30} color={color2} />
             </TouchableOpacity>
         </View>
