@@ -47,14 +47,12 @@ const style = StyleSheet.create({
         height: 30,
         width: 30,
     },
-    responseButton: {
-        width: 70,
-        marginLeft: 60,
-        marginBottom: 10,        
-    },
     textResponse: {
         color: color1,
-        fontStyle: "italic"
+        fontStyle: "italic",
+        alignSelf: 'flex-start',
+        marginLeft: 60,
+        marginBottom: 10,
     }
 })
 

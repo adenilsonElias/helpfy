@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import style from './style';
 import { SliderBox } from "react-native-image-slider-box";
@@ -9,10 +9,12 @@ import Icon from 'react-native-vector-icons/Feather';
 import { color2, color1 } from '../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native';
 import { getPostList, getPost } from '../../firebase/Post';
+import AuthContext from '../../context/auth_context';
 
 export default Feed = () => {
     //@ TODO Resolver problema de que a tela so puxa os post uma vez
     const navigation = useNavigation()
+    const auth = useContext(AuthContext)
 
     const images = [
         "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
@@ -40,6 +42,12 @@ export default Feed = () => {
         getPosts()
     }, [])
 
+    const AddPost = auth.isLogged ?
+        <TouchableOpacity style={style.buttonAdd}
+            onPress={() => { navigation.navigate('AddPost') }}>
+            <Icon name={'plus'} size={30} color={color2} />
+        </TouchableOpacity> : null
+
     return (
         <View style={style.container}>
             <Header />
@@ -59,10 +67,7 @@ export default Feed = () => {
                     <PostList postList={mostComments} />
                 </ScrollView>
             </View>
-            <TouchableOpacity style={style.buttonAdd}
-                onPress={() => { navigation.navigate('AddPost') }}>
-                <Icon name={'plus'} size={30} color={color2} />
-            </TouchableOpacity>
+            { AddPost }
         </View>
     )
 }
