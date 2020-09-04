@@ -30,9 +30,9 @@ export function StackFeed() {
             <Stack.Screen name='Category' component={Category} 
                 options={{                    
                     headerStyle: {
-                        backgroundColor: color1,
+                        backgroundColor: color2,
                     },
-                    headerTintColor: color2,
+                    headerTintColor: color1,
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />

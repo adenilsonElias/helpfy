@@ -15,6 +15,7 @@ import { addLike, getPost, isLiked, removeLike } from '../../firebase/Post'
 import The_Avatar from '../../global/components/Avatar/The_Avatar'
 import Add_Comments from './components/Add_Comments/Add_Comments'
 import AuthContext from '../../context/auth_context'
+import Filter from './components/Filter/Filter'
 
 const ThePost = () => {
     const auth = useContext(AuthContext)
@@ -25,9 +26,9 @@ const ThePost = () => {
     const [message, setMessage] = useState("");
     const [comentarios, setComentarios] = useState([])
     const [update, setUpdate] = useState(false)
-    const [responseField, setResponseField] = useState(-1)    
+    const [responseField, setResponseField] = useState(-1)
     const [visible, setVisible] = useState(false)
-    const [typeComment, setTypeComment] = useState('')
+    const [typeComment, setTypeComment] = useState('')    
     const parameter = {
         message,
         setMessage,
@@ -36,7 +37,6 @@ const ThePost = () => {
         post,
         setTypeComment,
     }
-
     // Quando overlay ativado, renderiza input para comentario ou resposta
     const toggleOverlay = (type: String = '') => {
         setVisible(!visible)
@@ -79,8 +79,11 @@ const ThePost = () => {
                     <Text style={style.descriptionText}>{post.description}</Text>
                 </View>
                 <Buttons post={post} setPost={setPost} />
-                <Text style={style.comentariosTitle}>Comentários</Text>
-                { renderAddComment }
+                <View style={style.comentarioTitleContainer}>
+                    <Text style={style.comentariosTitle}>Comentários</Text>
+                    <Filter post={post} setComentarios={setComentarios}/> 
+                </View>
+                {renderAddComment}
                 {/* Overlay de Comentario */}
                 <Add_Comments visible={visible} toggleOverlay={toggleOverlay}
                     typeComment={typeComment} setTypeComment={setTypeComment}

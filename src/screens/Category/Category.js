@@ -9,6 +9,7 @@ import { HeaderBackButton } from '@react-navigation/stack'
 import HeaderPost from './Header_Post/Header_Post'
 import Icon from 'react-native-vector-icons/Feather';
 import { getPostList } from '../../firebase/Post'
+import Filter from './Filter/Filter'
 
 export default Category = (props) => {
 
@@ -22,20 +23,23 @@ export default Category = (props) => {
             // Quando clicar em voltar, coloca novamente o bottomBar
             headerLeft: (props) => (
                 < HeaderBackButton 
-                    // tintColor={'#fff'}
+                    tintColor={color1}
                     onPress={() => {
                         navigation.setOptions({
                             tabBarVisible: true
                         }),
                         navigation.goBack()}
                     }
-                /> )
+                /> ),
+            headerRight: () => (
+                <Filter setPost={setPosts} />
+            )
         })
     }, [])
 
     useEffect(() => {
         async function collectPost(){
-            const post = await getPostList({ category: category }, { limit: 10 })            
+            const post = await getPostList({ category: category }, { limit: 10 })
             setPosts(post)
         }
 

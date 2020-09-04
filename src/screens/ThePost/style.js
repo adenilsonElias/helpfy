@@ -21,6 +21,11 @@ const style = StyleSheet.create({
         textAlign: "justify",
         color: color4
     },
+    comentarioTitleContainer:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems:'center',
+    },
     comentariosTitle: {
         padding: 10,
         color: color1,

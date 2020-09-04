@@ -39,12 +39,12 @@ export default AddPost = () => {
             timePost: Date.now()
         })
         createPost(newPost).then((response) => {
-            console.log('Post criado com sucesso')
+            console.info('Post criado com sucesso')
         });
     }
 
     // Converte a lista coletada da constante declarada em outro arquivo no formato de valor para RNPickerSelect utilizar
-    const converToPickerItem = (category, batata) => {
+    const converToPickerItem = (category) => {
         let list = []
         for (let a in category) {
             list.push({

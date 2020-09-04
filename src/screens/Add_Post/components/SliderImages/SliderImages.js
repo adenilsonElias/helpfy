@@ -4,8 +4,7 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather';
 import { color1 } from '../../../../global/constant/constant';
 
-export default SliderImages = ({ images, pickerImage, setImages }) => {
-    console.log(images)
+export default SliderImages = ({ images, pickerImage, setImages }) => {    
 
     const addImage = () => {
         const addImages = images.length < 5 ? 

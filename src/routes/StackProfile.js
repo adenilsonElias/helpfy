@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 export function StackProfile () {
     return(
         <Stack.Navigator>
-            <Stack.Screen name="Feed" component={Profile} />
+            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
             <Stack.Screen name="Edit" component={Edit} />
             <Stack.Screen name="Evaluation" component={Evaluation} />
             <Stack.Screen name="MyPosts" component={MyPosts} />
