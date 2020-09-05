@@ -1,9 +1,5 @@
 import Firestore, { firebase } from '@react-native-firebase/firestore'
 import Post from '../model/post_model';
-import Comentario from '../model/comments';
-import SendNotification from '../model/notification'
-import { IncrementComment, incrementLike } from './incremeters';
-
 const firestore = Firestore()
 
 

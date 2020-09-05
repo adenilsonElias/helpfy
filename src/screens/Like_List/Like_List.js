@@ -25,6 +25,13 @@ export default LikeList = () => {
         }, [updateScreen])
     )
 
+    function handleUnlike(post : Post){
+        removeLike(post, user.id).then(() => {
+            setUpdateScreen(!updateScreen)
+            console.info('Like Removido com sucesso')
+        })
+    }
+
     return (
         <View style={style.container}>
             <Header title={'Lista de Curtidas'} icon={'thumbs-up'} />
@@ -35,7 +42,7 @@ export default LikeList = () => {
                 style={{ paddingTop: 10 }}
                 renderItem={({ item }) => {
                     return (
-                        <PostList post={item} updateScreen={updateScreen} setUpdateScreen={setUpdateScreen} />
+                        <PostList post={item} action={handleUnlike} />
                     )
                 }}
             />
