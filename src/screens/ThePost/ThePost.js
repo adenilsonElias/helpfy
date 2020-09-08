@@ -73,7 +73,7 @@ const ThePost = () => {
     return (
         <SafeAreaView style={style.container}>
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}>
-                <Image source={{ uri: post.image }}
+                <Image source={{ uri: post.image[0] }}
                     style={style.image} />
                 <View style={style.descriptionContainer}>
                     <Text style={style.descriptionText}>{post.description}</Text>

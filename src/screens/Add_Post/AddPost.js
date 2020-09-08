@@ -32,7 +32,7 @@ export default AddPost = () => {
             title,
             description,
             category: choiceCategory,
-            image: images[0],
+            image: images,
             author: user.name,
             userId: user.id,
             emailPost: user.email,

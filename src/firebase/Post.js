@@ -1,11 +1,26 @@
-import Firestore, { firebase } from '@react-native-firebase/firestore'
+import Firestore from '@react-native-firebase/firestore'
+import Storage from '@react-native-firebase/storage'
 import Post from '../model/post_model';
-const firestore = Firestore()
 
 
-export async function createPost(Post: Post) {
+export async function createPost(post: Post) {
     try {
-        let post = await firestore.collection('Post').add(Post.toJson())
+        let images = post.image;
+        delete post.image;
+        const postReference = await Firestore().collection('Post').add(post.toJson())
+        let imagesUrl = [];
+
+        for(let i = 0 ;i < images.length ; i+=1 ){
+            const bucketReference = Storage().ref(`Post/${postReference.id}/${i}`);
+            await bucketReference.putFile(images[i]).then(async () => {
+                imagesUrl.push(await bucketReference.getDownloadURL())
+            })
+        }
+
+        await postReference.update({
+            image: imagesUrl,
+        })
+
     }
     catch (e) {
         console.error(e)
@@ -15,7 +30,7 @@ export async function createPost(Post: Post) {
 
 export async function getPost(id: String) {
     try {
-        let post = await firestore.collection('Post').doc(id).get();
+        let post = await Firestore().collection('Post').doc(id).get();
         return new Post({ ...post.data(), IdPost: post.id })
     }
     catch (e) {
@@ -77,7 +92,7 @@ export async function getPostList(filter: filter = null, pagination: pag = null,
 export async function getPostListLike(userId: String) {
     try {
         const postsRef = await Firestore().collection('User').doc(userId).collection('liked').get()
-        if (postsRef.empty){
+        if (postsRef.empty) {
             return []
         }
         const idList = postsRef.docs.map((value) => {
@@ -94,7 +109,7 @@ export async function getPostListLike(userId: String) {
 
 export async function editPost(post: Post) {
     try {
-        await firestore.collection('Post').doc(post.IdPost).update(post.toJson())
+        await Firestore().collection('Post').doc(post.IdPost).update(post.toJson())
     }
     catch (e) {
         console.error(e)
@@ -105,7 +120,7 @@ export async function editPost(post: Post) {
 
 export async function deletePost(id: String) {
     try {
-        await firestore.collection('Post').doc(id).delete()
+        await Firestore().collection('Post').doc(id).delete()
     }
     catch (e) {
         console.error(e)
@@ -122,7 +137,7 @@ export async function addLike(post: Post, userId: String) {
         const postRef = Firestore().collection('Post').doc(post.IdPost).collection('likes').doc(userId)
         const counterRef = Firestore().collection('Post').doc(post.IdPost)
 
-        await firestore.runTransaction(async (transaction) => {
+        await Firestore().runTransaction(async (transaction) => {
             transaction.set(userRef, {
                 post: Firestore().collection('Post').doc(post.IdPost)
             })
@@ -145,7 +160,7 @@ export async function removeLike(post: Post, userId: String) {
     const postRef = Firestore().collection('Post').doc(post.IdPost).collection('likes').doc(userId)
     const counterRef = Firestore().collection('Post').doc(post.IdPost)
 
-    await firestore.runTransaction(async (transaction) => {
+    await Firestore().runTransaction(async (transaction) => {
         transaction.delete(userRef)
         transaction.delete(postRef)
         transaction.update(counterRef, {

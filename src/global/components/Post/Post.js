@@ -15,7 +15,7 @@ const Post = (props) => {
                     post: props.post
                 })
             }}>                
-                <Image source={{ uri: props.post.image }} style={props.tamanho} />
+                <Image source={{ uri: props.post.image[0]}} style={props.tamanho} />
             </TouchableOpacity>
         </View>
     )

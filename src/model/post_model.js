@@ -6,7 +6,7 @@ class Post {
     comments: Comentario[]
     description: String
     emailPost: String
-    image: String
+    image: String[]
     postDonated: String
     timePost: Date
     title: String
