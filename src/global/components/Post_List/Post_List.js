@@ -20,7 +20,7 @@ const PostList = ({post, action}) => {
                     post: post
                 })
             }} style={style.containerTouch}>
-                <Image source={{ uri: post.image }} style={style.post} />
+                <Image source={{ uri: post.image[0] }} style={style.post} />
                 <View style={style.textContainer}>                    
                     <Text style={style.textTitle}>{post.title}</Text>
                     <Text style={style.textAuthor}>{post.author}</Text>

@@ -20,8 +20,7 @@ export default AddPost = () => {
     const [description, setDescription] = useState()
     const [category, setCategory] = useState([])
     const [choiceCategory, setChoiceCategory] = useState()
-    const user: User | null = useSelector(state => state.userState.user);
-    //testes, ideal max 14    
+    const user: User | null = useSelector(state => state.userState.user);    
     const [images, setImages] = useState([])
 
     function handleSavePost() {
@@ -41,6 +40,7 @@ export default AddPost = () => {
         createPost(newPost).then((response) => {
             console.info('Post criado com sucesso')
         });
+        navigation.navigate('Feed')
     }
 
     // Converte a lista coletada da constante declarada em outro arquivo no formato de valor para RNPickerSelect utilizar

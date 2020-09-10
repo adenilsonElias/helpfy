@@ -1,6 +1,8 @@
 import moment from 'moment';
 
+// color 1 = Cor das Informacoes
 export const color1 = 'rgb(84, 76, 126)'
+// color 2 = Cor dd Fundo
 export const color2 = 'rgb(255, 255, 255)'
 export const color3 = 'rgb(84, 76, 100)'
 export const color4 = 'rgb(120, 120, 120)'

@@ -16,6 +16,7 @@ import The_Avatar from '../../global/components/Avatar/The_Avatar'
 import Add_Comments from './components/Add_Comments/Add_Comments'
 import AuthContext from '../../context/auth_context'
 import Filter from './components/Filter/Filter'
+import PreviewImages from './components/PreviewImages/PreviewImages'
 
 const ThePost = () => {
     const auth = useContext(AuthContext)
@@ -73,15 +74,16 @@ const ThePost = () => {
     return (
         <SafeAreaView style={style.container}>
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}>
-                <Image source={{ uri: post.image[0] }}
-                    style={style.image} />
+                {/* <Image source={{ uri: post.image[0] }}
+                    style={style.image} /> */}
+                <PreviewImages image={post.image}/>
                 <View style={style.descriptionContainer}>
                     <Text style={style.descriptionText}>{post.description}</Text>
                 </View>
                 <Buttons post={post} setPost={setPost} />
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>
-                    <Filter post={post} setComentarios={setComentarios}/> 
+                    <Filter post={post} setComentarios={setComentarios} />
                 </View>
                 {renderAddComment}
                 {/* Overlay de Comentario */}
