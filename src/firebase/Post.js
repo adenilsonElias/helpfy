@@ -7,7 +7,7 @@ export async function createPost(post: Post) {
     try {
         let images = post.image;
         delete post.image;
-        const postReference = await Firestore().collection('Post').add(post.toJson())
+        const postReference = Firestore().collection('Post').doc()
         let imagesUrl = [];
 
         for(let i = 0 ;i < images.length ; i+=1 ){
@@ -16,9 +16,8 @@ export async function createPost(post: Post) {
                 imagesUrl.push(await bucketReference.getDownloadURL())
             })
         }
-
-        await postReference.update({
-            image: imagesUrl,
+        await postReference.set({
+            ...post.toJson(), image : imagesUrl
         })
 
     }
