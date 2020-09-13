@@ -70,11 +70,9 @@ export default AddPost = () => {
         }))
     }
 
-    pickImage = () => {
+    const pickImage = () => {
         ImagePicker.showImagePicker({
-            title: 'Selecione a imagem',
-            maxHeight: 200,
-            maxWidth: 400
+            title: 'Selecione a imagem'
         }, res => {
             if (!res.didCancel) {
                 setImages([...images, res.uri])
