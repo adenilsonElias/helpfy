@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { HeaderBackButton } from '@react-navigation/stack'
 import style, { placeHolderStyle, placeholderValue } from './style'
@@ -13,6 +13,7 @@ import User from '../../model/user'
 import { createPost } from '../../firebase/Post'
 import ImagePicker from 'react-native-image-picker'
 import SliderImages from './components/SliderImages/SliderImages'
+import ImageView from 'react-native-image-view';
 
 export default AddPost = () => {
     const navigation = useNavigation()
@@ -20,8 +21,11 @@ export default AddPost = () => {
     const [description, setDescription] = useState()
     const [category, setCategory] = useState([])
     const [choiceCategory, setChoiceCategory] = useState()
-    const user: User | null = useSelector(state => state.userState.user);    
+    const user: User | null = useSelector(state => state.userState.user);
     const [images, setImages] = useState([])
+    const [previewImages, setPreviewImages] = useState([])
+    const [imageIndex, setImageIndex] = useState(0)
+    const [visible, setVisible] = useState(false)
 
     function handleSavePost() {
         if (user == null) {
@@ -56,6 +60,16 @@ export default AddPost = () => {
         setCategory(list)
     }
 
+    const convertImagePreview = (arrayImages) => {
+        setPreviewImages(arrayImages.map((item) => {
+            return {
+                source: { uri: item },
+                width: Dimensions.get('window').width,
+                height: Dimensions.get('window').height
+            }
+        }))
+    }
+
     pickImage = () => {
         ImagePicker.showImagePicker({
             title: 'Selecione a imagem',
@@ -84,6 +98,11 @@ export default AddPost = () => {
         })
     }, [])
 
+    //Converter toda imagem salva no array Images para o preview
+    useEffect(() => {
+        convertImagePreview(images)
+    }, [images])
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={style.container}>
@@ -108,7 +127,8 @@ export default AddPost = () => {
                     useNativeAndroidPickerStyle={false}
                 />
                 <Title title={`Imagem (${images.length}/5)`} />
-                <SliderImages images={images} pickerImage={pickImage} setImages={setImages}/>
+                <SliderImages images={images} pickerImage={pickImage}
+                    setImages={setImages} setVisible={setVisible} />
                 {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
                 <Title title={'Descrição'} />
                 <View style={[style.inputContainer, style.inputDescriptionContainer]}>
@@ -125,6 +145,13 @@ export default AddPost = () => {
                         <Text style={style.buttonText}>Salvar</Text>
                     </TouchableOpacity>
                 </View>
+                <ImageView
+                    glideAlways
+                    images={previewImages}
+                    imageIndex={imageIndex}
+                    animationType="fade"
+                    isVisible={visible}
+                    onClose={() => setVisible(false)} />
             </View>
         </ScrollView>
     )

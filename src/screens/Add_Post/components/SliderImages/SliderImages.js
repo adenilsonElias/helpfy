@@ -4,7 +4,7 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather';
 import { color1 } from '../../../../global/constant/constant';
 
-export default SliderImages = ({ images, pickerImage, setImages }) => {    
+export default SliderImages = ({ images, pickerImage, setImages, setVisible }) => {    
 
     const addImage = () => {
         const addImages = images.length < 5 ? 
@@ -36,7 +36,7 @@ export default SliderImages = ({ images, pickerImage, setImages }) => {
             ListFooterComponent={addImage}
             ListFooterComponentStyle={style.container}
             renderItem={({ item, index }) =>
-            <TouchableOpacity style={style.containerImage}
+            <TouchableOpacity style={style.containerImage} onPress={() => setVisible(true)}
                 onLongPress={() => handleRemoveImage(index)}>
                     <Image style={style.image} source={{ uri: item }} />
             </TouchableOpacity>
