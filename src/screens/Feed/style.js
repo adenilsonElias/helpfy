@@ -11,14 +11,11 @@ const style = StyleSheet.create({
         flex: 2
     },
     title: {
-        marginTop: 20,
-        marginLeft: 10,
-        color: color1,
-        textShadowColor: color2, 
+        paddingVertical: 10,
+        paddingHorizontal: 10,        
+        color: color1,        
         fontSize: 30,
-        fontFamily: fontTitle,
-        textShadowOffset: { width: 1, height: 0 },
-        textShadowRadius: 10,         
+        fontFamily: fontTitle,        
     },
     buttonAdd: {
         width: 50,

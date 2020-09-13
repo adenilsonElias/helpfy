@@ -10,6 +10,7 @@ import { color2, color1 } from '../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native';
 import { getPostList, getPost } from '../../firebase/Post';
 import AuthContext from '../../context/auth_context';
+import PostCarousel from './components/Post_Carousel/PostCarousel'
 
 export default Feed = () => {
     //@ TODO Resolver problema de que a tela so puxa os post uma vez
@@ -58,13 +59,16 @@ export default Feed = () => {
                         dotColor={color1}
                         inactiveDotColor={color2}
                         circleLoop={true}
-                        autoplay={true} />
+                        autoplay={true} />                    
                     <Text style={style.title}>Destaques</Text>
-                    <PostList postList={mostLiked} />
+                    <PostCarousel postList={mostLiked} />
+                    {/* <PostList postList={mostLiked} /> */}
                     <Text style={style.title}>Recentes</Text>
-                    <PostList postList={recentes} />
+                    <PostCarousel postList={recentes} />
+                    {/* <PostList postList={recentes} /> */}
                     <Text style={style.title}>Comentados</Text>
-                    <PostList postList={mostComments} />
+                    <PostCarousel postList={mostComments} />
+                    {/* <PostList postList={mostComments} /> */}
                 </ScrollView>
             </View>
             { AddPost }
