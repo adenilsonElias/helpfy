@@ -21,7 +21,12 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         borderWidth: 1,
         borderColor: color1,
-        marginRight: 20
+        marginRight: 20,        
+    },
+    buttonRemove: {
+        position: 'absolute',
+        right: 0,
+        margin: 5,
     }
 })
 

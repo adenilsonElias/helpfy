@@ -4,6 +4,7 @@ import { color1, fontTitle, styleTitle, color2, color3 } from '../../global/cons
 const style = StyleSheet.create({
     container: {
         justifyContent: 'center',
+        backgroundColor: color2,
     },
     inputContainer: {
         backgroundColor: color2,
@@ -39,7 +40,7 @@ const style = StyleSheet.create({
         width: '100%',
         borderRadius: 5,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonText: {
         color: color2,

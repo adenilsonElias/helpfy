@@ -21,9 +21,9 @@ export function StackFeed() {
                 options={{
                     title: 'Nova Postagem',
                     headerStyle: {
-                        backgroundColor: color1,
+                        backgroundColor: color2,
                     },
-                    headerTintColor: color2,
+                    headerTintColor: color1,
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />

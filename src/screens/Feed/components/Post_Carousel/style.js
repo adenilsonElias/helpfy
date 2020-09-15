@@ -15,7 +15,7 @@ const style = StyleSheet.create({
         height: ITEM_HEIGHT,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5
+        borderRadius: 5,
     },
 })
 

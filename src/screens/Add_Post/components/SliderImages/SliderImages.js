@@ -39,6 +39,10 @@ export default SliderImages = ({ images, pickerImage, setImages, setVisible }) =
             <TouchableOpacity style={style.containerImage} onPress={() => setVisible(true)}
                 onLongPress={() => handleRemoveImage(index)}>
                     <Image style={style.image} source={{ uri: item }} />
+                    <TouchableOpacity style={style.buttonRemove}
+                        onPress={() => handleRemoveImage(index)}>
+                        <Icon name={'x'} size={25} color={color1} />
+                    </TouchableOpacity>
             </TouchableOpacity>
             }
         />
