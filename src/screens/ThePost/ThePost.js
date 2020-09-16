@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity, Button } from 'react-native'
 import style from './style'
 import Buttons from './components/Buttons/Buttons'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -19,6 +19,7 @@ import Filter from './components/Filter/Filter'
 import PreviewImages from './components/PreviewImages/PreviewImages'
 
 const ThePost = () => {
+    const navigation = useNavigation()
     const auth = useContext(AuthContext)
     const user: User = useSelector(state => state.userState.user)
     const postParam: Post = useRoute().params.post;
@@ -111,6 +112,7 @@ const ThePost = () => {
                         </View>
                     )
                 }) : null}
+                <Button title="edit" onPress={()=> {navigation.navigate('EditPost')}} />  
             </ScrollView>
         </SafeAreaView>
     )

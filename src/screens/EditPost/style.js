@@ -1,22 +1,11 @@
 
 import { StyleSheet } from "react-native"
-import { color1, color2, color3, fontTitle } from "../../global/constant/constant"
+import { color1, fontTitle, styleTitle, color2, color3 } from '../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {
         justifyContent: 'center',
         backgroundColor: color2,
-    },
-    editPhoto: {
-        marginLeft: 20,
-        marginTop: 15,
-        flexDirection: 'row' 
-    },
-    avatar: {
-        width: 100,
-        height: 100,
-        borderRadius: 125,
-        backgroundColor: 'black',
     },
     editInfo: {
         backgroundColor: color2,
@@ -28,22 +17,8 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: color1
     },
-    textInfo: {
-        fontWeight: 'bold',
-        marginLeft: 5,
-        marginBottom: 2
-    },
     input: {                
-        color: color1,
-    },
-    editPicker: {
-        borderRadius: 5,
-        borderWidth: 1,
-        fontSize: 16,
-        paddingLeft: '5%',
-        width: '95%',
-        backgroundColor: '#E5E5E5',
-        color: 'white',
+        color: color1, 
     },
     buttom: {
         justifyContent: 'center',
@@ -60,14 +35,8 @@ const style = StyleSheet.create({
         fontSize: 20,
         color: color2,
         textAlign: 'center'
-    },
-    placeholderStyle: {
-        color: color1,
-        backgroundColor: color2,
     }
 })
-
-export default style
 
 export const placeholderValue = {
     label: 'Selecione a categoria...',
@@ -98,3 +67,4 @@ export const placeHolderStyle = {
     },
 }
 
+export default style
