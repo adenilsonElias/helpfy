@@ -4,7 +4,8 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather';
 import { color1 } from '../../../../global/constant/constant';
 
-export default SliderImages = ({ images, pickerImage, setImages, setVisible }) => {    
+export default SliderImages = ({ images, pickerImage, setImages, setVisible, 
+    displayImages, setDisplayImages }) => {    
 
     const addImage = () => {
         const addImages = images.length < 5 ? 
@@ -24,12 +25,13 @@ export default SliderImages = ({ images, pickerImage, setImages, setVisible }) =
 
     //remove a imagem da posicao X sobrescrevendo com um novo array
     function handleRemoveImage(indice){
+        setDisplayImages(displayImages.filter((image, index) => indice != index))
         setImages(images.filter((image, index) => indice != index))
     }
 
     return (
         <FlatList horizontal
-            data={images}
+            data={displayImages}
             style={style.container}
             keyExtractor={item => item}
             showsHorizontalScrollIndicator={false}

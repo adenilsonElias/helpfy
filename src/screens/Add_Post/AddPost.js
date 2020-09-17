@@ -23,6 +23,7 @@ export default AddPost = () => {
     const [choiceCategory, setChoiceCategory] = useState()
     const user: User | null = useSelector(state => state.userState.user);
     const [images, setImages] = useState([])
+    const [displayImages, setDisplayImages] = useState([])
     const [previewImages, setPreviewImages] = useState([])
     const [imageIndex, setImageIndex] = useState(0)
     const [visible, setVisible] = useState(false)
@@ -75,7 +76,8 @@ export default AddPost = () => {
             title: 'Selecione a imagem'
         }, res => {
             if (!res.didCancel) {
-                setImages([...images, res.uri])
+                setDisplayImages([...displayImages, res.uri])
+                setImages([...images, res.path])
             }
         })
     }
@@ -125,8 +127,9 @@ export default AddPost = () => {
                     useNativeAndroidPickerStyle={false}
                 />
                 <Title title={`Imagem (${images.length}/5)`} />
-                <SliderImages images={images} pickerImage={pickImage}
-                    setImages={setImages} setVisible={setVisible} />
+                <SliderImages pickerImage={pickImage} setVisible={setVisible} 
+                    images={images} setImages={setImages} displayImages={displayImages} 
+                    setDisplayImages={setDisplayImages} />
                 {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
                 <Title title={'Descrição'} />
                 <View style={[style.inputContainer, style.inputDescriptionContainer]}>
