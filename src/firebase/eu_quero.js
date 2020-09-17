@@ -1,10 +1,11 @@
 import Firestore from '@react-native-firebase/firestore'
 import Post from "../model/post_model"
+import User from "../model/user"
 
 export async function getPostListWant(userId: String) {
     try {
         const postsRef = await Firestore().collection('User').doc(userId).collection('wanted').get()
-        if (postsRef.empty){
+        if (postsRef.empty) {
             return []
         }
         const idList = postsRef.docs.map((value) => {
@@ -55,6 +56,22 @@ export async function removeIWant(post: Post, userId: String) {
             wantNumber: Firestore.FieldValue.increment(-1)
         })
     })
+}
+
+export async function getWantPeople(post: Post) {
+    try {
+        const userListReference = await Firestore().collection('Post').doc(post.IdPost).collection('want').get()
+        let userList: User[] = []
+        for (let userRefence of userListReference.docs) {
+            let reference = await userRefence.data()['user'].get()
+            userList.push(new User(reference._data))
+        }
+        console.info("Usuarios que querem o item coletados com sucesso")
+        return userList
+    } catch (e) {
+        console.error(e)
+        throw "Erro ao coletar usuario que querem o item"
+    }
 }
 
 /**

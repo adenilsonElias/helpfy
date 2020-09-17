@@ -20,7 +20,7 @@ const Result = ({ parameter, postsList}) => {
             data={ postsList}
             renderItem={({ item, index }) => (
                 <ListItem
-                    leftAvatar={{ source: { uri: item.image } }}
+                    leftAvatar={{ source: { uri: item.image[0] } }}
                     title={`${item.title}`}
                     subtitle={item.author}
                     containerStyle={style.containerColor}
@@ -33,7 +33,7 @@ const Result = ({ parameter, postsList}) => {
                     }}
                 />
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.IdPost}
         // ItemSeparatorComponent={renderSeparator}
         />
     )

@@ -61,7 +61,7 @@ export default Category = (props) => {
                                 })
                             }}>
                             <HeaderPost name={item.author} timePost={item.timePost}/>
-                            <Image source={{ uri: item.image }} style={style.iconCateogry} />
+                            <Image source={{ uri: item.image[0] }} style={style.iconCateogry} />
                             <View style={style.textContainer}>
                                 <Text style={style.textTitle}>{item.title}</Text>
                                 <Text style={style.textDescription}>{item.description}</Text>

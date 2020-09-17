@@ -9,6 +9,7 @@ import AddPost from '../screens/Add_Post/AddPost'
 import Category from '../screens/Category/Category';
 import Notification from '../screens/Notification/Notification'
 import EditPost from '../screens/EditPost/EditPost'
+import ListChoosedPeople from '../screens/LIst_Choosed_People/ListChoosedPeople'
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,16 @@ export function StackFeed() {
                 }} />
             <Stack.Screen name='Notification' component={Notification} />
             <Stack.Screen name='EditPost' component={EditPost} />
+            <Stack.Screen name='ListChoosedPeople' component={ListChoosedPeople} 
+                options={{
+                    title: 'Escolher Interessado',
+                    headerStyle: {
+                        backgroundColor: color2,
+                    },
+                    headerTintColor: color1,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }} />
         </Stack.Navigator>
     )
 }

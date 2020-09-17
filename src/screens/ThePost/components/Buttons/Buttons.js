@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { isLiked, addLike, removeLike, getPost } from '../../../../firebase/Post';
 import { color4, color1, color2 } from '../../../../global/constant/constant';
 import { addIWant, removeIWant, isWanted } from '../../../../firebase/eu_quero';
+import { useNavigation } from '@react-navigation/native';
 
 const Buttons = ({ post, setPost }) => {
     const auth = useContext(AuthContext)
@@ -16,6 +17,7 @@ const Buttons = ({ post, setPost }) => {
     const [loadingWant, setLoadingWant] = useState(true)
     const colorLike = notLiked ? color4 : color1
     const user: User = useSelector(state => state.userState.user)
+    const navigation = useNavigation()
 
     useEffect(()=>{
         setLoadingLike(false)
@@ -78,7 +80,9 @@ const Buttons = ({ post, setPost }) => {
     const buttom = user && post.userId == user.id ?
         <View style={style.container}>
             <TouchableOpacity style={style.buttonList}
-                onPress={() => { }}>
+                onPress={() => navigation.navigate('ListChoosedPeople',{
+                    post: post
+                })}>
                 <Text style={style.buttonText}>Lista de Pessoas</Text>
             </TouchableOpacity>
         </View> :
