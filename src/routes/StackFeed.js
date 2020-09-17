@@ -8,6 +8,7 @@ import { Button, TextInput } from 'react-native';
 import AddPost from '../screens/Add_Post/AddPost'
 import Category from '../screens/Category/Category';
 import Notification from '../screens/Notification/Notification'
+import EditPost from '../screens/EditPost/EditPost'
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ export function StackFeed() {
                     headerTitleStyle: styleTitle,
                 }} />
             <Stack.Screen name='Notification' component={Notification} />
+            <Stack.Screen name='EditPost' component={EditPost} />
         </Stack.Navigator>
     )
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Image, Text, TextInput, ScrollView } from 'react-native';
-import style from './style'
+import style, { placeHolderStyle, placeholderValue } from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import RNPickerSelect from 'react-native-picker-select'
+import { color2, color1 } from '../../global/constant/constant'
 
 
 export default Edit = () => {
@@ -56,54 +57,52 @@ export default Edit = () => {
                         <Text style={style.buttomText}>Editar imagem</Text>
                     </View>
                 </View>
+                <Title title={'Nome'} />
                 <View style={style.editInfo}>
-                    <Text style={style.textInfo}> Nome </Text>
                         <TextInput style={style.input}
                             placeholder='Nome'
-                            placeholderTextColor={'black'}
+                            placeholderTextColor={color1}
                             keyboardType='email-address'
                             value={name}
                             underlineColorAndroid='transparent'
                             onChangeText={name => setName(name)} />
                 </View>
+                <Title title={'E-mail'} />
                 <View style={style.editInfo}>
-                    <Text style={style.textInfo}> E-mail </Text>
                     <TextInput style={style.input}
                         placeholder='E-mail'
-                        placeholderTextColor={'black'}
+                        placeholderTextColor={color1}
                         keyboardType='email-address'
                         value={email}
                         underlineColorAndroid='transparent'
                         onChangeText={email => setEmail(email)} />
 
                 </View>
+                <Title title={'Data de Nascimento'} />
                 <View style={style.editInfo}>
-                    <Text style={style.textInfo}> Data de nascimento </Text>
                     <TextInput style={style.input}
                         placeholder='Data de nascimento'
-                        placeholderTextColor={'black'}
+                        placeholderTextColor={color1}
                         keyboardType='email-address'
                         value={birth}
                         underlineColorAndroid='transparent'
                         onChangeText={birth => setBirth(birth)} />
                 </View>
-                
+                <Title title={'Estado'} />
+                <RNPickerSelect
+                    onValueChange={value => {
+                        setLocal(value)
+                    }}
+                    items={stateLocal}
+                    placeholder={placeholderValue}
+                    style={placeHolderStyle}
+                    useNativeAndroidPickerStyle={false}
+                />
+                <Title title={'Senha'} />
                 <View style={style.editInfo}>
-                    <Text style={style.textInfo}> Estado </Text>
-                    <View style={style.editPicker}>
-                        <RNPickerSelect
-                            onValueChange={value => { setLocal(value)}}
-                            useNativeAndroidPickerStyle={false}
-                            style={style.placeholderStyle}
-                            placeholder={placeholder} items={stateLocal}
-                        />
-                    </View>
-                </View>
-                <View style={style.editInfo}>
-                    <Text style={style.textInfo}> Senha </Text>
                     <TextInput style={style.input}
                         placeholder='Senha'
-                        placeholderTextColor={'black'}
+                        placeholderTextColor={color1}
                         keyboardType='email-address'
                         value={password}
                         underlineColorAndroid='transparent'
