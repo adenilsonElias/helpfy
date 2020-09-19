@@ -6,6 +6,9 @@ const style = StyleSheet.create({
         flex: 1,
         backgroundColor: color2               
     },
+    editTouch: {
+        marginRight: 10,
+    },
     image: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').width * 3 / 4,

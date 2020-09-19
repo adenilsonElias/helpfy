@@ -1,17 +1,13 @@
-import React, { useContext } from 'react';
-import {
-    View,
-    Text,
-    Button, 
-} from 'react-native'
+import React from 'react';
+import { ImageBackground, View } from 'react-native';
 import style from './style'
+import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 
 export default BackgroundTop = () => {
-
-    return(
-        <View style={style.background}>
-            <View style={style.avatar}>
-            </View>
-        </View>
+    return (
+        <ImageBackground source={require('../../../../assets/imgs/planeta.jpg')}
+            style={style.background} blurRadius={1}>
+            <TheAvatar size={'xlarge'} showAccessory={true}/>
+        </ImageBackground>
     )
 }

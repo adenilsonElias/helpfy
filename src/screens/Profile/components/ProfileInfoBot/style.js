@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { color1, color4 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {
@@ -16,22 +17,20 @@ const style = StyleSheet.create({
         textAlign: 'justify',
         fontSize: 22,
         paddingLeft: 10,
-        color: 'rgba(225, 22, 94, 0.7)',        
-        textShadowColor: '#fff', 
-        textShadowOffset: { width: 1, height: 0 },
-        textShadowRadius: 10,
+        color: color1,
+        fontStyle: "italic"
+
     },
     profileHeader: {
         textAlign: 'justify',
         fontSize: 15,
         paddingLeft: 10,
-        color: 'black',
+        color: color4,
+        fontStyle: "italic"
     },
     contentContainer: {
 		flex: 1,
 	},
-
-
 })
 
 export default style

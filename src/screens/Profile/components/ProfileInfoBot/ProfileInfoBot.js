@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
-import {
-    View,
-    Text,
-    Button, 
-} from 'react-native'
 import style from './style'
+import { color1 } from '../../../../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Text, View } from 'react-native';
 
 export default ProfileInfoBot = (props) => {
+    const icon = props.icon ? 
+        <Icon name={props.icon} size={32} color={color1} style={style.Icon} /> :
+        <Icon2 name={props.icon2} size={32} color={color1} style={style.Icon} />
 
     return(
         <View style={style.container}>
             <View style={style.iconContainer}>
-                <Icon name={props.icon} size={32} color='rgba(225, 22, 94, 0.4)'
-                style={style.Icon} />
+                { icon }
             </View>
             <View style={style.contentContainer}>
                 <Text style={style.profileContent}

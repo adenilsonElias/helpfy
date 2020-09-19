@@ -1,20 +1,13 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 const style = StyleSheet.create({
     background: {
         width: '100%',
-        height: 230,
-        backgroundColor: '#E5E5E5',
+        height: Dimensions.get("window").width * 3 / 4 ,
+        backgroundColor: 'transparent',
         alignItems: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
     },
-    avatar: {
-        width: 125,
-        height: 125,
-        borderRadius: 125,
-        backgroundColor: 'black',
-    }
 })
-
 
 export default style

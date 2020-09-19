@@ -1,9 +1,4 @@
 import React, { useContext } from 'react';
-import {
-    View,
-    Text,
-    Button
-} from 'react-native'
 import AuthContext from '../../context/auth_context'
 import Login from '../Login/Login';
 import { StackLogin } from '../../routes/StackLogin';
@@ -11,21 +6,35 @@ import BackgroundTop from './components/BackgroundTop/BackgroundTop'
 import ToolbarMid from './components/ToolbarMid/ToolbarMid'
 import ProfileInfoBot from './components/ProfileInfoBot/ProfileInfoBot'
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import User from '../../model/user';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { color2 } from '../../global/constant/constant';
+import style from './style'
+import Icon from 'react-native-vector-icons/Feather'
 
 export default Profile = () => {
     // useContext 
     const navigation = useNavigation()
     const auth = useContext(AuthContext);
+    const user: User = useSelector(state => state.userState.user)
+
     if (auth.isLogged) {
         return (
-            <View>
-                <BackgroundTop />
-                <ToolbarMid />
-                <ProfileInfoBot title={'Nome'} content={'FAbio'} icon={'user'}/>
-                <ProfileInfoBot title={'Fabio'} content={'nome'} icon={'user'}/>
-                <Button title="logout" onPress={() => auth.logOut()}></Button>
-                <Button title="edit" onPress={()=> {navigation.navigate('Edit')}} />  
-            </View>
+            <>
+                <ScrollView style={style.container}>
+                    <BackgroundTop />
+                    <ToolbarMid />
+                    <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />
+                    <ProfileInfoBot title={'E-mail'} content={user.email} icon={'at-sign'} />
+                    <ProfileInfoBot title={'Data de Nascimento'} content={'data-nascimento'} icon2={'cake-variant'} />
+                    <ProfileInfoBot title={'Estado'} content={'estado'} icon={'map-pin'} />
+                </ScrollView>
+                <TouchableOpacity style={style.settingButton}
+                    onPress={() => { navigation.navigate('Edit') }}>
+                    <Icon name={'settings'} size={30} color={color2} />
+                </TouchableOpacity>
+            </>
         )
     }
     return (

@@ -17,6 +17,7 @@ import Add_Comments from './components/Add_Comments/Add_Comments'
 import AuthContext from '../../context/auth_context'
 import Filter from './components/Filter/Filter'
 import PreviewImages from './components/PreviewImages/PreviewImages'
+import Icon from 'react-native-vector-icons/Feather';
 
 const ThePost = () => {
     const navigation = useNavigation()
@@ -49,12 +50,17 @@ const ThePost = () => {
         setOptions({
             title: post.title,
             headerStyle: {
-                backgroundColor: color1,
+                backgroundColor: color2,
             },
-            headerTintColor: color2,
+            headerTintColor: color1,
             headerTitleAlign: 'center',
             headerTitleStyle: styleTitle,
-
+            headerRight: () => (
+                <TouchableOpacity style={style.editTouch}
+                    onPress={() => {navigation.navigate('EditPost')}}>
+                    <Icon name={'edit'} size={25} color={color1} />
+                </TouchableOpacity>
+            )
         })
     }, [])
 
@@ -112,7 +118,6 @@ const ThePost = () => {
                         </View>
                     )
                 }) : null}
-                <Button title="edit" onPress={()=> {navigation.navigate('EditPost')}} />  
             </ScrollView>
         </SafeAreaView>
     )
