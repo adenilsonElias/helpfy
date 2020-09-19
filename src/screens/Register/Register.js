@@ -16,7 +16,8 @@ export default Register = () => {
 	const [email, setEmail] = useState('')
 	const [name, setName] = useState('')
 	const [birth, setBirth] = useState('')
-	const [local, setLocal] = useState('')
+	const [state, setState] = useState('')
+	const [city, setCity] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPass, setConfirmPass] = useState('')
 	const [showPass, setShowPass] = useState(true)
@@ -24,7 +25,7 @@ export default Register = () => {
 	const [textInputRef, setTextInputRef] = useState(0)
 
 	function handleCreateUser() {
-		const user = new User({ email, name, senha: password })
+		const user = new User({ email, name, senha: password, birthDay: birth, state, city, profileImage: null })
 		auth.createUser(user)
 	}
 
@@ -81,9 +82,19 @@ export default Register = () => {
 					placeholder='Estado'
 					placeholderTextColor={color1}
 					keyboardType='email-address'
-					value={local}
+					value={state}
 					underlineColorAndroid='transparent'
-					onChangeText={local => setLocal(local)} />
+					onChangeText={state => setState(state)} />
+			</View>
+			<View style={style.inputContainer}>
+				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
+				<TextInput style={style.input}
+					placeholder='Cidade'
+					placeholderTextColor={color1}
+					keyboardType='email-address'
+					value={city}
+					underlineColorAndroid='transparent'
+					onChangeText={city => setCity(city)} />
 			</View>
 			<View style={style.inputContainer}>
 				<Icon name={'lock'} size={26} color={color1} style={style.icon} />

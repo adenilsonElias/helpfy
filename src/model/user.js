@@ -1,10 +1,14 @@
 // @flow
 
 export default class User {
+    id : String
     name: String
     email : String
     senha : String
-    id : String
+    birthDay : String
+    state : String
+    city : String
+    profileImage: String
 
     constructor(user : User){
         for(let key in user){

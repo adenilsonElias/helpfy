@@ -5,7 +5,6 @@ import { getWantPeople } from '../../firebase/eu_quero';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { color1, color2 } from '../../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
-import Button from './components/Button'
 
 export default ListChoosedPeople = () => {
     const post = useRoute().params['post']
