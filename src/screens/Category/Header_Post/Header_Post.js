@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
 import style from './style'
-import { color4, converTime } from '../../../global/constant/constant'
+import { color4 } from '../../../global/constant/constant'
 import Icon from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 
 export default HeaderPost = (props) => {
-    
     const timePost = moment(props.timePost).startOf('hour').fromNow()
-    
-    useEffect(() => {
-        converTime()
-    }, [])
 
     return(
         <View style={style.container}>

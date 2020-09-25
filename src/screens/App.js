@@ -6,11 +6,17 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { converTime } from '../global/constant/constant';
 
 import Navigator from '../routes/index'
 
 const App = () => {
+
+  useEffect(() => {
+    converTime()
+  }, [])
+
   return (
     <>
       <Navigator />

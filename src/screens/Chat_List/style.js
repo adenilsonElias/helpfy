@@ -20,7 +20,7 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',        
         alignContent: 'center',
-        alignItems: "center"        
+        alignItems: "center",
     },
     profile: {
         height: 40,
@@ -34,6 +34,10 @@ const style = StyleSheet.create({
     name: {
         color: color1,
         fontSize: 20
+    },
+    iconContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 

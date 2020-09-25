@@ -63,7 +63,19 @@ export const categorys = [{
 }]
 
 export const converTime = () => {
-    moment.updateLocale('en', {
+    moment.updateLocale('pt-br', {
+        months : [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
+            "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ],
+        monthsShort : [
+            "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+            "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+        ],
+        weekdaysMin : ["Dom", "Seg", "Ter", "Quar", "Quin", "Sex", "Sab"],
+        weekdays : [
+            "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
+        ],
         relativeTime : {
             future: "em %s",
             past: "%s atrás",
@@ -81,6 +93,18 @@ export const converTime = () => {
             MM: "%d meses",
             y: "um ano",
             yy: "%d anos"
-        }
+        },
+        longDateFormat : {
+            LT: "h:mm A",
+            LTS: "h:mm:ss A",
+            L: "DD/MM/YYYY",
+            l: "D/M/YYYY",
+            LL: "Do MMMM YYYY",
+            ll: "D MMM YYYY",
+            LLL: "Do MMMM YYYY LT",
+            lll: "D MMM YYYY LT",
+            LLLL: "dddd, MMMM Do YYYY LT",
+            llll: "dddd, MMM D YYYY LT"
+        },
     });
 }

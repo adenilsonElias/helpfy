@@ -5,6 +5,7 @@ import Chat_List from '../screens/Chat_List/Chat_List';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StackFeed } from './StackFeed'
 import { StackProfile} from './StackProfile'
+import { StackChat } from './StackChat'
 import { color1 } from '../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -13,7 +14,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
 
 function getTabBarVisible(route) {
-    // Tela Search esconde o bottomBar    
+    // Tela esconde o bottomBar    
     const routeName = route.state
         ? route.state.routes[route.state.index].name
         : route.params?.screen || 'Home';    
@@ -25,6 +26,9 @@ function getTabBarVisible(route) {
         return false;
     }
     if (routeName === 'Category') {        
+        return false;
+    }
+    if (routeName === 'TheChat') {        
         return false;
     }
     return true;
@@ -48,10 +52,11 @@ export function Bottomnavigation({ route }) {
                     tabBarIcon: ({ color }) => <Icon name="user" size={26} color={color} />
                 }}
             />
-            <Tab.Screen name="Chat" component={Chat_List}
-                options={{                    
-                    tabBarIcon: ({ color }) => <Icon name="message-circle" size={26} color={color} />
-                }}
+            <Tab.Screen name="Chat" component={StackChat}
+                options={({ route }) => ({                    
+                    tabBarVisible: getTabBarVisible(route),
+                    tabBarIcon: ({ color }) => <Icon name="message-circle" size={26} color={color} />})
+                }
             />
         </Tab.Navigator>
     )
