@@ -6,7 +6,7 @@ import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 export default BackgroundTop = () => {
     return (
         <ImageBackground source={require('../../../../assets/imgs/planeta.jpg')}
-            style={style.background} blurRadius={1}>
+            style={style.background} imageStyle={style.backgroundStyle}>
             <TheAvatar size={'xlarge'} showAccessory={true}/>
         </ImageBackground>
     )

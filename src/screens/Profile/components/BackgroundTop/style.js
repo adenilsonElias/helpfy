@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native'
+import { color1 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
     background: {
@@ -8,6 +9,10 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    backgroundStyle: { 
+        opacity: 0.7, 
+        backgroundColor: 'rgb(0,0,0)'
+    }
 })
 
 export default style

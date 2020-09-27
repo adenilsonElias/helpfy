@@ -5,10 +5,10 @@ const style = StyleSheet.create({
     container: {
         // flex: 1,
         paddingTop: '20%',
-        paddingBottom: '10%'
+        paddingBottom: '10%',
         // alignItems: 'center',
         // justifyContent: 'center',
-        // backgroundColor: 'red'
+        backgroundColor: color2
     },
     titleContainer: {
         alignItems: 'center',

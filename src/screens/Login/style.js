@@ -41,7 +41,7 @@ const style = StyleSheet.create({
         fontSize: 16,
         paddingLeft: '15%',
         paddingRight: '5%',
-        width: '80%',
+        width: '90%',
         alignSelf: 'center'
     },
     inputContainer: {
@@ -51,11 +51,11 @@ const style = StyleSheet.create({
     },
     btnEye: {
         position: 'absolute',
-        right: '15%'
+        right: '10%'
     },
     icon: {
         position: 'absolute',
-        left: '15%'
+        left: '10%'
     }
 })
 
