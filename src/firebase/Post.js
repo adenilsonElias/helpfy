@@ -46,6 +46,7 @@ interface filter {
     'Livros' | 'Material de Construção' | 'Material de Limpeza' |
     'Material Escolar' | 'Móveis' | 'Roupas',
     author: String,
+    userId : String,
     title: String,
 }
 

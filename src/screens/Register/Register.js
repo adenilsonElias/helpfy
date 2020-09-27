@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import AuthContext from '../../context/auth_context'
 import { useNavigation } from '@react-navigation/native'
@@ -6,14 +6,21 @@ import Icon from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import style from './style'
 import User from '../../model/user'
-import { CreateNewUser } from '../../firebase/Authentication'
 import { color1 } from '../../global/constant/constant'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import { getCities, getStates } from '../../api/ibge'
+import RNPickerSelect from 'react-native-picker-select';
+import { placeHolderStyle } from '../Add_Post/style'
+
+// @TODO Conserta waning quando tem uma cidade selecionada e você altera o estado
 
 export default Register = () => {
 	const navigation = useNavigation()
 	const auth = useContext(AuthContext);
 	const [email, setEmail] = useState('')
+	const [stateList, setStateList] = useState([])
+	const [stateUF, setStateUf] = useState('')
+	const [cityList, setCityList] = useState([])
 	const [name, setName] = useState('')
 	const [birth, setBirth] = useState('')
 	const [state, setState] = useState('')
@@ -35,6 +42,17 @@ export default Register = () => {
 
 	const showPassConfirmFuntion = () => {
 		setShowPassConfirm(!showPassConfirm)
+	}
+
+	useEffect(() => {
+		async function getStatesFunction() {
+			setStateList(await getStates())
+		}
+		getStatesFunction()
+	}, [])
+
+	async function getCitiesFunction(sigla : String){
+		setCityList(await getCities(sigla))
 	}
 
 	return (
@@ -77,24 +95,54 @@ export default Register = () => {
 					onChangeText={birth => setBirth(birth)} />
 			</View>
 			<View style={style.inputContainer}>
-				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Estado'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={state}
-					underlineColorAndroid='transparent'
-					onChangeText={state => setState(state)} />
+				<RNPickerSelect
+					onValueChange={(value,index) => {
+						setStateUf('')
+						if (value != ''){
+							setStateUf(value)
+							setState(stateList[index - 1].nome);
+							getCitiesFunction(value)
+						}
+						else{
+							setStateUf('')
+							setState('')
+							setCity('')
+							setCityList([])
+						}
+					}}
+					items={stateList.map((e) => {
+						return { label: e.nome, value: e.sigla }
+					})}
+					placeholder={{
+						label: 'Selecione um estado',
+						value: '',
+					}}
+					style={placeHolderStyle}
+					useNativeAndroidPickerStyle={false}
+				/>
 			</View>
 			<View style={style.inputContainer}>
 				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Cidade'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={city}
-					underlineColorAndroid='transparent'
-					onChangeText={city => setCity(city)} />
+				<RNPickerSelect
+					value={stateUF != '' ? city : ''}
+					onValueChange={(value,index) => {
+						if (value != ''){
+							setCity(value)
+						}
+						else{
+							setCity('')
+						}
+					}}
+					items={cityList.map((city) => {
+						return { label: city, value: city }
+					})}
+					placeholder={{
+						label: 'Selecione uma cidade',
+						value: '',
+					}}
+					style={placeHolderStyle}
+					useNativeAndroidPickerStyle={false}
+				/>
 			</View>
 			<View style={style.inputContainer}>
 				<Icon name={'lock'} size={26} color={color1} style={style.icon} />

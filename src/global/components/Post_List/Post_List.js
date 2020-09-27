@@ -4,9 +4,6 @@ import style from './style'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather';
 import { color1 } from '../../constant/constant'
-import Post from '../../../model/post_model';
-import { removeLike, getPost } from '../../../firebase/Post';
-import { useSelector } from 'react-redux';
 
 
 const PostList = ({post, action}) => {

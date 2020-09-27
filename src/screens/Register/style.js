@@ -65,4 +65,27 @@ const style = StyleSheet.create({
     },
 })
 
+export const placeHolderStyle = {
+    placeholder: {
+        color: color1,
+        backgroundColor: color2,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        marginHorizontal: 10,
+        borderWidth: 1,
+        borderColor: color1
+    },
+    inputAndroid: {
+        backgroundColor: color2,
+        color: color1,
+        height: 50,
+        justifyContent: 'center',
+        marginHorizontal: 10,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: color1
+    },
+}
+
 export default style
