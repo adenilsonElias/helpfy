@@ -1,119 +1,152 @@
-import React, { useState } from 'react';
-import { View, Image, Text, TextInput, ScrollView } from 'react-native';
-import style, { placeHolderStyle, placeholderValue } from './style'
+import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import AuthContext from '../../context/auth_context'
+import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
-import RNPickerSelect from 'react-native-picker-select'
-import { color2, color1 } from '../../global/constant/constant'
-
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import style from './style'
+import User from '../../model/user'
+import { CreateNewUser } from '../../firebase/Authentication'
+import { color1 } from '../../global/constant/constant'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import { HeaderBackButton } from '@react-navigation/stack'
+import EditImage from './components/Edit_Image/Edit_Image'
+import EditBackground from './components/Edit_Background/Edit_Background'
 
 export default Edit = () => {
-    const [email, setEmail] = useState('')
+	const navigation = useNavigation()
+	const auth = useContext(AuthContext);
+	const [email, setEmail] = useState('')
 	const [name, setName] = useState('')
 	const [birth, setBirth] = useState('')
-	const [local, setLocal] = useState()
-    const [password, setPassword] = useState('')
-    
-    const placeholder = {
-        label: 'Selecione a categoria do item',
-        value: null,
-        color: 'black',
-    }
+	const [state, setState] = useState('')
+	const [city, setCity] = useState('')
+	const [password, setPassword] = useState('')
+	const [confirmPass, setConfirmPass] = useState('')
+	const [showPass, setShowPass] = useState(true)
+	const [showPassConfirm, setShowPassConfirm] = useState(true)
 
-    const stateLocal = [
-        { label: 'Acre', value: 'ac' },
-        { label: 'Alagoas', value: 'al'},
-        { label: 'Amapá', value: 'ap' },
-        { label: 'Amazonas', value: 'am'},
-        { label: 'Bahia', value: 'ba'},
-        { label: 'Ceará', value: 'ce' },
-        { label: 'Espírito Santo', value: 'es'},
-        { label: 'Goiás', value: 'go' },
-        { label: 'Maranhão', value: 'ma'},
-        { label: 'Mato Grosso', value: 'mt'},
-        { label: 'Mato Grosso do Sul', value: 'ms'},
-        { label: 'Minas Gerais', value: 'mg'},
-        { label: 'Pará', value: 'pa'},
-        { label: 'Paraíba', value: 'pb'},
-        { label: 'Paraná', value: 'pr'},
-        { label: 'Pernambuco', value: 'pe'},
-        { label: 'Rio de Janeiro', value: 'rj'},
-        { label: 'Rio Grande do Norte', value: 'rn'},
-        { label: 'Rio Grande do Sul', value: 'rs'},
-        { label: 'Rondônia', value: 'ro'},
-        { label: 'Roraima', value: 'rr'},
-        { label: 'Santa Catarina', value: 'sc'},
-        { label: 'São Paulo', value: 'sp'},
-        { label: 'Sergipe', value: 'se'},
-        { label: 'Tocantins', value: 'to'},
-        { label: 'Distrito Federal', value: 'df'},
+	const showPassFuntion = () => {
+		setShowPass(!showPass)
+	}
 
-    ]
-    return (
-        <ScrollView>
-            <View style={style.container}>
-                    <View style={style.editPhoto}>
-                        <View style={style.avatar} />
-                        <View style={style.buttom}>
-                        <Text style={style.buttomText}>Editar imagem</Text>
-                    </View>
-                </View>
-                <Title title={'Nome'} />
-                <View style={style.editInfo}>
-                        <TextInput style={style.input}
-                            placeholder='Nome'
-                            placeholderTextColor={color1}
-                            keyboardType='email-address'
-                            value={name}
-                            underlineColorAndroid='transparent'
-                            onChangeText={name => setName(name)} />
-                </View>
-                <Title title={'E-mail'} />
-                <View style={style.editInfo}>
-                    <TextInput style={style.input}
-                        placeholder='E-mail'
-                        placeholderTextColor={color1}
-                        keyboardType='email-address'
-                        value={email}
-                        underlineColorAndroid='transparent'
-                        onChangeText={email => setEmail(email)} />
+	const showPassConfirmFuntion = () => {
+		setShowPassConfirm(!showPassConfirm)
+	}
 
-                </View>
-                <Title title={'Data de Nascimento'} />
-                <View style={style.editInfo}>
-                    <TextInput style={style.input}
-                        placeholder='Data de nascimento'
-                        placeholderTextColor={color1}
-                        keyboardType='email-address'
-                        value={birth}
-                        underlineColorAndroid='transparent'
-                        onChangeText={birth => setBirth(birth)} />
-                </View>
-                <Title title={'Estado'} />
-                <RNPickerSelect
-                    onValueChange={value => {
-                        setLocal(value)
+	useEffect(() => {
+        navigation.setOptions({
+            // Quando clicar em voltar, coloca novamente o bottomBar
+            headerLeft: (props) => (
+                < HeaderBackButton
+                    onPress={() => {
+                        navigation.setOptions({
+                            tabBarVisible: true
+                        }),
+                        navigation.goBack()
                     }}
-                    items={stateLocal}
-                    placeholder={placeholderValue}
-                    style={placeHolderStyle}
-                    useNativeAndroidPickerStyle={false}
-                />
-                <Title title={'Senha'} />
-                <View style={style.editInfo}>
-                    <TextInput style={style.input}
-                        placeholder='Senha'
-                        placeholderTextColor={color1}
-                        keyboardType='email-address'
-                        value={password}
-                        underlineColorAndroid='transparent'
-                        onChangeText={password => setPassword(password)} />
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                    <View style={style.buttom}>
-                        <Text style={style.buttomText}>Salvar</Text>
-                    </View>
-                </View>
-            </View>
-        </ScrollView>
+				/>),
+			headerRight: () => (
+				<TouchableOpacity style={style.save}
+					onPress={() => {
+						if (password != confirmPass) {
+							//@ TODO Colocar error para quando senhas forem diferentes
+							return
+						}
+					}}>
+					<Icon name={'save'} size={25} color={color1} />
+				</TouchableOpacity>
+			)
+        })
+    }, [])
+
+    return (
+        <ScrollView style={style.container} 
+			showsVerticalScrollIndicator={false}>
+			{/* <View style={style.container}> */}
+			<EditImage />
+			<EditBackground />
+			<View style={style.inputContainer}>
+				<Icon name={'user'} size={26} color={color1} style={style.icon} />
+				<TextInput style={style.input}
+					placeholder='Nome'
+					placeholderTextColor={color1}
+					keyboardType='email-address'
+					value={name}
+					underlineColorAndroid='transparent'
+					onChangeText={name => setName(name)} />
+			</View>
+			<View style={style.inputContainer}>
+				<Icon name={'at-sign'} size={26} color={color1} style={style.icon} />
+				<TextInput style={style.input}
+					placeholder='E-mail'
+					placeholderTextColor={color1}
+					keyboardType='email-address'
+					value={email}
+					underlineColorAndroid='transparent'
+					onChangeText={email => setEmail(email)} />
+			</View>
+			<View style={style.inputContainer}>
+				<Icon2 name={'cake-variant'} size={26} color={color1} style={style.icon} />
+				<TextInput style={style.input}
+					placeholder='Data de Nascimento'
+					placeholderTextColor={color1}
+					keyboardType='number-pad'
+					value={birth}
+					underlineColorAndroid='transparent'
+					onChangeText={birth => setBirth(birth)} />
+			</View>
+			<View style={style.inputContainer}>
+				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
+				<TextInput style={style.input}
+					placeholder='Estado'
+					placeholderTextColor={color1}
+					keyboardType='email-address'
+					value={state}
+					underlineColorAndroid='transparent'
+					onChangeText={state => setState(state)} />
+			</View>
+			<View style={style.inputContainer}>
+				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
+				<TextInput style={style.input}
+					placeholder='Cidade'
+					placeholderTextColor={color1}
+					keyboardType='email-address'
+					value={city}
+					underlineColorAndroid='transparent'
+					onChangeText={city => setCity(city)} />
+			</View>
+			<View style={style.inputContainer}>
+				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
+				<TextInput style={[style.input, { paddingRight: '15%' }]}
+					placeholder='Senha'
+					placeholderTextColor={color1}
+					secureTextEntry={showPass}
+					value={password}
+					underlineColorAndroid='transparent'
+					onChangeText={password => setPassword(password)} />
+				<TouchableOpacity style={style.btnEye}
+					onPress={showPassFuntion}>
+					<Icon name={showPass === false ? 'eye' : 'eye-off'}
+						size={26} color={color1} />
+				</TouchableOpacity>
+			</View>
+			<View style={style.inputContainer}>
+				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
+				<TextInput style={[style.input, { paddingRight: '15%' }]}
+					placeholder='Confirmar senha'
+					placeholderTextColor={color1}
+					secureTextEntry={showPassConfirm}
+					value={confirmPass}
+					underlineColorAndroid='transparent'
+					onChangeText={confirmPass => setConfirmPass(confirmPass)} />
+				<TouchableOpacity style={style.btnEye}
+					onPress={showPassConfirmFuntion}>
+					<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
+						size={26} color={color1} />
+				</TouchableOpacity>
+			</View>
+			{/* </View> */}
+		</ScrollView>
     )
 }
