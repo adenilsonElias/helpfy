@@ -15,7 +15,7 @@ export default ToolbarMid = () => {
     return(
         <View style={style.bodyIcons}>
     	    <TouchableOpacity style={style.buttonContainer}
-				onPress={()=> {navigation.navigate('Evaluation')}}>
+				onPress={()=> {navigation.navigate('Rating')}}>
 				<Icon name='message-square' size={30} color={color1}/>
 			</TouchableOpacity>
 			<TouchableOpacity style={style.buttonContainer}

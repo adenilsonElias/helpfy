@@ -34,6 +34,9 @@ function getTabBarVisible(route) {
     if (routeName === 'Edit') {        
         return false;
     }
+    if (routeName === 'Rating') {        
+        return false;
+    }
     return true;
 }
 
