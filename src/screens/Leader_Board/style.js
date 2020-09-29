@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { color2 } from '../../global/constant/constant'
+import { color1, color2 } from '../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {        
@@ -41,7 +41,8 @@ const style = StyleSheet.create({
         width: Dimensions.get('window').width * (1 / 3),
     },
     scoreText: {
-        fontSize: 24
+        fontSize: 24,
+        color: color1
     },
     bodyContainer: {
         flex: 1
@@ -54,7 +55,8 @@ const style = StyleSheet.create({
     },
     textBodyTitle: {
         fontSize: 22,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: color1
     },
     containerListItem: {        
         flex: 1,
@@ -63,11 +65,14 @@ const style = StyleSheet.create({
         paddingHorizontal: 12,
     },
     listTextName: {
-        fontSize: 20
+        fontSize: 20,
+        color: color1
+    
     },
     listTextScore: {
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: color1
     }
 })
 

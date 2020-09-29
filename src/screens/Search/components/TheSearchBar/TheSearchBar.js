@@ -2,6 +2,8 @@ import React, { useState} from 'react'
 import { SearchBar, ListItem } from 'react-native-elements'
 import { ScrollView, View, FlatList } from 'react-native'
 import style, { placeholderTextColor } from './style'
+import { color } from 'react-native-reanimated'
+import { color1 } from '../../../../global/constant/constant'
 
 const TheSearchBar = ({parameter , headerSize}) => {    
     const renderResultFunction = (text) => {
@@ -43,6 +45,7 @@ const TheSearchBar = ({parameter , headerSize}) => {
                 containerStyle={{...style.containerSearchBar , height: headerSize}}                
                 inputContainerStyle={style.inputContainer}
                 inputStyle={style.input}
+                clearIcon={{ color: color1 }}
             />
         )
     }

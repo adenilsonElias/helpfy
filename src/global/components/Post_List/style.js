@@ -5,11 +5,15 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color2,
-        borderRadius: 8,
+        borderRadius: 5,
         marginBottom: 10,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOpacity: 1,
+        elevation: 5,
+        shadowRadius: 2
     },
-    containerTouch:{
+    containerTouch: {
         flexDirection: 'row',
         alignItems: 'center'
     },
@@ -18,30 +22,30 @@ const style = StyleSheet.create({
         marginLeft: 10,
     },
     post: {
-        width: Dimensions.get('window').width * (1 / 5),
-        height: Dimensions.get('window').width * (1 / 5),
+        width: Dimensions.get('window').width * (1 / 4),
+        height: Dimensions.get('window').width * (1 / 4),
         resizeMode: "cover",
-        margin: 10,        
-        borderRadius: 8,        
+        margin: 5,
+        borderRadius: 5,
     },
-    textTitle:{
+    textTitle: {
         fontFamily: fontTitle,
         fontSize: 30,
-        color: color1
+        color: color1,
     },
     textAuthor: {
         fontFamily: fontTitle,
         fontSize: 18,
-        color: color1,            
+        color: color1,
     },
-    iconContainer:{
+    iconContainer: {
         // backgroundColor: 'blue',
         width: 45,
         height: 45,
         justifyContent: 'center',
         alignItems: 'center',
     }
-    
+
 })
 
 export default style

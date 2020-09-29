@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { color1 } from '../../constant/constant'
 
 
-const PostList = ({post, action}) => {
+const PostList = ({ post, action }) => {
     const navigation = useNavigation()
 
 
@@ -18,13 +18,13 @@ const PostList = ({post, action}) => {
                 })
             }} style={style.containerTouch}>
                 <Image source={{ uri: post.image[0] }} style={style.post} />
-                <View style={style.textContainer}>                    
+                <View style={style.textContainer}>
                     <Text style={style.textTitle}>{post.title}</Text>
                     <Text style={style.textAuthor}>{post.author}</Text>
                 </View>
-                <TouchableOpacity onPress={()=>{action(post)}}
+                <TouchableOpacity onPress={() => { action(post) }}
                     style={style.iconContainer}>
-                    <Icon name={'trash-2'} size={30} color={color1}/>
+                    <Icon name={'trash-2'} size={30} color={color1} />
                 </TouchableOpacity>
             </TouchableOpacity>
         </View>

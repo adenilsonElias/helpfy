@@ -37,6 +37,9 @@ function getTabBarVisible(route) {
     if (routeName === 'Rating') {        
         return false;
     }
+    if (routeName === 'MyPosts') {        
+        return false;
+    }
     return true;
 }
 

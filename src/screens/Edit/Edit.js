@@ -39,6 +39,7 @@ export default Edit = () => {
             // Quando clicar em voltar, coloca novamente o bottomBar
             headerLeft: (props) => (
                 < HeaderBackButton
+					tintColor={color1}
                     onPress={() => {
                         navigation.setOptions({
                             tabBarVisible: true

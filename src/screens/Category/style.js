@@ -5,7 +5,7 @@ const style = StyleSheet.create({
     container: {
         // padding: '3%'        
         flex: 1,
-        backgroundColor: 'rgb(220, 220, 220)',
+        backgroundColor: color2,
     },  
     postContainer: {
         justifyContent: "space-between",
@@ -13,30 +13,26 @@ const style = StyleSheet.create({
         width: '100%',        
         marginBottom: '3%',
         backgroundColor: color2,
-        // borderRadius: 15,
-        // backgroundColor: 'yellow'
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOpacity: 1,
+        elevation: 5,
+        shadowRadius: 2
     },
     iconCateogry: {
         width: '100%',
         height: Dimensions.get('window').width / (5 / 4),
-        resizeMode: "cover",
-        // borderTopRightRadius: 15,
-        // borderTopLeftRadius: 15        
+        resizeMode: "cover",       
     },
     textContainer:{
         width: '100%',
-        // borderBottomLeftRadius: 15,
-        // borderBottomRightRadius: 15,
         padding: 10,
-        // backgroundColor: 'red'        
     },
     textTitle: {                
         color: color1,
         fontSize: 20,
 		textAlignVertical: "center",
         textAlign: "center",
-        marginBottom: 10,        
-        // backgroundColor: 'green',
+        marginBottom: 10,
         
     },
     textDescription: {                
@@ -44,9 +40,7 @@ const style = StyleSheet.create({
         fontSize: 17,
 		textAlignVertical: "center",
         textAlign: "justify",
-        marginBottom: 10,        
-        // backgroundColor: 'green',
-        
+        marginBottom: 10,
     },
     locationContainer:{
         width: '100%',        
@@ -55,7 +49,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',        
         justifyContent: 'flex-start',
         alignContent:"center"
-        
     },
     textLocation: {
         color: color4,
@@ -64,7 +57,6 @@ const style = StyleSheet.create({
         textAlign: "left",
         marginBottom: 10,
         paddingHorizontal: 10
-        // backgroundColor: 'blue'
     }    
 })
 

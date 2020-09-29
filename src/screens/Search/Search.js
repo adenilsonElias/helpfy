@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import TheSearchBar from './components/TheSearchBar/TheSearchBar'
 import style from './style'
 import { useNavigation } from '@react-navigation/native'
-import { color1 } from '../../global/constant/constant'
+import { color1, color2 } from '../../global/constant/constant'
 import { useHeaderHeight, HeaderBackButton } from '@react-navigation/stack'
 import Result from './components/Result/Result'
 import Categorys from './components/Categorys/Categorys'
@@ -56,7 +56,7 @@ const Search = () => {
         navigation.setOptions({
             headerTitle: () => (<TheSearchBar parameter={parameter} headerSize={size} />),
             headerStyle: {
-                backgroundColor: color1,
+                backgroundColor: color2,
             },
             headerTitleContainerStyle: {
                 left: size,
@@ -65,7 +65,7 @@ const Search = () => {
             // Quando clicar em voltar, coloca novamente o bottomBar
             headerLeft: (props) => (
                 < HeaderBackButton 
-                    // tintColor={'#fff'}
+                    tintColor={color1}
                     onPress={() => {
                         navigation.setOptions({
                             tabBarVisible: true

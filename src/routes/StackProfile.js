@@ -33,7 +33,16 @@ export function StackProfile() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
-            <Stack.Screen name="MyPosts" component={MyPosts} />
+            <Stack.Screen name="MyPosts" component={MyPosts}
+                options={{
+                    title: 'Meus Posts',
+                    headerStyle: {
+                        backgroundColor: color2,
+                    },
+                    headerTintColor: color1,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }} />
         </Stack.Navigator>
     )
 }

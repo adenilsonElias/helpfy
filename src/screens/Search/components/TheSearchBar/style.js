@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { color2 } from '../../../../global/constant/constant'
+import { color1, color2 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
     container:{
@@ -14,11 +14,11 @@ const style = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     input: {
-        color: color2, 
+        color: color1, 
         marginLeft: 0
     },  
 })
 
-export const placeholderTextColor = color2
+export const placeholderTextColor = color1
 
 export default style

@@ -19,7 +19,6 @@ const style = StyleSheet.create({
         paddingLeft: 10,
         color: color1,
         fontStyle: "italic"
-
     },
     profileHeader: {
         textAlign: 'justify',

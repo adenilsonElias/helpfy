@@ -6,7 +6,8 @@ const style = StyleSheet.create({
         paddingVertical: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        width: Dimensions.get('window').width / 2        
+        width: Dimensions.get('window').width / 2,
+        backgroundColor: color2
     },
     iconCateogry: {
         width: Dimensions.get('window').width / (5 / 2),
