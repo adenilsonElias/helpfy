@@ -69,7 +69,7 @@ const ThePost = () => {
         getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
     }, [update])
 
-    const renderAddComment = auth.isLogged ?
+    const renderAddComment = auth.isLogged && !visible ?
         <TouchableOpacity style={style.containerAddComentario}
             onPress={() => {
                 toggleOverlay('comment')

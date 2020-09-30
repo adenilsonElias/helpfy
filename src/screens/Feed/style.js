@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { color1, color2, fontTitle } from '../../global/constant/constant'
 
 const style = StyleSheet.create({
@@ -6,7 +6,7 @@ const style = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: color2
+        backgroundColor: color2,
     },
     containerBody: {
         flex: 2

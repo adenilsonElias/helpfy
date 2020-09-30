@@ -7,7 +7,8 @@ const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 3 / 4);
 const style = StyleSheet.create({
     container:{
         width: ITEM_WIDTH,
-        height: ITEM_HEIGHT,
+        height: ITEM_HEIGHT+20,        
+        padding: 10
     },
     item: {
         resizeMode: "cover",        

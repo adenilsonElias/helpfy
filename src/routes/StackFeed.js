@@ -7,9 +7,9 @@ import { color1, color2, styleTitle } from '../global//constant/constant'
 import { Button, TextInput } from 'react-native';
 import AddPost from '../screens/Add_Post/AddPost'
 import Category from '../screens/Category/Category';
-import Notification from '../screens/Notification/Notification'
 import EditPost from '../screens/EditPost/EditPost'
 import ListChoosedPeople from '../screens/LIst_Choosed_People/ListChoosedPeople'
+import Notifications from '../screens/Notifications/Notifications';
 
 const Stack = createStackNavigator();
 
@@ -38,7 +38,16 @@ export function StackFeed() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
-            <Stack.Screen name='Notification' component={Notification} />
+            <Stack.Screen name='Notifications' component={Notifications} 
+                options={{
+                    title: 'Notificação',
+                    headerStyle: {
+                        backgroundColor: color2,
+                    },
+                    headerTintColor: color1,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }} />
             <Stack.Screen name='EditPost' component={EditPost} />
             <Stack.Screen name='ListChoosedPeople' component={ListChoosedPeople} 
                 options={{

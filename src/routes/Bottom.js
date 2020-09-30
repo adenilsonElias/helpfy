@@ -40,6 +40,9 @@ function getTabBarVisible(route) {
     if (routeName === 'MyPosts') {        
         return false;
     }
+    if (routeName === 'Notifications') {        
+        return false;
+    }
     return true;
 }
 

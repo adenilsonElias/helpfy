@@ -34,7 +34,7 @@ const Header = () => {
             </View>
             <View style={style.iconContainer}>
                 <TouchableOpacity style={style.icon}
-                onPress={()=> {navigation.navigate('Notification')}}>
+                onPress={()=> {navigation.navigate('Notifications')}}>
                     <Icon name={'bell'} size={30} color={color1}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={style.icon} 
