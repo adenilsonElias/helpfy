@@ -64,15 +64,15 @@ const style = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 12,
     },
-    listTextName: {
+    listTextNormal: {
         fontSize: 20,
         color: color1
     
     },
-    listTextScore: {
+    listTextBold: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: color1
+        color: color1,
     }
 })
 
