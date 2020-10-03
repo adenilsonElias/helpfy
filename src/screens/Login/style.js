@@ -42,7 +42,8 @@ const style = StyleSheet.create({
         paddingLeft: '15%',
         paddingRight: '5%',
         width: '90%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderColor: color1
     },
     inputContainer: {
         marginBottom: 20,

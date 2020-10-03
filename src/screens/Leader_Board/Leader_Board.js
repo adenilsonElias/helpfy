@@ -13,8 +13,8 @@ import InfoBoard from './components/Info_Board/InfoBoard'
 export default LeaderBoard = () => {
     const navigation = useNavigation()
     const auth = useContext(AuthContext);
-    const [user, setUser] = useState({ index: 0, score: 0})
-    const name = useSelector(state => state.userState) 
+    const [position, setPosition] = useState(0)
+    const name = useSelector(state => state.userState)
     const [data, setData] = useState()
     // const [data, setData] = useState([{
     //         id: 1,
@@ -108,14 +108,19 @@ export default LeaderBoard = () => {
 
     useEffect(() => {
         getPeople().then(value => setData(value))
+        console.log(name)
     }, [])
 
-    const userLogged = auth.isLogged ? name.user.name : 'Usuario'
+    const nameUser = auth.isLogged ? name.user.name : 'Anônimo'
+    const profile = auth.isLogged ? 
+        <ProfileBoard score={name.user.score} position={position}/> : null
+
+    const userId = auth.isLogged ? name.user.id : ''
 
     return (
         <View style={style.container}>            
-            <Header title={userLogged}/>
-            <ProfileBoard />
+            <Header title={nameUser}/>
+            {profile}
             <View style={style.bodyContainer}>
                 <TitleBoard />
                 <FlatList
@@ -123,9 +128,12 @@ export default LeaderBoard = () => {
                     keyExtractor={item => item.id.toString()}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => {
+                        if(userId == item.id){
+                            setPosition(index+1)
+                        }
                         return (
                             <InfoBoard index={index} item={item}
-                                userIdLogged={name.user.id}/>
+                                userIdLogged={userId}/>
                         )}
                     }
                 />
