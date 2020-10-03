@@ -49,7 +49,7 @@ export default Rating = () => {
 
     return (
         <View style={style.container}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 {comentarios.length ? comentarios.map((item, index) => {
                     return (
                         <View key={item.id}>

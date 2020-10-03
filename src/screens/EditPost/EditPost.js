@@ -51,7 +51,7 @@ export default Chat_List = () => {
     }, [])
 
     return (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View style={style.container}>
                 <Title title={'Título da Postagem'} />
                 <View style={style.editInfo}>

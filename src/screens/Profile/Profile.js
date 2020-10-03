@@ -22,7 +22,7 @@ export default Profile = () => {
     if (auth.isLogged) {
         return (
             <>
-                <ScrollView style={style.container}>
+                <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
                     <BackgroundTop />
                     <ToolbarMid />
                     <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />

@@ -44,6 +44,7 @@ export default Notifications = () => {
             data={data}
             keyExtractor={id => `${id.id}`}
             style={style.container}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) =>
                 <View style={style.notificationContainer}>
                     <TheAvatar size={'medium'}/>

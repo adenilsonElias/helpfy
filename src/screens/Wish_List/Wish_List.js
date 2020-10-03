@@ -40,6 +40,7 @@ export default WishList = () => {
             <FlatList
                 data={posts}
                 keyExtractor={item => `${item.IdPost}`}
+                showsVerticalScrollIndicator={false}
                 // Padding com mesmo valor do margins container do PostList
                 style={{ paddingTop: 10 }}
                 renderItem={({ item }) => {

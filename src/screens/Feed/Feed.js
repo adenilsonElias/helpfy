@@ -53,7 +53,7 @@ export default Feed = () => {
         <View style={style.container}>
             <Header />
             <View style={style.containerBody}>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <SliderBox images={images}
                         imageLoadingColor={color1}
                         dotColor={color1}

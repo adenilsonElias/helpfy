@@ -72,7 +72,8 @@ export const placeHolderStyle = {
         borderRadius: 5,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: color1
+        borderColor: color1,
+        paddingRight: 10
     },
 }
 

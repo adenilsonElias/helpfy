@@ -80,7 +80,8 @@ const ThePost = () => {
 
     return (
         <SafeAreaView style={style.container}>
-            <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}>
+            <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
+                showsVerticalScrollIndicator={false}>
                 {/* <Image source={{ uri: post.image[0] }}
                     style={style.image} /> */}
                 <PreviewImages image={post.image}/>

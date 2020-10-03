@@ -9,6 +9,7 @@ export default class User {
     state : String
     city : String
     profileImage: String
+    score: Number
 
     constructor(user : User){
         for(let key in user){

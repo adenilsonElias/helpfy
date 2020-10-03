@@ -12,6 +12,7 @@ const Categorys = (props) => {
         <FlatList numColumns={2}
             data={category}
             keyExtractor={item => `${item.id}`}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
                 return (
                     <View style={style.container}>

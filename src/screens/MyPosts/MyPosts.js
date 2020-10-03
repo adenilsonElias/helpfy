@@ -32,6 +32,7 @@ export default MyPosts = () => {
         <View style={style.container}>
             <FlatList
                 data={posts}
+                showsVerticalScrollIndicator={false}
                 keyExtractor={item => `${item.postId}`}
                 // Padding com mesmo valor do margins container do PostList
                 style={{ paddingTop: 10 }}

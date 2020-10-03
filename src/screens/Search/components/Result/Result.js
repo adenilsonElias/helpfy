@@ -18,6 +18,7 @@ const Result = ({ parameter, postsList}) => {
     return (
         <FlatList
             data={ postsList}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
                 <ListItem
                     leftAvatar={{ source: { uri: item.image[0] } }}
