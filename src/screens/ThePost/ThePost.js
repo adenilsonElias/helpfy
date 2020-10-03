@@ -18,6 +18,7 @@ import AuthContext from '../../context/auth_context'
 import Filter from './components/Filter/Filter'
 import PreviewImages from './components/PreviewImages/PreviewImages'
 import Icon from 'react-native-vector-icons/Feather';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 
 const ThePost = () => {
     const navigation = useNavigation()
@@ -31,7 +32,7 @@ const ThePost = () => {
     const [update, setUpdate] = useState(false)
     const [responseField, setResponseField] = useState(-1)
     const [visible, setVisible] = useState(false)
-    const [typeComment, setTypeComment] = useState('')    
+    const [typeComment, setTypeComment] = useState('')
     const parameter = {
         message,
         setMessage,
@@ -40,6 +41,7 @@ const ThePost = () => {
         post,
         setTypeComment,
     }
+
     // Quando overlay ativado, renderiza input para comentario ou resposta
     const toggleOverlay = (type: String = '') => {
         setVisible(!visible)
@@ -57,16 +59,27 @@ const ThePost = () => {
             headerTitleStyle: styleTitle,
             headerRight: () => (
                 <TouchableOpacity style={style.editTouch}
-                    onPress={() => {navigation.navigate('EditPost')}}>
+                    onPress={() => { navigation.navigate('EditPost') }}>
                     <Icon name={'edit'} size={25} color={color1} />
                 </TouchableOpacity>
             )
         })
+
+    }, [])
+
+    useEffect(() => {
+        console.info("UseEfect do listener chamado com sucesso")
+        const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
+            console.info("listener chamado com sucesso")
+            setPost(new Post(documentSnapshot.data()));
+        })
+        return () => sub()
     }, [])
 
     useEffect(() => {
         // @TODO adicionar butao de ordenacao
-        getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
+
+        // getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
     }, [update])
 
     const renderAddComment = auth.isLogged && !visible ?
@@ -83,7 +96,7 @@ const ThePost = () => {
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}>
                 {/* <Image source={{ uri: post.image[0] }}
                     style={style.image} /> */}
-                <PreviewImages image={post.image}/>
+                <PreviewImages image={post.image} />
                 <View style={style.descriptionContainer}>
                     <Text style={style.descriptionText}>{post.description}</Text>
                 </View>

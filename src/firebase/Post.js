@@ -5,20 +5,24 @@ import Post from '../model/post_model';
 
 export async function createPost(post: Post) {
     try {
-        let images = post.image;
-        delete post.image;
-        const postReference = Firestore().collection('Post').doc()
-        let imagesUrl = [];
+        post.status = 1 // deixa o post como disponivel
+        post.donatario = null // sem nenhum donatario
+        let images = post.image; // cria copia das imagens
+        delete post.image; // deleta imagens do objeto post
+        const postReference = Firestore().collection('Post').doc() // coleta referencia do firebase
+        let imagesUrl = []; // array que vai armazenar os url de download das imagens no firebase
 
-        for(let i = 0 ;i < images.length ; i+=1 ){
+        // for para salvar todas as imagens no store
+        for (let i = 0; i < images.length; i += 1) {
             const bucketReference = Storage().ref(`Post/${postReference.id}/${i}`);
             await bucketReference.putFile(images[i]).then(async () => {
                 imagesUrl.push(await bucketReference.getDownloadURL())
             })
         }
+
         await postReference.set({
-            ...post.toJson(), image : imagesUrl
-        })
+            ...post.toJson(), image: imagesUrl
+        }) // salva o post com o url de download das imagens do store
 
     }
     catch (e) {
@@ -46,7 +50,7 @@ interface filter {
     'Livros' | 'Material de Construção' | 'Material de Limpeza' |
     'Material Escolar' | 'Móveis' | 'Roupas',
     author: String,
-    userId : String,
+    userId: String,
     title: String,
 }
 
@@ -167,6 +171,52 @@ export async function removeLike(post: Post, userId: String) {
             likeNumber: Firestore.FieldValue.increment(-1)
         })
     })
+}
+
+export async function upDonationStage(post: Post, donatarioId: String = null, jumpStatus: Number = 0) {
+    if (jumpStatus != 0) {
+        post.donationStatus = jumpStatus
+        post.donatarioId = donatarioId
+    }
+    console.debug(post)
+    try {
+        switch (post.donationStatus) {
+            case 1:
+                // Donatario foi escolhido pelo doador
+                post.donatarioId = donatarioId;
+                post.donatario = Firestore().collection("User").doc(donatarioId)
+                await Firestore().collection('Post').doc(post.IdPost).update(
+                    { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
+                )
+                console.info("Post foi para o estado: Aguardando confimação do donatario (2)")
+                return;
+            case 2:
+                // Donatario aceitou a doação e está esperando receber
+                await Firestore().collection('Post').doc(post.IdPost).update(
+                    { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
+                )
+                console.info("Post foi para o estado: Aguardando receber (3)")
+                return;
+            case 3:
+                // Donatario confirmou que recebeu a doação recebeu a doação
+                await Firestore().collection('Post').doc(post.IdPost).update(
+                    { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
+                )
+                console.info("Post foi para o estado: Doado (4)")
+                return;
+            default:
+                throw `Post com status invalido (Revise o firebase ) \n postId: ${post.IdPost}`
+        }
+    }
+    catch (e){
+        console.error(e)
+        throw "Falha ao alterar estado do post " + post.IdPost
+    }
+    
+}
+
+export function createPostListener(post : Post ,onChange : Function){
+    return Firestore().collection('Post').doc(post.IdPost).onSnapshot(onChange)
 }
 
 /**

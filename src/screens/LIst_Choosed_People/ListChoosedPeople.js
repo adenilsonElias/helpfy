@@ -5,6 +5,7 @@ import { getWantPeople } from '../../firebase/eu_quero';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { color1, color2 } from '../../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
+import { upDonationStage } from '../../firebase/Post';
 
 export default ListChoosedPeople = () => {
     const post = useRoute().params['post']
@@ -19,6 +20,12 @@ export default ListChoosedPeople = () => {
         collect()
     }, [])
 
+    function handleGrantee(idGrantee : String){
+        upDonationStage(post,idGrantee).then(()=>{
+            console.info("estado de doação alterado com sucesso")
+        })
+    }
+
     return (
         <View style={style.container}>
             <FlatList
@@ -31,7 +38,8 @@ export default ListChoosedPeople = () => {
                             <Text style={style.name}>{item.name}</Text>
                         </View>
                         <View style={style.containerButtons}>
-                            <TouchableOpacity style={[style.button, { backgroundColor: choose ? color1 : color2 }]}>
+                            <TouchableOpacity style={[style.button, { backgroundColor: choose ? color1 : color2 }]} 
+                            onPress={() => handleGrantee(item.id)}>
                                 <Text style={[style.text, { color: choose ? color2 : color1 }]}>{chooseText}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ justifyContent: 'center' }}>
