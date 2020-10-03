@@ -31,6 +31,7 @@ export default ListChoosedPeople = () => {
             <FlatList
                 data={userList}
                 keyExtractor={item => item.id}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <View style={style.containerListItem}>
                         <View style={style.ListItem}>

@@ -38,6 +38,7 @@ export default Chat_List = () => {
             <FlatList
                 data={data}
                 keyExtractor={item => item.id}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <TouchableOpacity style={style.containerListItem}
                         onPress={() => {navigation.navigate('TheChat')}}>

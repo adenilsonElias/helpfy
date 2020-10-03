@@ -22,14 +22,14 @@ export default Profile = () => {
     if (auth.isLogged) {
         return (
             <>
-                <ScrollView style={style.container}>
+                <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
                     <BackgroundTop />
                     <ToolbarMid />
                     <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />
                     <ProfileInfoBot title={'E-mail'} content={user.email} icon={'at-sign'} />
-                    <ProfileInfoBot title={'Data de Nascimento'} content={'data-nascimento'} icon2={'cake-variant'} />
-                    <ProfileInfoBot title={'Estado'} content={'estado'} icon={'map-pin'} />
-                    <ProfileInfoBot title={'Cidade'} content={'cidade'} icon={'map-pin'} />
+                    <ProfileInfoBot title={'Data de Nascimento'} content={user.birthDay} icon2={'cake-variant'} />
+                    <ProfileInfoBot title={'Estado'} content={user.state} icon={'map-pin'} />
+                    <ProfileInfoBot title={'Cidade'} content={user.city} icon={'map-pin'} />
                 </ScrollView>
                 <TouchableOpacity style={style.settingButton}
                     onPress={() => { navigation.navigate('Edit') }}>

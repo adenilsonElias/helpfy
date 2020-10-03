@@ -4,13 +4,12 @@ import AuthContext from '../../context/auth_context'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
-import style from './style'
+import style, { placeHolderStyle, placeholderValue } from './style'
 import User from '../../model/user'
 import { color1 } from '../../global/constant/constant'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { getCities, getStates } from '../../api/ibge'
 import RNPickerSelect from 'react-native-picker-select';
-import { placeHolderStyle } from '../Add_Post/style'
 
 // @TODO Conserta waning quando tem uma cidade selecionada e você altera o estado
 
@@ -32,7 +31,10 @@ export default Register = () => {
 	const [textInputRef, setTextInputRef] = useState(0)
 
 	function handleCreateUser() {
-		const user = new User({ email, name, senha: password, birthDay: birth, state, city, profileImage: null })
+		const user = new User({
+			email, name, senha: password, birthDay: birth,
+			state, city, profileImage: null, score: 0
+		})
 		auth.createUser(user)
 	}
 
@@ -51,7 +53,7 @@ export default Register = () => {
 		getStatesFunction()
 	}, [])
 
-	async function getCitiesFunction(sigla : String){
+	async function getCitiesFunction(sigla: String) {
 		setCityList(await getCities(sigla))
 	}
 
@@ -94,56 +96,57 @@ export default Register = () => {
 					underlineColorAndroid='transparent'
 					onChangeText={birth => setBirth(birth)} />
 			</View>
-			<View style={style.inputContainer}>
-				<RNPickerSelect
-					onValueChange={(value,index) => {
+			<RNPickerSelect
+				onValueChange={(value, index) => {
+					setStateUf('')
+					if (value != '') {
+						setStateUf(value)
+						setState(stateList[index - 1].nome);
+						getCitiesFunction(value)
+					}
+					else {
 						setStateUf('')
-						if (value != ''){
-							setStateUf(value)
-							setState(stateList[index - 1].nome);
-							getCitiesFunction(value)
-						}
-						else{
-							setStateUf('')
-							setState('')
-							setCity('')
-							setCityList([])
-						}
-					}}
-					items={stateList.map((e) => {
-						return { label: e.nome, value: e.sigla }
-					})}
-					placeholder={{
-						label: 'Selecione um estado',
-						value: '',
-					}}
-					style={placeHolderStyle}
-					useNativeAndroidPickerStyle={false}
-				/>
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
-				<RNPickerSelect
-					value={stateUF != '' ? city : ''}
-					onValueChange={(value,index) => {
-						if (value != ''){
-							setCity(value)
-						}
-						else{
-							setCity('')
-						}
-					}}
-					items={cityList.map((city) => {
-						return { label: city, value: city }
-					})}
-					placeholder={{
-						label: 'Selecione uma cidade',
-						value: '',
-					}}
-					style={placeHolderStyle}
-					useNativeAndroidPickerStyle={false}
-				/>
-			</View>
+						setState('')
+						setCity('')
+						setCityList([])
+					}
+				}}
+				items={stateList.map((e) => {
+					return { label: e.nome, value: e.sigla }
+				})}
+				placeholder={placeholderValue}
+				// placeholder={{
+				// 	label: 'Selecione um estado',
+				// 	value: '',
+				// }}
+				style={placeHolderStyle}
+				useNativeAndroidPickerStyle={false}
+				Icon={() => {
+					return(
+						<Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
+					)
+				}}
+			/>
+			<RNPickerSelect
+				value={stateUF != '' ? city : ''}
+				onValueChange={(value, index) => {
+					if (value != '') {
+						setCity(value)
+					}
+					else {
+						setCity('')
+					}
+				}}
+				items={cityList.map((city) => {
+					return { label: city, value: city }
+				})}
+				placeholder={placeholderValue}
+				style={placeHolderStyle}
+				useNativeAndroidPickerStyle={false}
+				Icon={() => {
+					return <Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
+				}}
+			/>
 			<View style={style.inputContainer}>
 				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
 				<TextInput style={[style.input, { paddingRight: '15%' }]}
@@ -194,7 +197,7 @@ export default Register = () => {
 					</TouchableOpacity>
 				</View>
 			</View>
-			{/* </View> */}
-		</KeyboardAwareScrollView>
+			{/* </View> */ }
+		</KeyboardAwareScrollView >
 	)
 }

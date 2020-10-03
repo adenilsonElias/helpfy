@@ -37,6 +37,7 @@ export default LikeList = () => {
             <Header title={'Lista de Curtidas'} icon={'thumbs-up'} />
             <FlatList
                 data={posts}
+                showsVerticalScrollIndicator={false}
                 keyExtractor={item => `${item.IdPost}`}
                 // Padding com mesmo valor do margins container do PostList
                 style={{ paddingTop: 10 }}

@@ -6,13 +6,15 @@ import style from './style'
 import Header from '../../global/components/Header/Header'
 import { useSelector } from 'react-redux';
 import { getPeople } from '../../firebase/Gamification'
-import { Value } from 'react-native-reanimated';
+import ProfileBoard from './components/Profile_Boards/ProfileBoards'
+import TitleBoard from './components/Title_Board/TitleBoard'
+import InfoBoard from './components/Info_Board/InfoBoard'
 
 export default LeaderBoard = () => {
     const navigation = useNavigation()
     const auth = useContext(AuthContext);
-    const [user, setUser] = useState({ index: 0, score: 0})
-    const name = useSelector(state => state.userState) 
+    const [position, setPosition] = useState(0)
+    const name = useSelector(state => state.userState)
     const [data, setData] = useState()
     // const [data, setData] = useState([{
     //         id: 1,
@@ -106,46 +108,32 @@ export default LeaderBoard = () => {
 
     useEffect(() => {
         getPeople().then(value => setData(value))
+        console.log(name)
     }, [])
 
-    const userLogged = auth.isLogged ? name.user.name : 'Usuario'
+    const nameUser = auth.isLogged ? name.user.name : 'Anônimo'
+    const profile = auth.isLogged ? 
+        <ProfileBoard score={name.user.score} position={position}/> : null
+
+    const userId = auth.isLogged ? name.user.id : ''
 
     return (
         <View style={style.container}>            
-            <Header title={userLogged}/>
-            <View style={style.scoreContainer}>
-                <View style={style.scoreTextContainer}>
-                    <Text style={style.scoreText}>{user.index}</Text>
-                </View>
-                <View style={style.imageProfileContainer}>
-                    <Image source={require('../../assets/imgs/icon.png')} style={style.imageProfile} />
-                </View>
-                <View style={style.scoreTextContainer}>
-                    <Text style={style.scoreText}>{user.score} pts</Text>
-                </View>
-            </View>
+            <Header title={nameUser}/>
+            {profile}
             <View style={style.bodyContainer}>
-                <View style={style.bodyTitle}>
-                    <Text style={style.textBodyTitle}>Nº</Text>
-                    <Text style={style.textBodyTitle}>Nome</Text>
-                    <Text style={style.textBodyTitle}>Pts</Text>
-                </View>
+                <TitleBoard />
                 <FlatList
                     data={data}
                     keyExtractor={item => item.id.toString()}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => {
-                        //Style diferencial para o usuario Logado
-                        const styleUser = item.id == name.user.id ? 
-                            [style.listTextBold, { fontStyle: "italic" }] :
-                            style.listTextNormal
-
+                        if(userId == item.id){
+                            setPosition(index+1)
+                        }
                         return (
-                            <View style={style.containerListItem}>
-                                <Text style={styleUser}>{index + 1}</Text>
-                                <Text style={styleUser}>{item.name}</Text>
-                                <Text style={style.listTextBold}>{item.highScore}</Text>
-                            </View>
+                            <InfoBoard index={index} item={item}
+                                userIdLogged={userId}/>
                         )}
                     }
                 />
