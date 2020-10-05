@@ -178,7 +178,6 @@ export async function upDonationStage(post: Post, donatarioId: String = null, ju
         post.donationStatus = jumpStatus
         post.donatarioId = donatarioId
     }
-    console.debug(post)
     try {
         switch (post.donationStatus) {
             case 1:

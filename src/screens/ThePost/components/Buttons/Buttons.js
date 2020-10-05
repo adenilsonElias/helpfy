@@ -81,48 +81,49 @@ const Buttons = ({ post, setPost }) => {
     function handlePostStatus() {
         switch (post.donationStatus) {
             case 1:
-                return <Text>Post em estado 1</Text>
+                //usuario nao esta logado
+                if(!user){
+                    return
+                }
+                //usuario logado eh dono do post
+                if (user && post.userId == user.id) {
+                    return (
+                        <View style={style.container}>
+                            <TouchableOpacity style={style.buttonList}
+                                onPress={() => navigation.navigate('ListChoosedPeople', {
+                                    post: post
+                                })}>
+                                <Text style={style.buttonText}>Lista de Pessoas</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
+                //usuario logadao e nao eh dono do post
+                return (
+                    <View style={[style.container, style.container2]}>
+                        <TouchableOpacity onPress={handleLikes}
+                            disabled={loadingLike} >
+                            <Icon name={'heart'} size={40} color={colorLike} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[style.wantButton, { backgroundColor: notWant ? color2 : color1 }]}
+                            onPress={handleWants} disabled={loadingWant}>
+                            <Text style={[style.buttonText, { color: notWant ? color1 : color2 }]}>Eu quero</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
             case 2:
-        return <Text>Post em estado 2 {post.donatarioId}</Text>
+                return <Text>{post.donatarioId}</Text>
             case 3:
                 return <Text>Post em estado 3</Text>
-            case 4:
-                return <Text>Post em estado 4</Text>
             default:
-                return <Text>Post sem estado</Text>
+                //@TODO Lembrar de remover antes de finalizar a aplicacao
+                return <Text style={{ color: 'red'}}>Se caiu nessa condicao deu ruim</Text>
         }
     }
-
-    const buttom = user && post.userId == user.id ?
-        <View style={style.container}>
-            {
-                post.donationStatus == 1 ? <TouchableOpacity style={style.buttonList}
-                onPress={() => navigation.navigate('ListChoosedPeople', {
-                    post: post
-                })}>
-                <Text style={style.buttonText}>Lista de Pessoas</Text>
-            </TouchableOpacity>
-            : 
-            <Text>{post.donatarioRef}{post.donatarioId}</Text>
-            } 
-        </View> :
-        <View style={[style.container, style.container2]}>
-            <TouchableOpacity onPress={handleLikes}
-                disabled={loadingLike} >
-                <Icon name={'heart'} size={40} color={colorLike} />
-            </TouchableOpacity>
-            <TouchableOpacity style={[style.wantButton, { backgroundColor: notWant ? color2 : color1 }]}
-                onPress={handleWants} disabled={loadingWant}>
-                <Text style={[style.buttonText, { color: notWant ? color1 : color2 }]}>Eu quero</Text>
-            </TouchableOpacity>
-        </View>
-
-    const isLogged = auth.isLogged ? buttom : null
 
     return (
         <View>
             {handlePostStatus()}
-            {isLogged}
         </View>
     )
 }

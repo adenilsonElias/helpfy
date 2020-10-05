@@ -40,7 +40,10 @@ export default AddPost = () => {
             author: user.name,
             userId: user.id,
             emailPost: user.email,
-            timePost: Date.now()
+            timePost: Date.now(),
+            donatarioId: null,
+            donatarioRef: null,
+            donationStatus: 1
         })
         createPost(newPost).then((response) => {
             console.info('Post criado com sucesso')
