@@ -8,6 +8,7 @@ import { isLiked, addLike, removeLike, getPost } from '../../../../firebase/Post
 import { color4, color1, color2 } from '../../../../global/constant/constant';
 import { addIWant, removeIWant, isWanted } from '../../../../firebase/eu_quero';
 import { useNavigation } from '@react-navigation/native';
+import Post from '../../../../model/post_model';
 
 const Buttons = ({ post, setPost }) => {
     const auth = useContext(AuthContext)
@@ -19,10 +20,10 @@ const Buttons = ({ post, setPost }) => {
     const user: User = useSelector(state => state.userState.user)
     const navigation = useNavigation()
 
-    useEffect(()=>{
+    useEffect(() => {
         setLoadingLike(false)
         setLoadingWant(false)
-    },[])
+    }, [])
 
     useEffect(() => {
         if (auth.isLogged) {
@@ -77,23 +78,42 @@ const Buttons = ({ post, setPost }) => {
         }
     }
 
+    function handlePostStatus() {
+        switch (post.donationStatus) {
+            case 1:
+                return <Text>Post em estado 1</Text>
+            case 2:
+        return <Text>Post em estado 2 {post.donatarioId}</Text>
+            case 3:
+                return <Text>Post em estado 3</Text>
+            case 4:
+                return <Text>Post em estado 4</Text>
+            default:
+                return <Text>Post sem estado</Text>
+        }
+    }
+
     const buttom = user && post.userId == user.id ?
         <View style={style.container}>
-            <TouchableOpacity style={style.buttonList}
-                onPress={() => navigation.navigate('ListChoosedPeople',{
+            {
+                post.donationStatus == 1 ? <TouchableOpacity style={style.buttonList}
+                onPress={() => navigation.navigate('ListChoosedPeople', {
                     post: post
                 })}>
                 <Text style={style.buttonText}>Lista de Pessoas</Text>
             </TouchableOpacity>
+            : 
+            <Text>{post.donatarioRef}{post.donatarioId}</Text>
+            } 
         </View> :
         <View style={[style.container, style.container2]}>
             <TouchableOpacity onPress={handleLikes}
                 disabled={loadingLike} >
                 <Icon name={'heart'} size={40} color={colorLike} />
             </TouchableOpacity>
-            <TouchableOpacity style={[style.wantButton, {backgroundColor: notWant ? color2 : color1}]}
-                onPress={ handleWants } disabled={loadingWant}>
-                <Text style={[style.buttonText, {color : notWant ? color1 : color2}]}>Eu quero</Text>
+            <TouchableOpacity style={[style.wantButton, { backgroundColor: notWant ? color2 : color1 }]}
+                onPress={handleWants} disabled={loadingWant}>
+                <Text style={[style.buttonText, { color: notWant ? color1 : color2 }]}>Eu quero</Text>
             </TouchableOpacity>
         </View>
 
@@ -101,6 +121,7 @@ const Buttons = ({ post, setPost }) => {
 
     return (
         <View>
+            {handlePostStatus()}
             {isLogged}
         </View>
     )

@@ -20,6 +20,9 @@ import PreviewImages from './components/PreviewImages/PreviewImages'
 import Icon from 'react-native-vector-icons/Feather';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 
+// @TODO - corrigir warning Non-serializable values were found in the navigation state. Check:
+// Tela Inicial > Home > ThePost > params.post.donatario._firestore._app._deleteApp (Function)
+
 const ThePost = () => {
     const navigation = useNavigation()
     const auth = useContext(AuthContext)
@@ -79,7 +82,7 @@ const ThePost = () => {
     useEffect(() => {
         // @TODO adicionar butao de ordenacao
 
-        // getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
+        getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
     }, [update])
 
     const renderAddComment = auth.isLogged && !visible ?
@@ -95,8 +98,6 @@ const ThePost = () => {
         <SafeAreaView style={style.container}>
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
                 showsVerticalScrollIndicator={false}>
-                {/* <Image source={{ uri: post.image[0] }}
-                    style={style.image} /> */}
                 <PreviewImages image={post.image} />
                 <View style={style.descriptionContainer}>
                     <Text style={style.descriptionText}>{post.description}</Text>
