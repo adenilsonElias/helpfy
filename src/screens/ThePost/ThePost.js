@@ -19,6 +19,7 @@ import Filter from './components/Filter/Filter'
 import PreviewImages from './components/PreviewImages/PreviewImages'
 import Icon from 'react-native-vector-icons/Feather';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
+import Description from './components/Description/Description'
 
 // @TODO - corrigir warning Non-serializable values were found in the navigation state. Check:
 // Tela Inicial > Home > ThePost > params.post.donatario._firestore._app._deleteApp (Function)
@@ -98,9 +99,7 @@ const ThePost = () => {
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
                 showsVerticalScrollIndicator={false}>
                 <PreviewImages image={post.image} />
-                <View style={style.descriptionContainer}>
-                    <Text style={style.descriptionText}>{post.description}</Text>
-                </View>
+                <Description post={post}/>
                 <Buttons post={post} setPost={setPost} />
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>

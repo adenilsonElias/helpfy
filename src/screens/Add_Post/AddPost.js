@@ -45,7 +45,7 @@ export default AddPost = () => {
             donatarioRef: null,
             donationStatus: 1
         })
-        createPost(newPost).then((response) => {
+        createPost(newPost, user.id).then((response) => {
             console.info('Post criado com sucesso')
         });
         navigation.navigate('Feed')

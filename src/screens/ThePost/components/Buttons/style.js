@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { color3, color2, borderRadius, color1 } from '../../../../global/constant/constant'
+import { color3, color2, borderRadius, color1, color4 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {
@@ -35,6 +35,14 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: color1
     },
+    choosedPeopleText: {
+        color: color4,
+        fontStyle: "italic",
+    },
+    choosedPeopleConfirmText:{
+        color: color1,
+        fontStyle: "italic",
+    }
 })
 
 export default style

@@ -112,9 +112,19 @@ const Buttons = ({ post, setPost }) => {
                     </View>
                 )
             case 2:
-                return <Text>{post.donatarioId}</Text>
+                return(
+                    <View style={[style.container, { flexDirection: 'column' }]}>
+                        <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                        <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
+                    </View>
+                )
             case 3:
-                return <Text>Post em estado 3</Text>
+                return(
+                    <View style={[style.container, { flexDirection: 'column' }]}>
+                        <Text style={style.choosedPeopleConfirmText}>{post.donatarioId}</Text>
+                        <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
+                    </View>
+                )
             default:
                 //@TODO Lembrar de remover antes de finalizar a aplicacao
                 return <Text style={{ color: 'red'}}>Se caiu nessa condicao deu ruim</Text>

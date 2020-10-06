@@ -1,9 +1,9 @@
 import Firestore from '@react-native-firebase/firestore'
 import Storage from '@react-native-firebase/storage'
 import Post from '../model/post_model';
+import { addPoint } from './Gamification'
 
-
-export async function createPost(post: Post) {
+export async function createPost(post: Post ,userId: String) {
     try {
         let images = post.image; // cria copia das imagens
         delete post.image; // deleta imagens do objeto post
@@ -22,6 +22,7 @@ export async function createPost(post: Post) {
             ...post.toJson(), image: imagesUrl
         }) // salva o post com o url de download das imagens do store
 
+        addPoint(userId)
     }
     catch (e) {
         console.error(e)

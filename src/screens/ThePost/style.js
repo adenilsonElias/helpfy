@@ -15,15 +15,6 @@ const style = StyleSheet.create({
         resizeMode: "contain",
         backgroundColor: color2,
     },
-    descriptionContainer: {
-        flex: 1,
-        padding: 10,
-    },
-    descriptionText: {
-        fontSize: 15,
-        textAlign: "justify",
-        color: color4
-    },
     comentarioTitleContainer:{
         flexDirection: 'row',
         justifyContent: 'space-between',
