@@ -4,22 +4,21 @@ import { createPostListener } from "../firebase/Post"
 
 class Post {
 
-    author: String
-    comments: Comentario[]
-    description: String
-    emailPost: String
-    image: String[]
-    postDonated: String
-    timePost: Date
-    title: String
-    userId: String
-    IdPost: String
-    category: String
-    commentNumber: Number
-    likeNumber: Number
-    donationStatus: Number
-    donatarioRef: FirebaseFirestoreTypes.DocumentReference
-    donatarioId: String
+    author: String = null
+    description: String = null
+    emailPost: String = null
+    image: String[] = null
+    timePost: Date = null
+    title: String = null
+    userId: String = null
+    IdPost: String = null
+    category: String = null
+    commentNumber: Number = 0
+    likeNumber: Number = 0
+    donationStatus: Number = 1
+    donatarioRef: FirebaseFirestoreTypes.DocumentReference = null
+    donatarioId: String = null
+    wantNumber :Number = 0
 
     constructor(postJSON: Post) {
         for (let key in postJSON) {
@@ -35,7 +34,9 @@ class Post {
 
     toJson() {
         return Object.getOwnPropertyNames(this).reduce((json, index) => {
-            json[index] = this[index]
+            if(index != 'IdPost'){
+                json[index] = this[index]
+            }
             return json
         }, {})
     }

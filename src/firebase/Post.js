@@ -5,8 +5,6 @@ import Post from '../model/post_model';
 
 export async function createPost(post: Post) {
     try {
-        post.status = 1 // deixa o post como disponivel
-        post.donatario = null // sem nenhum donatario
         let images = post.image; // cria copia das imagens
         delete post.image; // deleta imagens do objeto post
         const postReference = Firestore().collection('Post').doc() // coleta referencia do firebase
@@ -178,7 +176,6 @@ export async function upDonationStage(post: Post, donatarioId: String = null, ju
         post.donationStatus = jumpStatus
         post.donatarioId = donatarioId
     }
-    delete post.IdPost
     try {
         switch (post.donationStatus) {
             case 1:
