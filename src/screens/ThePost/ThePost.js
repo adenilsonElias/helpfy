@@ -71,7 +71,6 @@ const ThePost = () => {
     }, [])
 
     useEffect(() => {
-        console.info("UseEfect do listener chamado com sucesso")
         const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
             console.info("listener chamado com sucesso")
             setPost(new Post({...documentSnapshot.data(), IdPost: documentSnapshot.id}));
