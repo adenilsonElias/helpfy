@@ -37,6 +37,7 @@ const ThePost = () => {
     const [responseField, setResponseField] = useState(-1)
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
+    const [author,setAuthor] = useState()
     const parameter = {
         message,
         setMessage,
@@ -68,7 +69,9 @@ const ThePost = () => {
                 </TouchableOpacity>
             )
         })
-
+        post.getUser().then((user) =>{
+            setAuthor(user.name)
+        })
     }, [])
 
     useEffect(() => {
@@ -99,7 +102,7 @@ const ThePost = () => {
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
                 showsVerticalScrollIndicator={false}>
                 <PreviewImages image={post.image} />
-                <Description post={post}/>
+                <Description post={post} authorName={author}/>
                 <Buttons post={post} setPost={setPost} />
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>

@@ -1,10 +1,11 @@
 import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore"
+import { getUserByRef } from "../firebase/Authentication"
 import { createPostListener } from "../firebase/Post"
 
 
 class Post {
 
-    author: String = null
+    authorRef: FirebaseFirestoreTypes.DocumentReference = null
     description: String = null
     emailPost: String = null
     image: String[] = null
@@ -39,6 +40,10 @@ class Post {
             }
             return json
         }, {})
+    }
+
+    async getUser(){
+        return await getUserByRef(this.authorRef)
     }
 
     // retorna a função para desligar o listener e não sobrecarregar a memoria do celular

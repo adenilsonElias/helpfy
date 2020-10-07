@@ -17,7 +17,7 @@ export async function createPost(post: Post ,userId: String) {
                 imagesUrl.push(await bucketReference.getDownloadURL())
             })
         }
-
+        post.authorRef = Firestore().collection('User').doc(userId)
         await postReference.set({
             ...post.toJson(), image: imagesUrl
         }) // salva o post com o url de download das imagens do store
@@ -29,7 +29,6 @@ export async function createPost(post: Post ,userId: String) {
         throw "Erro ao criar post"
     }
 }
-
 export async function getPost(id: String) {
     try {
         let post = await Firestore().collection('Post').doc(id).get();

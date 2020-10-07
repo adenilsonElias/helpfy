@@ -1,7 +1,7 @@
 // @flow
 
-import auth from '@react-native-firebase/auth'
-import firestore from '@react-native-firebase/firestore'
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import User from '../model/user';
 
 const authentication = auth();
@@ -68,5 +68,10 @@ export async function MakeLogout(){
 
 export async function getUser(id : String){
     const user = await firestore().collection('User').doc(id).get()
+    return new User(user.data())
+}
+
+export async function getUserByRef(ref : FirebaseFirestoreTypes.DocumentReference){
+    const user = await ref.get();
     return new User(user.data())
 }

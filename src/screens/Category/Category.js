@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../global/components/Header/Header'
 import { View, FlatList, TouchableOpacity, Text, Image } from 'react-native'
 import style from './style'
-import Post from '../../model/post_model'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { color1, color4 } from '../../global/constant/constant'
 import { HeaderBackButton } from '@react-navigation/stack'
@@ -10,6 +8,8 @@ import HeaderPost from './Header_Post/Header_Post'
 import Icon from 'react-native-vector-icons/Feather';
 import { getPostList } from '../../firebase/Post'
 import Filter from './Filter/Filter'
+
+// @TODO Arrumar o nome do author
 
 export default Category = (props) => {
 
