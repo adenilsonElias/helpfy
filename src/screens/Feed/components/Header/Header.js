@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import style from './style'
 import { color1 } from '../../../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native';
+import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 
 /**
  * # Cabeçalho
@@ -26,10 +27,10 @@ const Header = () => {
     return (
         <View style={style.container}>
             <View style={style.infoContainer}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ marginRight: 20 }}>
                     <Icon name={'menu'} size={30} color={color1}/>
                 </TouchableOpacity>
-                {avatar}                
+                <TheAvatar size={40}/>
                 <Text style={style.title}>Helpfy</Text>
             </View>
             <View style={style.iconContainer}>

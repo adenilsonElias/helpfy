@@ -31,21 +31,3 @@ export async function addPoint(userId: String) {
         throw "Erro ao adicionar pontos"
     }
 }
-
-export async function getScoreBar(userId){
-    try {
-        const userRef = await (await Firestore().collection('User').doc(userId).get()).data()        
-        let score = userRef.score        
-        let values = [1]
-        values[0] = (score % 10 ) * 0.1
-
-        if(Math.floor(score / 10) !== 0){
-            values[1] = Math.floor(score / 10) 
-        } else {
-            values[1] = 1
-        }
-        return values
-    } catch(e) {
-        console.log(e)
-    }    
-}

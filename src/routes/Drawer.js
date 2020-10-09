@@ -19,6 +19,20 @@ const Drawer = createDrawerNavigator();
 export default DrawerNavigation = () => {
     const auth = useContext(AuthContext);
     const user = useSelector(state => state.userState.user)
+    const [level, setLevel] = useState(0)
+    const [progresso, setProgresso] = useState(0)
+
+    useEffect(() => {
+        if(user){
+            let score = user.score        
+            setProgresso((score % 10 ) * 0.1)
+            if(Math.floor(score / 10) !== 0){
+                setLevel(Math.floor(score / 10))
+            } else {
+                setLevel(1)
+            }
+        }
+    }, [user])
 
     const condition1 = auth.isLogged ?
         <Drawer.Screen name="Lista de Desejos" component={WishList}
@@ -47,6 +61,8 @@ export default DrawerNavigation = () => {
     return (
         <Drawer.Navigator drawerContent={DrawerCustom} drawerContentOptions={{
             user,
+            level,
+            progresso,
             activeTintColor: color1,
             itemStyle: {
                 width: '100%',

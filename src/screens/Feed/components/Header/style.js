@@ -15,7 +15,7 @@ const style = StyleSheet.create({
         // backgroundColor: 'blue',
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 10,        
+        paddingHorizontal: 10,
     },
     iconContainer: {        
         flexDirection: 'row',
@@ -31,13 +31,14 @@ const style = StyleSheet.create({
         marginHorizontal: 20,
         backgroundColor: color2
     },
-    title: {        
+    title: {
         fontFamily: 'shelter',        
         fontSize: 28,
         color: color1,
+        marginHorizontal: 20
     },
     icon: {
-        paddingHorizontal: 10              
+        paddingHorizontal: 10,
     }
 })
 

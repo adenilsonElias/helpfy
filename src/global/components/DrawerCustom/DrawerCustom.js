@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, Dimensions, ImageBackground, Image } from 'react-native'
 import { DrawerItemList } from '@react-navigation/drawer';
 import * as Progress from 'react-native-progress';
@@ -13,13 +13,15 @@ const DrawerCustom = ({ ...props }) => {
             <View style={style.profileContainer}>
                 <View>
                     <TheAvatar size={120}/>
-                    <Badge badgeStyle={style.badge} value={1} textStyle={style.level}
+                    <Badge badgeStyle={style.badge} 
+                        value={props.level} 
+                        textStyle={style.level}
                         containerStyle={style.badgeContainer}/>
                 </View>
                 <Text style={style.name}
                     numberOfLines={2}> {props.user && props.user.name ? props.user.name : "Anônimo"} </Text>
                 <View style={style.perfilContainer}>
-                    <Progress.Bar progress={0.3}
+                    <Progress.Bar progress={props.progresso}
                         // borderColor={color2}
                         color={color1}
                         borderRadius={0}
