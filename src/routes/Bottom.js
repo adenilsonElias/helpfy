@@ -62,7 +62,7 @@ export function Bottomnavigation({ route }) {
             <Tab.Screen name="Profile" component={StackProfile}
                 options={({ route }) => ({
                     tabBarVisible: getTabBarVisible(route),
-                tabBarIcon: ({ color }) => <Icon name="user" size={26} color={color} /> })
+                    tabBarIcon: ({ color }) => <Icon name="user" size={26} color={color} /> })
                 }
             />
             <Tab.Screen name="Chat" component={StackChat}
