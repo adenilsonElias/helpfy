@@ -14,20 +14,17 @@ const DrawerCustom = ({ ...props }) => {
                     <TheAvatar size={120}/>
                     {/* O level maximo de 5 digitos */}
                     <View style={style.badgeContainer}>
-                        <Text adjustsFontSizeToFit={true}
-                            allowFontScaling={true}
+                        <Text adjustsFontSizeToFit={true} allowFontScaling={true}
                             style={style.level}>{props.level}</Text>
                     </View>
                 </View>
-                <Text style={style.name}
-                    numberOfLines={2}> {props.user && props.user.name ? props.user.name : "Anônimo"} </Text>
+                <Text style={style.name} adjustsFontSizeToFit={true}
+                    numberOfLines={1}>{props.user && props.user.name ? props.user.name : "Anônimo"}</Text>
                 <View style={style.perfilContainer}>
                     <Progress.Bar progress={props.progresso}
                         // borderColor={color2}
-                        color={color1}
-                        borderRadius={0}
-                        height={10}
-                        width={Dimensions.get('window').width * 3 / 4.5} />
+                        color={color1} borderRadius={0}
+                        height={10} width={Dimensions.get('window').width * 3 / 4.5} />
                 </View>
             </View>
 

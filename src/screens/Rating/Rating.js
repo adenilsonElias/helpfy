@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import Comments from './components/Comments_Profile/Comments';
 import style from './style'
+import AddComments from './components/Add_Comments/Add_Comments'
 
 export default Rating = () => {
     const [comentarios, setComentarios] = useState([
@@ -34,7 +35,7 @@ export default Rating = () => {
             "creatorId": "Aem3JvZJn7OkehMcMKgCkdWtRna2",
             "depth": 0,
             "id": "er8fI997DR9tasdasUwSeAUS8",
-            "message": "teste comentariosdjfklsjdfhsjkdfhsjkdhfkshdfjkshdfjksdhsdfjh",
+            "message": "teste comentariosdjfklsjdfasldklakdl;akdka;lskd;laskl;askd;kkajhsdjkahsjkdhajksdhasjhdajkshdjkhsjkdfhsjkdhfkshdfjkshdfjksdhsdfjh",
             "timeCreated": 1601262710142
         },
         {
@@ -53,14 +54,12 @@ export default Rating = () => {
                 {comentarios.length ? comentarios.map((item, index) => {
                     return (
                         <View key={item.id}>
-                            <Comments
-                                comentario={item}
-                                index={index}
-                            />
+                            <Comments comentario={item} />
                         </View>
                     )
                 }) : null}
             </ScrollView>
+            <AddComments />
         </View>
     )
 }
