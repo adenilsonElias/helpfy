@@ -114,7 +114,7 @@ const Buttons = ({ post, setPost }) => {
                 )
             case 2:
                 //Donatario e Doador visualizam o botao de cancelar
-                if(user && (user.id == post.authorRef.id || user.id == post.donatarioId)) {
+                if(user && (user.id == post.authorRef.id)) {
                     return(
                         <View style={[style.container, { justifyContent: "space-around" }]}>
                             <View style={style.infoContainer}>
@@ -123,7 +123,22 @@ const Buttons = ({ post, setPost }) => {
                             </View>                        
                             <TouchableOpacity onPress={() => {}}>
                                 <Icon2 name={'x'} size={40} color={color1} />
-                            </TouchableOpacity>                        
+                            </TouchableOpacity>
+                        </View>
+                    )
+                } else if(user && (user.id == post.donatarioId)) {
+                    return(
+                        <View style={[style.container, { justifyContent: "space-around" }]}>
+                            <View style={style.infoContainer}>
+                                <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                                <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
+                            </View>                        
+                            <TouchableOpacity onPress={() => {}}>
+                                <Icon2 name={'x'} size={40} color={color1} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {}}>
+                                <Icon2 name={'check'} size={40} color={color1} />
+                            </TouchableOpacity>   
                         </View>
                     )
                 } else {
