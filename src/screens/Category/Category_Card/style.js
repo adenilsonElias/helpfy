@@ -4,11 +4,6 @@ import { color1, color2, fontTitle, color4 } from '../../../global/constant/cons
 // @TODO corrigir este style; eu apenas copiei e colei de outro lugar 
 
 const style = StyleSheet.create({
-    container: {
-        // padding: '3%'        
-        flex: 1,
-        backgroundColor: color2,
-    },  
     postContainer: {
         justifyContent: "space-between",
         alignItems: 'center',
@@ -47,9 +42,9 @@ const style = StyleSheet.create({
     locationContainer:{
         width: '100%',        
         paddingHorizontal: 10,
-        paddingBottom: 10,
+        paddingBottom: 20,
         flexDirection: 'row',        
-        justifyContent: 'flex-start',
+        alignItems: 'center',
         alignContent:"center"
     },
     textLocation: {
@@ -57,7 +52,6 @@ const style = StyleSheet.create({
         fontSize: 15,        
 		textAlignVertical: "center",
         textAlign: "left",
-        marginBottom: 10,
         paddingHorizontal: 10
     }    
 })

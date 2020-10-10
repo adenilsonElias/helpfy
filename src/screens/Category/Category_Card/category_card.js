@@ -38,7 +38,7 @@ export default CategoryCard = ({post} : Props) =>{
             </View>
             <View style={style.locationContainer}>
                 <Icon name={'map-pin'} size={20} color={color4}/>
-        <Text style={style.textLocation}>{author.city} - {author.state}</Text>
+                <Text style={style.textLocation}>{author.city} - {author.state}</Text>
             </View>
         </TouchableOpacity>
     )

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../../../context/auth_context'
 import { TouchableOpacity, View, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/Feather';
 import style from './style';
 import { useSelector } from 'react-redux';
 import { isLiked, addLike, removeLike, getPost } from '../../../../firebase/Post';
@@ -112,12 +113,29 @@ const Buttons = ({ post, setPost }) => {
                     </View>
                 )
             case 2:
-                return(
-                    <View style={[style.container, { flexDirection: 'column' }]}>
-                        <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
-                        <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
-                    </View>
-                )
+                //Donatario e Doador visualizam o botao de cancelar
+                if(user && (user.id == post.authorRef.id || user.id == post.donatarioId)) {
+                    return(
+                        <View style={[style.container, { justifyContent: "space-around" }]}>
+                            <View style={style.infoContainer}>
+                                <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                                <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
+                            </View>                        
+                            <TouchableOpacity onPress={() => {}}>
+                                <Icon2 name={'x'} size={40} color={color1} />
+                            </TouchableOpacity>                        
+                        </View>
+                    )
+                } else {
+                    return(
+                        <View style={[style.container, { justifyContent: "space-around" }]}>
+                            <View style={style.infoContainer}>
+                                <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                                <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
+                            </View>                     
+                        </View>
+                    )
+                }
             case 3:
                 return(
                     <View style={[style.container, { flexDirection: 'column' }]}>

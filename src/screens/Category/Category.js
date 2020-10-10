@@ -9,7 +9,6 @@ import Filter from './Filter/Filter'
 import CategoryCard from './Category_Card/category_card'
 
 export default Category = (props) => {
-
     const navigation = useNavigation()
     const category = useRoute().params.title
     const [posts, setPosts] = useState([])

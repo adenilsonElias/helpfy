@@ -28,19 +28,19 @@ const style = StyleSheet.create({
     badgeContainer: {
         position: 'absolute',
         right: 40,
-        top: 100
-    },
-    badge: {
+        top: 100,
         backgroundColor: color2,
         height: 40,
         width: 40,
         borderRadius: 20,
-        borderBottomWidth: 1,
-        borderColor: color1
+        borderWidth: 1,
+        borderColor: color1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     level: {
         color: color1,
-        fontSize: 20
+        fontSize: 20,
     }
 })
 

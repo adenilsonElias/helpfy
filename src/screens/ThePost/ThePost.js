@@ -62,12 +62,16 @@ const ThePost = () => {
             headerTintColor: color1,
             headerTitleAlign: 'center',
             headerTitleStyle: styleTitle,
-            headerRight: () => (
-                <TouchableOpacity style={style.editTouch}
-                    onPress={() => { navigation.navigate('AddPost', { post: post }) }}>
-                    <Icon name={'edit'} size={25} color={color1} />
-                </TouchableOpacity>
-            )
+            headerRight: () => {
+                if(user && user.id == post.authorRef.id){
+                    return(
+                        <TouchableOpacity style={style.editTouch}
+                            onPress={() => { navigation.navigate('AddPost', { post: post }) }}>
+                            <Icon name={'edit'} size={25} color={color1} />
+                        </TouchableOpacity>
+                    )
+                }
+            }
         })
         post.getUser().then((user) =>{
             setAuthor(user.name)

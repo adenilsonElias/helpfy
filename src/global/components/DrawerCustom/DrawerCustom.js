@@ -5,7 +5,6 @@ import * as Progress from 'react-native-progress';
 import style from './style'
 import { color2, color1 } from '../../constant/constant'
 import TheAvatar from '../Avatar/The_Avatar'
-import { Badge } from 'react-native-elements'
 
 const DrawerCustom = ({ ...props }) => {
     return (
@@ -13,10 +12,12 @@ const DrawerCustom = ({ ...props }) => {
             <View style={style.profileContainer}>
                 <View>
                     <TheAvatar size={120}/>
-                    <Badge badgeStyle={style.badge} 
-                        value={props.level} 
-                        textStyle={style.level}
-                        containerStyle={style.badgeContainer}/>
+                    {/* O level maximo de 5 digitos */}
+                    <View style={style.badgeContainer}>
+                        <Text adjustsFontSizeToFit={true}
+                            allowFontScaling={true}
+                            style={style.level}>{props.level}</Text>
+                    </View>
                 </View>
                 <Text style={style.name}
                     numberOfLines={2}> {props.user && props.user.name ? props.user.name : "Anônimo"} </Text>

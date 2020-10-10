@@ -35,6 +35,12 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: color1
     },
+    infoContainer: {
+        flexDirection: 'column',
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     choosedPeopleText: {
         color: color4,
         fontStyle: "italic",
