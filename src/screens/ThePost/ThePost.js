@@ -64,7 +64,7 @@ const ThePost = () => {
             headerTitleStyle: styleTitle,
             headerRight: () => (
                 <TouchableOpacity style={style.editTouch}
-                    onPress={() => { navigation.navigate('EditPost') }}>
+                    onPress={() => { navigation.navigate('AddPost', { post: post }) }}>
                     <Icon name={'edit'} size={25} color={color1} />
                 </TouchableOpacity>
             )

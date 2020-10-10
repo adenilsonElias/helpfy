@@ -32,7 +32,7 @@ export default Profile = () => {
                     <ProfileInfoBot title={'Cidade'} content={user.city} icon={'map-pin'} />
                 </ScrollView>
                 <TouchableOpacity style={style.settingButton}
-                    onPress={() => { navigation.navigate('Edit') }}>
+                    onPress={() => { navigation.navigate('Edit', { user: user}) }}>
                     <Icon name={'settings'} size={30} color={color2} />
                 </TouchableOpacity>
             </>

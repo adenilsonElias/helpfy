@@ -34,18 +34,16 @@ export default Feed = () => {
             const liked = await getPostList(null, { limit: 5 }, { field: 'likeNumber', direction: "desc" })
             const post = await getPostList(null, { limit: 5 }, { field: 'timePost', direction: 'desc' });
             const comments = await getPostList(null, { limit: 5 }, { field: 'commentNumber', direction: 'desc' })
-
             setMostLiked(liked)
             setRecentes(post);
             setMostComments(comments)
-
         }
         getPosts()
     }, [])
 
     const AddPost = auth.isLogged ?
         <TouchableOpacity style={style.buttonAdd}
-            onPress={() => { navigation.navigate('AddPost') }}>
+            onPress={() => { navigation.navigate('AddPost', {}) }}>
             <Icon name={'plus'} size={30} color={color2} />
         </TouchableOpacity> : null
 
@@ -53,7 +51,8 @@ export default Feed = () => {
         <View style={style.container}>
             <Header />
             <View style={style.containerBody}>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView showsVerticalScrollIndicator={false}
+                    >
                     <SliderBox images={images}
                         imageLoadingColor={color1}
                         dotColor={color1}

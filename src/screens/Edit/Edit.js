@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import AuthContext from '../../context/auth_context'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import style from './style'
@@ -15,12 +15,13 @@ import EditBackground from './components/Edit_Background/Edit_Background'
 
 export default Edit = () => {
 	const navigation = useNavigation()
+	const usesrParam: User = useRoute().params.user;
 	const auth = useContext(AuthContext);
-	const [email, setEmail] = useState('')
-	const [name, setName] = useState('')
-	const [birth, setBirth] = useState('')
-	const [state, setState] = useState('')
-	const [city, setCity] = useState('')
+	const [email, setEmail] = useState(usesrParam ? usesrParam.email : '')
+	const [name, setName] = useState(usesrParam ? usesrParam.name : '')
+	const [birth, setBirth] = useState(usesrParam ? usesrParam.birthDay : '')
+	const [state, setState] = useState(usesrParam ? usesrParam.state : '')
+	const [city, setCity] = useState(usesrParam ? usesrParam.city : '')
 	const [password, setPassword] = useState('')
 	const [confirmPass, setConfirmPass] = useState('')
 	const [showPass, setShowPass] = useState(true)

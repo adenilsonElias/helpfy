@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { HeaderBackButton } from '@react-navigation/stack'
 import style, { placeHolderStyle, placeholderValue } from './style'
 import { color2, categorys, color1 } from '../../global/constant/constant'
@@ -18,13 +18,14 @@ import Loading from '../Loading/Loading'
 
 export default AddPost = () => {
     const user: User | null = useSelector(state => state.userState.user);
+    const postParam: Post = useRoute().params.post;
     const navigation = useNavigation()
-    const [title, setTitle] = useState()
-    const [description, setDescription] = useState()
+    const [title, setTitle] = useState(postParam ? postParam.title : '')
+    const [description, setDescription] = useState(postParam ? postParam.description : '')
     const [category, setCategory] = useState([])
-    const [choiceCategory, setChoiceCategory] = useState()
-    const [images, setImages] = useState([])
-    const [displayImages, setDisplayImages] = useState([])
+    const [choiceCategory, setChoiceCategory] = useState(postParam ? postParam.category : '')
+    const [images, setImages] = useState(postParam ? postParam.image : [])
+    const [displayImages, setDisplayImages] = useState(postParam ? postParam.image : [])
     const [previewImages, setPreviewImages] = useState([])
     const [imageIndex, setImageIndex] = useState(0)
     const [visible, setVisible] = useState(false)
@@ -34,24 +35,28 @@ export default AddPost = () => {
         if (user == null) {
             return;
         }
-        const newPost = new Post({
-            title,
-            description,
-            category: choiceCategory,
-            image: images,
-            userId: user.id,
-            emailPost: user.email,
-            timePost: Date.now(),
-            donatarioId: null,
-            donatarioRef: null,
-            donationStatus: 1
-        })
-        setLoading(true)
-        createPost(newPost, user.id).then((response) => {
-            console.info('Post criado com sucesso')
-            setLoading(false)
-            navigation.navigate('Feed')
-        });
+        if(postParam){
+            
+        } else {
+            const newPost = new Post({
+                title,
+                description,
+                category: choiceCategory,
+                image: images,
+                userId: user.id,
+                emailPost: user.email,
+                timePost: Date.now(),
+                donatarioId: null,
+                donatarioRef: null,
+                donationStatus: 1
+            })
+            setLoading(true)
+            createPost(newPost, user.id).then((response) => {
+                console.info('Post criado com sucesso')
+                setLoading(false)
+                navigation.navigate('Feed')
+            });
+        }
     }
 
     // Converte a lista coletada da constante declarada em outro arquivo no formato de valor para RNPickerSelect utilizar
@@ -101,7 +106,8 @@ export default AddPost = () => {
                         }),
                             navigation.goBack()
                     }}
-                />)
+                />),
+            title: postParam ? 'Editar Postagem' : 'Nova Postagem',
         })
     }, [])
 
@@ -139,6 +145,7 @@ export default AddPost = () => {
                         setChoiceCategory(value)
                     }}
                     items={category} placeholder={placeholderValue}
+                    value={choiceCategory}
                     style={placeHolderStyle} useNativeAndroidPickerStyle={false} />
                 <Title title={`Imagem (${images.length}/5)`} />
                 <SliderImages pickerImage={pickImage} setVisible={setVisible} 
