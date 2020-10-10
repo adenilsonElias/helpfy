@@ -7,7 +7,6 @@ class Post {
 
     authorRef: FirebaseFirestoreTypes.DocumentReference = null
     description: String = null
-    emailPost: String = null
     image: String[] = null
     timePost: Date = null
     title: String = null

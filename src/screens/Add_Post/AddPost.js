@@ -44,7 +44,6 @@ export default AddPost = () => {
                 category: choiceCategory,
                 image: images,
                 userId: user.id,
-                emailPost: user.email,
                 timePost: Date.now(),
                 donatarioId: null,
                 donatarioRef: null,
