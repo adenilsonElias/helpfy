@@ -1,5 +1,7 @@
 // @flow
 
+import { setUserListener } from "../firebase/Authentication"
+
 export default class User {
     id : String = null
     name: String = null
@@ -24,5 +26,9 @@ export default class User {
             }
             return json
         },{})
+    }
+
+    Listener(setUser : Function){
+        return setUserListener(this,setUser);
     }
 }

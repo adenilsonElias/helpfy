@@ -75,3 +75,7 @@ export async function getUserByRef(ref : FirebaseFirestoreTypes.DocumentReferenc
     const user = await ref.get();
     return new User(user.data())
 }
+
+export function setUserListener(user:User , setUser:Function){
+    const userRef = firestore().collection('User').doc(user.id).onSnapshot(setUser)
+}
