@@ -1,9 +1,14 @@
+import { useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import Comments from './components/Comments_Profile/Comments';
 import style from './style'
 
 export default Rating = () => {
+
+    const route = useRoute()
+    const user : User = route.params && route.params.user ? route.params.user : useSelector(state => state.userState.user) 
     const [comentarios, setComentarios] = useState([
         {
             "author": "Lukazukimo",

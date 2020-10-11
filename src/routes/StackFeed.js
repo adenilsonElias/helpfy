@@ -9,6 +9,7 @@ import AddPost from '../screens/Add_Post/AddPost'
 import Category from '../screens/Category/Category';
 import ListChoosedPeople from '../screens/LIst_Choosed_People/ListChoosedPeople'
 import Notifications from '../screens/Notifications/Notifications';
+import Profile from '../screens/Profile/Profile';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +17,9 @@ export function StackFeed() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Feed" component={Feed} options={{ headerShown: false }} />
-            <Stack.Screen name="ThePost" component={ThePost}/>
+            <Stack.Screen name="ThePost" component={ThePost} />
             <Stack.Screen name='Search' component={Search} />
+            <Stack.Screen name="User-Profile" component={Profile} options={{ headerShown: false }} />
             <Stack.Screen name='AddPost' component={AddPost}
                 options={{
                     headerStyle: {
@@ -27,8 +29,8 @@ export function StackFeed() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
-            <Stack.Screen name='Category' component={Category} 
-                options={{                    
+            <Stack.Screen name='Category' component={Category}
+                options={{
                     headerStyle: {
                         backgroundColor: color2,
                     },
@@ -36,7 +38,7 @@ export function StackFeed() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
-            <Stack.Screen name='Notifications' component={Notifications} 
+            <Stack.Screen name='Notifications' component={Notifications}
                 options={{
                     title: 'Notificação',
                     headerStyle: {
@@ -45,10 +47,30 @@ export function StackFeed() {
                     headerTintColor: color1,
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
-                }} />            
-            <Stack.Screen name='ListChoosedPeople' component={ListChoosedPeople} 
+                }} />
+            <Stack.Screen name='ListChoosedPeople' component={ListChoosedPeople}
                 options={{
                     title: 'Escolher Interessado',
+                    headerStyle: {
+                        backgroundColor: color2,
+                    },
+                    headerTintColor: color1,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }} />
+            <Stack.Screen name="Rating" component={Rating}
+                options={{
+                    title: 'Avaliação',
+                    headerStyle: {
+                        backgroundColor: color2,
+                    },
+                    headerTintColor: color1,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }} />
+            <Stack.Screen name="MyPosts" component={MyPosts}
+                options={{
+                    title: 'Meus Posts',
                     headerStyle: {
                         backgroundColor: color2,
                     },

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import style from './style'
 import PostList from '../../global/components/Post_List/Post_List'
 import { View, FlatList } from 'react-native';
@@ -11,9 +11,9 @@ import User from '../../model/user';
 export default MyPosts = () => {
 
     const navigation = useNavigation()
+    const route = useRoute()
     const [updateScreen, setUpdateScreen] = useState(false);
-
-    const user: User = useSelector(state => state.userState.user)
+    const user: User = route.params && route.params.user ? route.params.user : useSelector(state => state.userState.user)
 
     const [posts, setPosts] = useState()
 

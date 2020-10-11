@@ -35,8 +35,7 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay } : Props
     }, [])
 
     function handleNavigation(){
-        // navigation.navigate("User-profile",{user : })
-
+        navigation.navigate("User-Profile",{user : author })
     }
 
     const responder = auth.isLogged ?
@@ -48,7 +47,7 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay } : Props
     return (
         <View style={{ flex: 1 }}>
             <View style={style.container}>
-                <TouchableOpacity onPress={()=>{}}>
+                <TouchableOpacity onPress={handleNavigation}>
                     <Image source={require('../../../../assets/imgs/icon.png')}
                         style={style.profile} />
                     <View style={style.infoContainer}>
