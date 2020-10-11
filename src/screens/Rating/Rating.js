@@ -1,5 +1,5 @@
 import { useRoute } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Comments from './components/Comments_Profile/Comments';
@@ -9,7 +9,8 @@ import AddComments from './components/Add_Comments/Add_Comments'
 export default Rating = () => {
 
     const route = useRoute()
-    const user : User = route.params && route.params.user ? route.params.user : useSelector(state => state.userState.user) 
+    const user : User = route.params && route.params.user ? route.params.user : useSelector(state => state.userState.user)
+    const isUserLogged = useSelector(state => state.userState.user.id)
     const [comentarios, setComentarios] = useState([
         {
             "author": "Lukazukimo",
@@ -64,7 +65,9 @@ export default Rating = () => {
                     )
                 }) : null}
             </ScrollView>
-            <AddComments />
+            {
+                isUserLogged != user.id ? <AddComments /> : null
+            }
         </View>
     )
 }

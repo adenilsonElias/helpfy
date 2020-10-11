@@ -24,7 +24,7 @@ const ProfileScreen = ({ userProps }: Props) => {
     const auth = useContext(AuthContext);
     const userLogged: User = useSelector(state => state.userState.user)
     const [user, setUser] = [profileContext.user, profileContext.setUser]
-    const [isMyProfile, setIsMyProfile] = useState(false)
+    const [isMyProfile, setIsMyProfile] = [profileContext.isMyProfile, profileContext.setIsMyProfile] 
 
     useEffect(() => {
         if (userProps == null) {

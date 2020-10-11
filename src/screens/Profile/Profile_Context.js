@@ -8,9 +8,10 @@ const ProfileContext = createContext({})
 export const ProfileContextProvider = ({ children }) => {
 
     const [user,setUser] = useState(new User({}))
+    const [isMyProfile, setIsMyProfile] = useState(false)
 
     return (
-        <ProfileContext.Provider value={{user,setUser}}>
+        <ProfileContext.Provider value={{user,setUser, isMyProfile, setIsMyProfile}}>
             {children}
         </ProfileContext.Provider>
     )

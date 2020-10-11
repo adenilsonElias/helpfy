@@ -13,13 +13,13 @@ import { getUserByRef } from '../../../../firebase/Authentication';
 import Comentario from '../../../../model/comments';
 
 type Props = {
-    index : Number,
-    comentario : Comentario,
-    setResponseField : any,
-    toggleOverlay : any
+    index: Number,
+    comentario: Comentario,
+    setResponseField: any,
+    toggleOverlay: any
 }
 
-const Comments = ({ index, comentario, setResponseField, toggleOverlay } : Props) => {
+const Comments = ({ index, comentario, setResponseField, toggleOverlay }: Props) => {
     const auth = useContext(AuthContext)
 
     const navigation = useNavigation()
@@ -28,14 +28,14 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay } : Props
 
     useEffect(() => {
         converTime()
-        getUserByRef(comentario.authorRef).then((user)=>{
+        getUserByRef(comentario.authorRef).then((user) => {
             setAuthor(user)
         })
 
     }, [])
 
-    function handleNavigation(){
-        navigation.navigate("User-Profile",{user : author })
+    function handleNavigation() {
+        navigation.navigate("User-Profile", { user: author })
     }
 
     const responder = auth.isLogged ?
@@ -50,17 +50,17 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay } : Props
                 <TouchableOpacity onPress={handleNavigation}>
                     <Image source={require('../../../../assets/imgs/icon.png')}
                         style={style.profile} />
-                    <View style={style.infoContainer}>
-                        <View style={style.headerContainer}>
-                            <Text style={style.author}>{author.name}</Text>
-                            <Text style={style.time}>{moment(comentario.timeCreated).fromNow()}</Text>
-                        </View>
-                        <Text style={style.comment}>{comentario.message}</Text>
-                    </View>
                 </TouchableOpacity>
+                <View style={style.infoContainer}>
+                    <View style={style.headerContainer}>
+                        <Text style={style.author}>{author.name}</Text>
+                        <Text style={style.time}>{moment(comentario.timeCreated).fromNow()}</Text>
+                    </View>
+                    <Text style={style.comment}>{comentario.message}</Text>
+                </View>
             </View>
             {
-                comentario.response.map((response) =>{
+                comentario.response.map((response) => {
                     return <Responses response={response} />
                 })
             }

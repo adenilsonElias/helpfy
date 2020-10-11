@@ -25,7 +25,5 @@ export default ToolbarMid = () => {
 				<Icon name='grid' size={30} color={color1} /> 
 			</TouchableOpacity>
 		</View>
-
 	)
-
 }

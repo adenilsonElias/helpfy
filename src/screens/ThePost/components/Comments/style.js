@@ -7,7 +7,8 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         paddingHorizontal: 10,
         paddingTop: 10,
-        width: '100%',        
+        width: '100%',
+        paddingVertical: 5,
     },
     containerResponse: {
         paddingLeft: 60
