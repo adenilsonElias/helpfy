@@ -18,7 +18,7 @@ function getTabBarVisible(route) {
     const routeName = route.state
         ? route.state.routes[route.state.index].name
         : route.params?.screen || 'Home';    
-
+    // @TODO Colocar um switch no lugar desse monte de if
     if (routeName === 'Search') {        
         return false;
     }

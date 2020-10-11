@@ -8,6 +8,8 @@ import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 import { adicionarComentarios, responderComentarios } from '../../../../firebase/comentarios';
 import Comentario from '../../../../model/comments';
 import { useSelector } from 'react-redux';
+import Firestore from '@react-native-firebase/firestore';
+
 
 export default AddComments = ({ visible, toggleOverlay, typeComment, update, setUpdate,
     parameter, comentario, post }) => {
@@ -20,7 +22,6 @@ export default AddComments = ({ visible, toggleOverlay, typeComment, update, set
     function handleCreateComment() {
         const newCommnent = new Comentario({
             message: parameter.message,
-            author: user.name,
             creatorId: user.id,
             depth: 0,
             timeCreated: Date.now(),
@@ -33,10 +34,11 @@ export default AddComments = ({ visible, toggleOverlay, typeComment, update, set
         })
     }
 
+    // @TODO tentar remover o Firestore() daqui
     function handleCreateResponse(comment: Comentario) {
         const newCommnent = new Comentario({
             message: response,
-            author: user.name,
+            authorRef : Firestore().collection('User').doc(user.id),
             creatorId: user.id,
             depth: comentario.depth + 1,
             timeCreated: Date.now(),

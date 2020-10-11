@@ -1,12 +1,13 @@
+import { FirebaseFirestoreTypes } from "@react-native-firebase/firestore"
 
 export default class Comentario {
-    id: String
-    message : String
-    creatorId : String
-    author : String
-    response : Comentario[]
-    depth : number
-    timeCreated : number
+    id: String = null
+    message : String = null
+    creatorId : String = null
+    authorRef : FirebaseFirestoreTypes.DocumentReference = null
+    response : Comentario[] = []
+    depth : number = null
+    timeCreated : number = null
 
     constructor (comentario : Comentario) {
         for(let key in comentario){
@@ -16,7 +17,9 @@ export default class Comentario {
 
     toJson (){
         return Object.getOwnPropertyNames(this).reduce((objeto,key)=>{
-            objeto[key] = this[key];
+            if(key != 'id'){
+                objeto[key] = this[key];
+            }
             return objeto;
         },{})
     }
