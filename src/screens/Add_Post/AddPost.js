@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { HeaderBackButton } from '@react-navigation/stack'
@@ -15,6 +15,7 @@ import ImagePicker from 'react-native-image-picker'
 import SliderImages from './components/SliderImages/SliderImages'
 import ImageView from 'react-native-image-view';
 import Loading from '../Loading/Loading'
+import Icon from 'react-native-vector-icons/Feather'
 
 export default AddPost = () => {
     const user: User | null = useSelector(state => state.userState.user);
@@ -31,24 +32,35 @@ export default AddPost = () => {
     const [visible, setVisible] = useState(false)
     const [loading, setLoading] = useState(false)
 
+    //UseEffect para setar parametros no navigation para ser coletados no botao salvar no header
+    useEffect(() => {        
+        navigation.setParams({
+            title: title,
+            description: description,
+            choiceCategory: choiceCategory,
+            images: images 
+        })        
+    }, [title, description, choiceCategory, images])
+
     function handleSavePost() {
         if (user == null) {
             return;
         }
         if(postParam){
-            
+            console.log('IF do postParam')
         } else {
             const newPost = new Post({
-                title,
-                description,
-                category: choiceCategory,
-                image: images,
+                title: navigation.dangerouslyGetState().routes[1].params.title,
+                description: navigation.dangerouslyGetState().routes[1].params.description,
+                category: navigation.dangerouslyGetState().routes[1].params.choiceCategory,
+                image: navigation.dangerouslyGetState().routes[1].params.images,
                 userId: user.id,
                 timePost: Date.now(),
                 donatarioId: null,
                 donatarioRef: null,
                 donationStatus: 1
             })
+            console.log('teste',newPost)
             setLoading(true)
             createPost(newPost, user.id).then((response) => {
                 console.info('Post criado com sucesso')
@@ -92,7 +104,7 @@ export default AddPost = () => {
         })
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         converToPickerItem(categorys)
         navigation.setOptions({
             // Quando clicar em voltar, coloca novamente o bottomBar
@@ -107,6 +119,12 @@ export default AddPost = () => {
                     }}
                 />),
             title: postParam ? 'Editar Postagem' : 'Nova Postagem',
+            headerRight: () => (                
+                <TouchableOpacity style={style.save}
+					onPress={handleSavePost}>
+					<Icon name={'save'} size={25} color={color1} />
+				</TouchableOpacity>
+			)
         })
     }, [])
 
@@ -157,11 +175,6 @@ export default AddPost = () => {
                         placeholderTextColor={color1} multiline={true}
                         // autoFocus={true}
                         value={description} onChangeText={setDescription} />
-                </View>
-                <View style={style.buttonContainer}>
-                    <TouchableOpacity style={style.button} onPress={handleSavePost}>
-                        <Text style={style.buttonText}>Salvar</Text>
-                    </TouchableOpacity>
                 </View>
                 <ImageView glideAlways images={previewImages}
                     imageIndex={imageIndex} animationType="fade"

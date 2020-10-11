@@ -21,29 +21,14 @@ const style = StyleSheet.create({
     },
     inputDescriptionContainer:{
         height: 150, 
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        marginBottom: 10
     },
     pickerSelect: {
         backgroundColor: color1
     },
-    buttonContainer: {        
-        height: 40,
-        width: Dimensions.get('window').width * 1 / 2,
-        backgroundColor: color1,
-        marginVertical: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    button: {        
-        height: '100%',
-        width: '100%',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: color2,
+    save: {
+        marginRight: 10,
     },
 })
 
