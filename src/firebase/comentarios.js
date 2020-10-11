@@ -8,9 +8,10 @@ export async function adicionarComentarios(comentario: Comentario, post: Post) {
         const commentRef = Firestore().collection('Post').doc(post.IdPost).collection('comments').doc()
         const NotificationRef = Firestore().collection('User').doc(post.userId).collection('Notification').doc()
         const commentCounterRef = Firestore().collection('Post').doc(post.IdPost)
-
+        comentario.authorRef = Firestore().collection('User').doc(comentario.creatorId)
+        // @TODO colocar o nome do author do comentario na notificação
         const notificationClass = new SendNotification({
-            senderName: comentario.author,
+            // senderName: comentario.author,
             type: 'comment',
             postId: post.IdPost,
             senderId: comentario.creatorId
