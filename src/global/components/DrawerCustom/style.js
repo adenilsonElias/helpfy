@@ -8,7 +8,7 @@ const style = StyleSheet.create({
     profileContainer: {
         padding: 10,
         paddingTop: 40,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     perfilContainer: {
         flexDirection: 'row',
@@ -20,10 +20,9 @@ const style = StyleSheet.create({
     name: {
         color: color1,
         fontSize: 30,
-        marginTop: 20,
-        marginBottom: 10,
-        marginHorizontal: 10,
-        fontFamily: fontTitle
+        marginTop: 25,
+        marginBottom: 5,
+        fontFamily: fontTitle,        
     },
     badgeContainer: {
         position: 'absolute',

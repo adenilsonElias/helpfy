@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import User from '../../model/user';
 
 export default MyPosts = () => {
-
     const navigation = useNavigation()
     const route = useRoute()
     const [updateScreen, setUpdateScreen] = useState(false);
@@ -25,7 +24,7 @@ export default MyPosts = () => {
             getPostsUser().then(() => {
                 console.info("Posts coletados com sucesso")
             })
-        }, [updateScreen])
+        }, [updateScreen])        
     )
 
     return (
@@ -33,7 +32,7 @@ export default MyPosts = () => {
             <FlatList
                 data={posts}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={item => `${item.postId}`}
+                keyExtractor={item => `${item.IdPost}`}
                 // Padding com mesmo valor do margins container do PostList
                 style={{ paddingTop: 10 }}
                 renderItem={({ item }) => {
