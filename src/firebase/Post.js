@@ -1,9 +1,10 @@
 import Firestore from '@react-native-firebase/firestore'
 import Storage from '@react-native-firebase/storage'
 import Post from '../model/post_model';
+import User from '../model/user';
 import { addPoint } from './Gamification'
 
-export async function createPost(post: Post ,userId: String) {
+export async function createPost(post: Post, userId: String) {
     try {
         let images = post.image; // cria copia das imagens
         delete post.image; // deleta imagens do objeto post
@@ -175,44 +176,66 @@ export async function upDonationStage(post: Post, donatarioId: String = null, ju
     if (jumpStatus != 0) {
         post.donationStatus = jumpStatus
         post.donatarioId = donatarioId
+        post.donatarioRef = Firestore().collection('User').doc(donatarioId)
     }
     try {
         switch (post.donationStatus) {
             case 1:
                 // Donatario foi escolhido pelo doador
                 post.donatarioId = donatarioId;
-                post.donatario = Firestore().collection("User").doc(donatarioId)
+                post.donatarioRef = Firestore().collection("User").doc(donatarioId)
                 await Firestore().collection('Post').doc(post.IdPost).update(
                     { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
                 )
-                console.info("Post foi para o estado: Aguardando confimação do donatario (2)")
+                console.info("Post foi para o estado: Aguardando Receber (2)")
                 return;
             case 2:
                 // Donatario aceitou a doação e está esperando receber
                 await Firestore().collection('Post').doc(post.IdPost).update(
                     { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
                 )
-                console.info("Post foi para o estado: Aguardando receber (3)")
-                return;
-            case 3:
-                // Donatario confirmou que recebeu a doação recebeu a doação
-                await Firestore().collection('Post').doc(post.IdPost).update(
-                    { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
-                )
-                console.info("Post foi para o estado: Doado (4)")
+                console.info("Post foi para o estado: Doado (3)")
                 return;
             default:
-                throw `Post com status invalido (Revise o firebase ) \n postId: ${post.IdPost}`
+                throw `Post com status invalido ou já doado (Revise o firebase ) \n postId: ${post.IdPost}`
         }
     }
-    catch (e){
+    catch (e) {
         console.error(e)
         throw "Falha ao alterar estado do post " + post.IdPost
     }
-    
+
 }
 
-export function createPostListener(post : Post ,onChange : Function){
+export async function cancelDonation(post: Post, user: User) {
+    try {
+        // se donatario esta cancelando a doação
+        console.info()
+        if (post.donatarioId == user.id) {
+            // notificação para o doador de que o donatario cancelou a doação
+            console.info("donatario está tentando cancelar a doação")
+        }
+        // doador esta cancelando a doação
+        else {
+            console.info("doador está tentando cancelar a doação")
+            // notificação para o donatario de que o doador cancelou a doação
+        }
+        post.donatarioId = null
+        post.donatarioRef = null
+        post.donationStatus = 1
+        let newPost = post.toJson()
+        delete newPost.IdPost
+
+        await Firestore().collection('Post').doc(post.IdPost).update(newPost)
+    }
+    catch (e) {
+        console.error(e)
+        throw "Erro ao cancelar doação"
+    }
+
+}
+
+export function createPostListener(post: Post, onChange: Function) {
     return Firestore().collection('Post').doc(post.IdPost).onSnapshot(onChange)
 }
 
