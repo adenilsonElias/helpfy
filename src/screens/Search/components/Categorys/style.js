@@ -18,13 +18,10 @@ const style = StyleSheet.create({
     },
     textCategory: {
         color: color1,
-        textShadowColor: color2, 
-        textShadowOffset: { width: 1, height: 3 },
-        textShadowRadius: 15,
         fontSize: 25,
         fontFamily: fontTitle,		
 		textAlignVertical: "center",
-		textAlign: "center",
+        textAlign: "center",
     }
 })
 

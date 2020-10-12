@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { color1, color2, color4 } from '../../../global/constant/constant'
+import { color1, color2, color4, fontTitle } from '../../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {        
@@ -25,7 +25,7 @@ const style = StyleSheet.create({
         backgroundColor: color2
     },
     name: {        
-        fontFamily: 'shelter',        
+        fontFamily: fontTitle,        
         fontSize: 28,
         color: color1,
         maxWidth: '75%',        

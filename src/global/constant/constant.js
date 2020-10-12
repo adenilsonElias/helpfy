@@ -7,7 +7,7 @@ export const color2 = 'rgb(255, 255, 255)'
 export const color3 = 'rgb(84, 76, 100)'
 export const color4 = 'rgb(120, 120, 120)'
 
-export const fontTitle = 'shelter'
+export const fontTitle = 'Kalam-Regular'
 
 export const styleTitle = {
     textAlign: 'center',
@@ -22,43 +22,43 @@ export const borderRadius = 5
 
 export const categorys = [{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/brinquedos.png'),
     title: 'Brinquedos'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/calcados.png'),
     title: 'Calçados'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/eletrodomesticos.png'),
     title: 'Eletrodomésticos'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/higienePessoal.png'),
     title: 'Higiene Pessoal'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/livros.png'),
     title: 'Livros'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/materialConstrucao.png'),
     title: 'Material de Construção'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/materialLimpeza.png'),
     title: 'Material de Limpeza'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/materialEscolar.png'),
     title: 'Material Escolar'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/moveis.png'),
     title: 'Móveis'
 },{
     id: Math.random(),
-    image: require('../../assets/imgs/mao.png'),
+    image: require('../../assets/imgs/roupas.png'),
     title: 'Roupas'
 }]
 

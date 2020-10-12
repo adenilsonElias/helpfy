@@ -22,7 +22,8 @@ const Categorys = (props) => {
                             })
                         }}>
                             <Image source={item.image} style={style.iconCateogry} />
-                            <Text style={style.textCategory}>{item.title}</Text>
+                            <Text adjustsFontSizeToFit={true} allowFontScaling={true}
+                                style={style.textCategory}>{item.title}</Text>
                         </TouchableOpacity>
                     </View>
                 )

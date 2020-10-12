@@ -35,6 +35,8 @@
 		75075EF5EF4A4BE484082FAB /* Kalam-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E604E72544FD44D2AAC61BF0 /* Kalam-Bold.ttf */; };
 		2593869FE3164E5DA25EAEEB /* Merienda-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 622F4B38DDC84DE1A35EB1DF /* Merienda-Bold.ttf */; };
 		8C9800F7A07F43E7AE0F6397 /* shelter.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3D78F188082B476AA3BF1B34 /* shelter.otf */; };
+		69DCCB5D9E08479A9244A6F7 /* Kalam-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D90473DD9C643DF813A7842 /* Kalam-Light.ttf */; };
+		3DE547C742374BCC8A7A5190 /* Kalam-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E148B471DBAD4B7B9C780C00 /* Kalam-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		E604E72544FD44D2AAC61BF0 /* Kalam-Bold.ttf */ = {isa = PBXFileReference; name = "Kalam-Bold.ttf"; path = "../src/assets/fonts/Kalam-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		622F4B38DDC84DE1A35EB1DF /* Merienda-Bold.ttf */ = {isa = PBXFileReference; name = "Merienda-Bold.ttf"; path = "../src/assets/fonts/Merienda-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		3D78F188082B476AA3BF1B34 /* shelter.otf */ = {isa = PBXFileReference; name = "shelter.otf"; path = "../src/assets/fonts/shelter.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0D90473DD9C643DF813A7842 /* Kalam-Light.ttf */ = {isa = PBXFileReference; name = "Kalam-Light.ttf"; path = "../src/assets/fonts/Kalam-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E148B471DBAD4B7B9C780C00 /* Kalam-Regular.ttf */ = {isa = PBXFileReference; name = "Kalam-Regular.ttf"; path = "../src/assets/fonts/Kalam-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,8 @@
 				E604E72544FD44D2AAC61BF0 /* Kalam-Bold.ttf */,
 				622F4B38DDC84DE1A35EB1DF /* Merienda-Bold.ttf */,
 				3D78F188082B476AA3BF1B34 /* shelter.otf */,
+				0D90473DD9C643DF813A7842 /* Kalam-Light.ttf */,
+				E148B471DBAD4B7B9C780C00 /* Kalam-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -380,6 +386,8 @@
 				75075EF5EF4A4BE484082FAB /* Kalam-Bold.ttf in Resources */,
 				2593869FE3164E5DA25EAEEB /* Merienda-Bold.ttf in Resources */,
 				8C9800F7A07F43E7AE0F6397 /* shelter.otf in Resources */,
+				69DCCB5D9E08479A9244A6F7 /* Kalam-Light.ttf in Resources */,
+				3DE547C742374BCC8A7A5190 /* Kalam-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -57,7 +57,7 @@ const ThePost = () => {
         setOptions({
             title: post.title,
             headerStyle: {
-                backgroundColor: color2,
+                backgroundColor: color2,              
             },
             headerTintColor: color1,
             headerTitleAlign: 'center',

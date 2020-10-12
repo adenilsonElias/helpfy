@@ -20,6 +20,7 @@ const style = StyleSheet.create({
     textContainer: {
         flex: 1,
         marginLeft: 10,
+
     },
     post: {
         width: Dimensions.get('window').width * (1 / 4),
@@ -28,13 +29,11 @@ const style = StyleSheet.create({
         margin: 5,
         borderRadius: 5,
     },
-    textTitle: {
-        fontFamily: fontTitle,
-        fontSize: 30,
-        color: color1,
+    textTitle: {        
+        fontSize: 25,
+        color: color1,        
     },
-    textAuthor: {
-        fontFamily: fontTitle,
+    textAuthor: {        
         fontSize: 18,
         color: color1,
     },

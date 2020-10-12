@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Image, TouchableOpacity, Text } from 'react-native'
 import style from './style'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather';
 import { color1 } from '../../constant/constant'
 
+type Props = {
+    post : Post
+}
 
-const PostList = ({ post, action }) => {
+const PostList = ({ post, action } : Props) => {
     const navigation = useNavigation()
+    const [author, setAuthor] = useState({})
 
+    useEffect(()=>{
+        async function getAuthor(){
+            setAuthor(await post.getUser())
+        }
+        getAuthor()
+    })
 
     return (
         <View style={style.container}>
@@ -20,7 +30,7 @@ const PostList = ({ post, action }) => {
                 <Image source={{ uri: post.image[0] }} style={style.post} />
                 <View style={style.textContainer}>
                     <Text style={style.textTitle}>{post.title}</Text>
-                    <Text style={style.textAuthor}>{post.author}</Text>
+                    <Text numberOfLines={1} style={style.textAuthor}>{author.name}</Text>
                 </View>
                 <TouchableOpacity onPress={() => { action(post) }}
                     style={style.iconContainer}>
