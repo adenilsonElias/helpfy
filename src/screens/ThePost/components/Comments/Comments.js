@@ -60,8 +60,8 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay }: Props)
                 </View>
             </View>
             {
-                comentario.response.map((response) => {
-                    return <Responses response={response} />
+                comentario.response.map((response,index) => {
+                    return <Responses response={response} key={index}/>
                 })
             }
             { responder}

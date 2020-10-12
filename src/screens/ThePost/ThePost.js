@@ -37,7 +37,7 @@ const ThePost = () => {
     const [responseField, setResponseField] = useState(-1)
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
-    const [author,setAuthor] = useState()
+    const [author, setAuthor] = useState()
     const parameter = {
         message,
         setMessage,
@@ -63,8 +63,8 @@ const ThePost = () => {
             headerTitleAlign: 'center',
             headerTitleStyle: styleTitle,
             headerRight: () => {
-                if(user && user.id == post.authorRef.id){
-                    return(
+                if (user && user.id == post.authorRef.id) {
+                    return (
                         <TouchableOpacity style={style.editTouch}
                             onPress={() => { navigation.navigate('AddPost', { post: post }) }}>
                             <Icon name={'edit'} size={25} color={color1} />
@@ -73,7 +73,7 @@ const ThePost = () => {
                 }
             }
         })
-        post.getUser().then((user) =>{
+        post.getUser().then((user) => {
             setAuthor(user.name)
         })
     }, [])
@@ -81,7 +81,7 @@ const ThePost = () => {
     useEffect(() => {
         const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
             console.info("listener chamado com sucesso")
-            setPost(new Post({...documentSnapshot.data(), IdPost: documentSnapshot.id}));
+            setPost(new Post({ ...documentSnapshot.data(), IdPost: documentSnapshot.id }));
         })
         return () => sub()
     }, [])
@@ -106,7 +106,7 @@ const ThePost = () => {
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
                 showsVerticalScrollIndicator={false}>
                 <PreviewImages image={post.image} />
-                <Description post={post} authorName={author}/>
+                <Description post={post} authorName={author} />
                 <Buttons post={post} setPost={setPost} />
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>

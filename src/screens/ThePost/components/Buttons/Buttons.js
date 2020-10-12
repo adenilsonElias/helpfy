@@ -5,13 +5,20 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Feather';
 import style from './style';
 import { useSelector } from 'react-redux';
-import { isLiked, addLike, removeLike, getPost } from '../../../../firebase/Post';
+import { isLiked, addLike, removeLike, getPost, cancelDonation, upDonationStage } from '../../../../firebase/Post';
 import { color4, color1, color2 } from '../../../../global/constant/constant';
 import { addIWant, removeIWant, isWanted } from '../../../../firebase/eu_quero';
 import { useNavigation } from '@react-navigation/native';
 import Post from '../../../../model/post_model';
+import { getUserByRef } from '../../../../firebase/Authentication';
+import User from '../../../../model/user';
 
-const Buttons = ({ post, setPost }) => {
+type Props = {
+    post: Post,
+    setPost: any
+}
+
+const Buttons = ({ post, setPost }: Props) => {
     const auth = useContext(AuthContext)
     const [notLiked, setNotLiked] = useState(true)
     const [notWant, setNotWant] = useState(true);
@@ -20,6 +27,7 @@ const Buttons = ({ post, setPost }) => {
     const colorLike = notLiked ? color4 : color1
     const user: User = useSelector(state => state.userState.user)
     const navigation = useNavigation()
+    const [donatario, setDonatario] = useState(new User({}))
 
     useEffect(() => {
         setLoadingLike(false)
@@ -33,6 +41,11 @@ const Buttons = ({ post, setPost }) => {
             })
             isWanted(post, user.id).then((value) => {
                 setNotWant(value)
+            })
+        }
+        if (post.donationStatus >= 2) {
+            getUserByRef(post.donatarioRef).then((value) => {
+                setDonatario(value)
             })
         }
     }, [post])
@@ -79,11 +92,23 @@ const Buttons = ({ post, setPost }) => {
         }
     }
 
+    function handleCancelDonation(){
+        cancelDonation(post,user).then(()=>{
+            console.info('Doação cancelada com sucesso')
+        })
+    }
+
+    function handleAccept(){
+        upDonationStage(post).then(()=>{
+            console.info("donatario recebeu a doação")
+        })
+    }
+
     function handlePostStatus() {
         switch (post.donationStatus) {
             case 1:
                 //usuario nao esta logado
-                if(!user){
+                if (!user) {
                     return
                 }
                 //usuario logado eh dono do post
@@ -113,54 +138,58 @@ const Buttons = ({ post, setPost }) => {
                     </View>
                 )
             case 2:
-                //Donatario e Doador visualizam o botao de cancelar
-                if(user && (user.id == post.authorRef.id)) {
-                    return(
+                // Donatario e Doador visualizam o botao de cancelar
+                // @TODO refatorar o if do doador e donatario para cobrir apenas o botão de confirma entrega
+                // usuario é o doador
+                if (user && user.id == post.authorRef.id) {
+                    return (
                         <View style={[style.container, { justifyContent: "space-around" }]}>
                             <View style={style.infoContainer}>
-                                <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                                <Text style={style.choosedPeopleText}>{donatario.name}</Text>
                                 <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
-                            </View>                        
-                            <TouchableOpacity onPress={() => {}}>
+                            </View>
+                            <TouchableOpacity onPress={handleCancelDonation} >
                                 <Icon2 name={'x'} size={40} color={color1} />
                             </TouchableOpacity>
                         </View>
                     )
-                } else if(user && (user.id == post.donatarioId)) {
-                    return(
+                // usuario é o donatario
+                } else if (user && user.id == post.donatarioId) {
+                    return (
                         <View style={[style.container, { justifyContent: "space-around" }]}>
                             <View style={style.infoContainer}>
-                                <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                                <Text style={style.choosedPeopleText}>{donatario.name}</Text>
                                 <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
-                            </View>                        
-                            <TouchableOpacity onPress={() => {}}>
+                            </View>
+                            <TouchableOpacity onPress={handleCancelDonation}>
                                 <Icon2 name={'x'} size={40} color={color1} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {}}>
+                            <TouchableOpacity onPress={handleAccept}>
                                 <Icon2 name={'check'} size={40} color={color1} />
-                            </TouchableOpacity>   
+                            </TouchableOpacity>
                         </View>
                     )
+                // usuario não é nenhum do dois ou não esta logado
                 } else {
-                    return(
+                    return (
                         <View style={[style.container, { justifyContent: "space-around" }]}>
                             <View style={style.infoContainer}>
-                                <Text style={style.choosedPeopleText}>{post.donatarioId}</Text>
+                                <Text style={style.choosedPeopleText}>{donatario.name}</Text>
                                 <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
-                            </View>                     
+                            </View>
                         </View>
                     )
                 }
             case 3:
-                return(
+                return (
                     <View style={[style.container, { flexDirection: 'column' }]}>
-                        <Text style={style.choosedPeopleConfirmText}>{post.donatarioId}</Text>
+                        <Text style={style.choosedPeopleConfirmText}>{donatario.name}</Text>
                         <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
                     </View>
                 )
             default:
                 //@TODO Lembrar de remover antes de finalizar a aplicacao
-                return <Text style={{ color: 'red'}}>Se caiu nessa condicao deu ruim</Text>
+                return <Text style={{ color: 'red' }}>Se caiu nessa condicao deu ruim</Text>
         }
     }
 
