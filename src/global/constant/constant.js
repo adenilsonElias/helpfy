@@ -13,9 +13,6 @@ export const styleTitle = {
     textAlign: 'center',
     fontSize: 30,
     fontFamily: fontTitle,
-    textShadowColor: color2,
-    textShadowOffset: { width: 1, height: 0 },
-    textShadowRadius: 10
 }
 
 export const borderRadius = 5

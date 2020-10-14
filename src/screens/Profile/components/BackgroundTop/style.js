@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native'
-import { color1 } from '../../../../global/constant/constant'
+import { color1, color2 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
     background: {
@@ -12,6 +12,13 @@ const style = StyleSheet.create({
     backgroundStyle: { 
         opacity: 0.7, 
         backgroundColor: 'rgb(0,0,0)'
+    },
+    buttonContainer: {
+        backgroundColor: color2,
+        borderRadius: 20,
+        position: "absolute",
+        top: 20,
+        left: 20
     }
 })
 

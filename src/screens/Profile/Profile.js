@@ -19,7 +19,6 @@ type Props = {
 
 const ProfileScreen = ({ userProps }: Props) => {
     const profileContext = useContext(ProfileContext)
-
     const navigation = useNavigation()
     const auth = useContext(AuthContext);
     const userLogged: User = useSelector(state => state.userState.user)
@@ -33,14 +32,13 @@ const ProfileScreen = ({ userProps }: Props) => {
             return
         }
         setUser(userProps)
-        setIsMyProfile(false)
     })
 
     if (auth.isLogged) {
         return (
             <>
                 <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
-                    <BackgroundTop />
+                    <BackgroundTop isMyProfile={isMyProfile}/>
                     <ToolbarMid />
                     <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />
                     <ProfileInfoBot title={'E-mail'} content={user.email} icon={'at-sign'} />

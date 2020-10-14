@@ -1,10 +1,18 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { color2 , color3, color4, color1 } from '../../global/constant/constant'
+import { color2, color3, color4, color1, fontTitle } from '../../global/constant/constant'
 
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color2               
+        backgroundColor: color2
+    },
+    titleHeader: {
+        textAlign: 'center',
+        fontSize: 30,
+        fontFamily: fontTitle,
+        color: color1,
+        height: 50,        
+        textAlignVertical: "center",
     },
     editTouch: {
         marginRight: 10,
@@ -15,17 +23,17 @@ const style = StyleSheet.create({
         resizeMode: "contain",
         backgroundColor: color2,
     },
-    comentarioTitleContainer:{
+    comentarioTitleContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems:'center',
+        alignItems: 'center',
     },
     comentariosTitle: {
         padding: 10,
         color: color1,
         fontSize: 20
     },
-    containerAddComentario:{
+    containerAddComentario: {
         flexDirection: 'row',
         padding: '2%',
         alignItems: 'center',

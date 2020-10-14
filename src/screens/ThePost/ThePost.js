@@ -54,14 +54,20 @@ const ThePost = () => {
     }
 
     useEffect(() => {
-        setOptions({
-            title: post.title,
-            headerStyle: {
-                backgroundColor: color2,              
-            },
-            headerTintColor: color1,
+        setOptions({       
+            // title: post.title,
+            // headerStyle: {
+            //     backgroundColor: color2,
+            // },
+            // headerTitleStyle: styleTitle,
+            headerTintColor: color1, 
             headerTitleAlign: 'center',
-            headerTitleStyle: styleTitle,
+            headerTitle: () => {
+                return(
+                    <Text style={style.titleHeader} adjustsFontSizeToFit={true} 
+                        allowFontScaling={true}>{post.title}</Text>
+                )
+            },
             headerRight: () => {
                 if (user && user.id == post.authorRef.id) {
                     return (

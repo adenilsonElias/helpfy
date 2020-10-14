@@ -5,19 +5,24 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        width: '100%',
     },
     rowContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: '100%',        
     },
     titleText: {
         fontSize: 15,
         textAlign: "justify",
-        color: color1
+        color: color1,
     },
     descriptionInfo: {
         fontSize: 15,
         textAlign: "justify",
-        color: color4
+        color: color4,
+        flexShrink: 1
+        // backgroundColor: 'red',
+        // width: '100%'
     },
 })
 

@@ -6,6 +6,10 @@ export default Description = ({ post, authorName }) => {
     return (
         <View style={style.container}>
             <View style={style.rowContainer}>
+                <Text style={style.titleText}>Titulo: </Text>
+                <Text style={style.descriptionInfo}>{post.title}</Text>
+            </View>
+            <View style={style.rowContainer}>
                 <Text style={style.titleText}>Autor: </Text>
                 <Text style={style.descriptionInfo}>{authorName}</Text>
             </View>
