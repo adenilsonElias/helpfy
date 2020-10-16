@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/auth_context'
 import { StackLogin } from '../../routes/StackLogin';
 import BackgroundTop from './components/BackgroundTop/BackgroundTop'
-import ToolbarMid from './components/ToolbarMid/ToolbarMid'
 import ProfileInfoBot from './components/ProfileInfoBot/ProfileInfoBot'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -39,7 +38,6 @@ const ProfileScreen = ({ userProps }: Props) => {
             <>
                 <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
                     <BackgroundTop isMyProfile={isMyProfile}/>
-                    <ToolbarMid />
                     <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />
                     <ProfileInfoBot title={'E-mail'} content={user.email} icon={'at-sign'} />
                     <ProfileInfoBot title={'Data de Nascimento'} content={user.birthDay} icon2={'cake-variant'} />

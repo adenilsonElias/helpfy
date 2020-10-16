@@ -6,7 +6,7 @@ const style = StyleSheet.create({
         flex: 1,
         backgroundColor: color2,
         borderRadius: 5,
-        marginBottom: 10,
+        marginVertical: 5,
         marginHorizontal: 10,
         shadowColor: 'rgb(0, 0, 0)',
         shadowOpacity: 1,
@@ -19,8 +19,7 @@ const style = StyleSheet.create({
     },
     textContainer: {
         flex: 1,
-        marginLeft: 10,
-
+        marginHorizontal: 10,
     },
     post: {
         width: Dimensions.get('window').width * (1 / 4),
@@ -31,18 +30,20 @@ const style = StyleSheet.create({
     },
     textTitle: {        
         fontSize: 25,
-        color: color1,        
+        color: color1,
+        paddingVertical: 10,
     },
     textAuthor: {        
         fontSize: 18,
         color: color1,
+        fontStyle: "italic"
     },
     iconContainer: {
-        // backgroundColor: 'blue',
+        flex: 1,
         width: 45,
-        height: 45,
         justifyContent: 'center',
         alignItems: 'center',
+        alignContent: 'center',
     }
 
 })

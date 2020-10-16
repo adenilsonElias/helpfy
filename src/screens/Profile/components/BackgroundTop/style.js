@@ -2,12 +2,15 @@ import { Dimensions, StyleSheet } from 'react-native'
 import { color1, color2 } from '../../../../global/constant/constant'
 
 const style = StyleSheet.create({
-    background: {
+    imageBackground: {
         width: '100%',
-        height: Dimensions.get("window").width * 3 / 4 ,
+        height: Dimensions.get("window").width * 6 / 7 ,
         backgroundColor: 'transparent',
+    },
+    profileContainer: { 
+        flex: 1,
+        justifyContent: 'center', 
         alignItems: 'center',
-        justifyContent: 'center',
     },
     backgroundStyle: { 
         opacity: 0.7, 

@@ -45,7 +45,7 @@ export default Notifications = () => {
     }
 
     //View quando realiza o swipe
-    const content = <View></View>
+    const content = <View />
 
     return (
         <FlatList
