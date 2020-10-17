@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { upDonationStage } from '../../firebase/Post';
 
 export default ListChoosedPeople = () => {
+    const navigation = useNavigation()
     const post = useRoute().params['post']
     const [userList, setUserList] = useState([])
     const [choose, setChoose] = useState(false)
@@ -23,6 +24,7 @@ export default ListChoosedPeople = () => {
     function handleGrantee(idGrantee : String){
         upDonationStage(post,idGrantee).then(()=>{
             console.info("estado de doação alterado com sucesso")
+            navigation.goBack()
         })
     }
 
@@ -43,7 +45,10 @@ export default ListChoosedPeople = () => {
                             onPress={() => handleGrantee(item.id)}>
                                 <Text style={[style.text, { color: choose ? color2 : color1 }]}>{chooseText}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ justifyContent: 'center' }}>
+                            <TouchableOpacity style={{ justifyContent: 'center' }}
+                            onPress={()=>{
+                                navigation.navigate('TheChat',{receiver: item})
+                            }}>
                                 <Icon name={'message-circle'} size={30} color={color1} />
                             </TouchableOpacity>
                         </View>

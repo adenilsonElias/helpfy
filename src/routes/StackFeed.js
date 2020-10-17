@@ -78,6 +78,16 @@ export function StackFeed() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
+            <Stack.Screen name="TheChat" component={TheChat}
+                options={{
+                    headerStyle: {
+                        backgroundColor: color2,
+                    },
+                    headerTintColor: color1,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: styleTitle,
+                }}
+            />
         </Stack.Navigator>
     )
 }
