@@ -13,6 +13,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import Logout from '../screens/Logout/Logout'
 import AuthContext from '../context/auth_context';
+import About from '../screens/About/About';
 
 const Drawer = createDrawerNavigator();
 
@@ -84,6 +85,12 @@ export default DrawerNavigation = () => {
                 options={{
                     drawerIcon: ({ focused, size }) => (
                         <Icon name="bar-chart-2" size={size} color={focused ? color1 : color4} />
+                    )
+                }} />
+            <Drawer.Screen name="Sobre" component={About}
+                options={{
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon name="info" size={size} color={focused ? color1 : color4} />
                     )
                 }} />
 

@@ -73,6 +73,12 @@ const style = StyleSheet.create({
 })
 
 export const placeholderValue = {
+    label: 'Selecione um estado',
+    value: 'Selecione um estado',
+    color: color3
+}
+
+export const placeholderValue2 = {
     label: 'Selecione uma cidade',
     value: 'Selecione uma cidade',
     color: color3

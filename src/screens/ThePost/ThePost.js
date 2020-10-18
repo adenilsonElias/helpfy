@@ -60,7 +60,7 @@ const ThePost = () => {
             //     backgroundColor: color2,
             // },
             // headerTitleStyle: styleTitle,
-            headerTintColor: color1, 
+            headerTintColor: color1,
             headerTitleAlign: 'center',
             headerTitle: () => {
                 return(

@@ -4,7 +4,7 @@ import AuthContext from '../../context/auth_context'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
-import style, { placeHolderStyle, placeholderValue } from './style'
+import style, { placeHolderStyle, placeholderValue, placeholderValue2 } from './style'
 import User from '../../model/user'
 import { color1 } from '../../global/constant/constant'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
@@ -140,7 +140,7 @@ export default Register = () => {
 				items={cityList.map((city) => {
 					return { label: city, value: city }
 				})}
-				placeholder={placeholderValue}
+				placeholder={placeholderValue2}
 				style={placeHolderStyle}
 				useNativeAndroidPickerStyle={false}
 				Icon={() => {

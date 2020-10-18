@@ -13,6 +13,7 @@ import { messageListener, sendMessage } from '../../firebase/chat';
 import User from '../../model/user';
 import { useSelector } from 'react-redux';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { color1 } from '../../global/constant/constant';
 
 export default TheChat = () => {
     const navigation = useNavigation()
@@ -25,8 +26,10 @@ export default TheChat = () => {
     useEffect(() => {
         navigation.setOptions({
             // Quando clicar em voltar, coloca novamente o bottomBar
+            title: receiver.name,
             headerLeft: (props) => (
                 < HeaderBackButton
+                    tintColor={color1}
                     onPress={() => {
                         navigation.setOptions({
                             tabBarVisible: true
@@ -34,6 +37,7 @@ export default TheChat = () => {
                             navigation.goBack()
                     }}
                 />)
+            
         })
     }, [])
 

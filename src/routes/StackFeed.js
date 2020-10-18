@@ -50,7 +50,7 @@ export function StackFeed() {
                 }} />
             <Stack.Screen name='ListChoosedPeople' component={ListChoosedPeople}
                 options={{
-                    title: 'Escolher Interessado',
+                    title: 'Interessados',
                     headerStyle: {
                         backgroundColor: color2,
                     },
