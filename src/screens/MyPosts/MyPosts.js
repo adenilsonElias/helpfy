@@ -7,19 +7,22 @@ import Post from '../../model/post_model'
 import { getPostList } from '../../firebase/Post';
 import { useSelector } from 'react-redux';
 import User from '../../model/user';
+import Loading from '../Loading/Loading'
 
 export default MyPosts = () => {
     const navigation = useNavigation()
     const route = useRoute()
     const [updateScreen, setUpdateScreen] = useState(false);
     const user: User = route.params && route.params.user ? route.params.user : useSelector(state => state.userState.user)
-
+    const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState()
 
     useFocusEffect(
         useCallback(() => {
+            setLoading(true)
             async function getPostsUser() {
                 setPosts(await getPostList({ userId: user.id }))
+                setLoading(false)
             }
             getPostsUser().then(() => {
                 console.info("Posts coletados com sucesso")
@@ -27,6 +30,12 @@ export default MyPosts = () => {
         }, [updateScreen])        
     )
 
+    if(loading){
+        return(
+            <Loading />
+        )
+    }
+    
     return (
         <View style={style.container}>
             <FlatList

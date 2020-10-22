@@ -7,17 +7,21 @@ import { View, FlatList } from 'react-native';
 import { getPostListLike, removeLike } from '../../firebase/Post';
 import User from '../../model/user';
 import { useSelector } from 'react-redux';
+import Loading from '../Loading/Loading'
 
 export default LikeList = () => {
     const [posts, setPost] = useState([])
     const [updateScreen, setUpdateScreen] = useState(false);
     const user: User = useSelector(state => state.userState.user)
     const navigation = useNavigation()
+    const [loading, setLoading] = useState(false)
 
     useFocusEffect(
         useCallback(() => {
+            setLoading(true)
             async function getPostsLiked() {
                 setPost(await getPostListLike(user.id))
+                setLoading(false)
             }
             getPostsLiked().then(() => {
                 console.info("Posts coletados com sucesso")
@@ -32,6 +36,12 @@ export default LikeList = () => {
         })
     }
 
+    if(loading){
+        return(
+            <Loading />
+        )
+    }
+
     return (
         <View style={style.container}>
             <Header title={'Lista de Curtidas'} icon={'thumbs-up'} />
@@ -43,7 +53,7 @@ export default LikeList = () => {
                 style={{ paddingVertical: 5 }}
                 renderItem={({ item }) => {
                     return (
-                        <PostList post={item} action={handleUnlike} />
+                        <PostList post={item} action={handleUnlike}/>
                     )
                 }}
             />

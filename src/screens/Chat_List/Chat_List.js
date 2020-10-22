@@ -16,7 +16,6 @@ export default Chat_List = () => {
     const [useList,setUseList] = useState([])
     const user: User = useSelector(state => state.userState.user)
 
-
     useEffect(()=>{
         chatListener(user,(chatCollection : FirebaseFirestoreTypes.QuerySnapshot)=>{
             let usersPromise = chatCollection.docs.map(async (documents) =>{
@@ -27,29 +26,6 @@ export default Chat_List = () => {
             })
         })
     })
-
-    const data = [{
-        id: 1,
-        name: 'teste'
-    },{
-        id: 2,
-        name: 'teste'
-    },{
-        id: 3,
-        name: 'teste'
-    },{
-        id: 4,
-        name: 'teste'
-    },{
-        id: 5,
-        name: 'teste'
-    },{
-        id: 6,
-        name: 'teste'
-    },{
-        id: 7,
-        name: 'teste'
-    },]
 
     return (
         <View style={style.container}>

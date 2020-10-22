@@ -6,17 +6,21 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { color1, color2 } from '../../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
 import { upDonationStage } from '../../firebase/Post';
+import Loading from '../Loading/Loading'
 
 export default ListChoosedPeople = () => {
     const navigation = useNavigation()
     const post = useRoute().params['post']
     const [userList, setUserList] = useState([])
     const [choose, setChoose] = useState(false)
+    const [loading, setLoading] = useState(false)
     const chooseText = choose ? 'Escolhido' : 'Escolher'
 
     useEffect(() => {
+        setLoading(true)
         async function collect() {
             setUserList(await getWantPeople(post))
+            setLoading(false)
         }
         collect()
     }, [])
@@ -26,6 +30,12 @@ export default ListChoosedPeople = () => {
             console.info("estado de doação alterado com sucesso")
             navigation.goBack()
         })
+    }
+
+    if(loading){
+        return(
+            <Loading />
+        )
     }
 
     return (

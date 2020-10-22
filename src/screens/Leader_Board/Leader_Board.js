@@ -9,6 +9,7 @@ import { getPeople } from '../../firebase/Gamification'
 import ProfileBoard from './components/Profile_Boards/ProfileBoards'
 import TitleBoard from './components/Title_Board/TitleBoard'
 import InfoBoard from './components/Info_Board/InfoBoard'
+import Loading from '../Loading/Loading'
 
 //@TODO arrumar warning posicao do usuario
 //index do flatlist eh a posiaco de outro componente
@@ -18,9 +19,14 @@ export default LeaderBoard = () => {
     const [position, setPosition] = useState(0)
     const name = useSelector(state => state.userState)
     const [data, setData] = useState()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        getPeople().then(value => setData(value))
+        setLoading(true)
+        getPeople().then(value => {
+            setData(value)
+            setLoading(false)
+        })
     }, [])
 
     const nameUser = auth.isLogged ? name.user.name : 'Anônimo'
@@ -28,6 +34,12 @@ export default LeaderBoard = () => {
         <ProfileBoard score={name.user.score} position={position}/> : null
 
     const userId = auth.isLogged ? name.user.id : ''
+
+    if(loading){
+        return(
+            <Loading />
+        )
+    }
 
     return (
         <View style={style.container}>            

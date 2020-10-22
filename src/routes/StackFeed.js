@@ -7,7 +7,7 @@ import { color1, color2, styleTitle } from '../global//constant/constant'
 import { Button, TextInput } from 'react-native';
 import AddPost from '../screens/Add_Post/AddPost'
 import Category from '../screens/Category/Category';
-import ListChoosedPeople from '../screens/LIst_Choosed_People/ListChoosedPeople'
+import ListChoosedPeople from '../screens/List_Choosed_People/ListChoosedPeople'
 import Notifications from '../screens/Notifications/Notifications';
 import Profile from '../screens/Profile/Profile';
 

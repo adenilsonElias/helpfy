@@ -7,20 +7,35 @@ const style = StyleSheet.create({
         padding: 10,
         width: '100%',
     },
+    titleContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: 10,
+        // backgroundColor: 'red',
+    },
     rowContainer: {
         flexDirection: 'row',
-        width: '100%',        
+        width: '100%',
+        paddingVertical: 5,
+        alignItems: 'center',
+        // borderWidth: 1
     },
     titleText: {
-        fontSize: 15,
-        textAlign: "justify",
+        fontSize: 25,
+        textAlign: "center",
         color: color1,
     },
+    typeText: {
+        fontSize: 16,
+        color: color1,
+        // paddingVertical: 2
+    },
     descriptionInfo: {
-        fontSize: 15,
+        fontSize: 16,
         textAlign: "justify",
         color: color4,
-        flexShrink: 1
+        flexShrink: 1,
+        // paddingVertical: 2
         // backgroundColor: 'red',
         // width: '100%'
     },

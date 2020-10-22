@@ -38,6 +38,7 @@ const ThePost = () => {
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
     const [author, setAuthor] = useState()
+    const [loading, setLoading] = useState(false)
     const parameter = {
         message,
         setMessage,
@@ -54,6 +55,7 @@ const ThePost = () => {
     }
 
     useEffect(() => {
+        setLoading(true)
         setOptions({       
             // title: post.title,
             // headerStyle: {
@@ -81,22 +83,34 @@ const ThePost = () => {
         })
         post.getUser().then((user) => {
             setAuthor(user.name)
+            setLoading(false)
         })
     }, [])
 
     useEffect(() => {
+        setLoading(true)
         const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
             console.info("listener chamado com sucesso")
             setPost(new Post({ ...documentSnapshot.data(), IdPost: documentSnapshot.id }));
+            setLoading(false)
         })
         return () => sub()
     }, [])
 
     useEffect(() => {
         // @TODO adicionar butao de ordenacao
-
-        getComentarios(post.IdPost, 'desc').then(value => setComentarios(value))
+        setLoading(true)
+        getComentarios(post.IdPost, 'desc').then(value => {
+            setComentarios(value)
+            setLoading(false)
+        })
     }, [update])
+
+    if(loading){
+        return(
+            <Loading />
+        )
+    }
 
     const renderAddComment = auth.isLogged && !visible ?
         <TouchableOpacity style={style.containerAddComentario}

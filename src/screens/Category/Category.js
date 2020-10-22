@@ -7,11 +7,13 @@ import { HeaderBackButton } from '@react-navigation/stack'
 import { getPostList } from '../../firebase/Post'
 import Filter from './Filter/Filter'
 import CategoryCard from './Category_Card/category_card'
+import Loading from '../Loading/Loading'
 
 export default Category = (props) => {
     const navigation = useNavigation()
     const category = useRoute().params.title
     const [posts, setPosts] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         navigation.setOptions({
@@ -35,13 +37,20 @@ export default Category = (props) => {
     }, [])
 
     useEffect(() => {
+        setLoading(true)
         async function collectPost() {
             const post = await getPostList({ category: category }, { limit: 10 })
             setPosts(post)
+            setLoading(false)
         }
-
         collectPost()
     }, [])
+
+    if(loading){
+        return(
+            <Loading />
+        )
+    }
 
     return (
         <View style={style.container}>
