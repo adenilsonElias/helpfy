@@ -4,9 +4,30 @@ import { color1 } from '../../../../global/constant/constant'
 import style from './style'
 import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 import Icon from 'react-native-vector-icons/Feather'
+import User from '../../../../model/user'
+import Comentario from '../../../../model/comments'
+import { useSelector } from 'react-redux'
+import { createCommentProfile } from '../../../../firebase/comentarios'
 
-export default AddComments = () => {
+type Props = {
+    user : User
+}
+
+export default AddComments = ({user} : Props) => {
     const [message, setMessage] = useState('')
+    const userLogged: User = useSelector(state => state.userState.user)
+
+
+    function handleCreateComment(){
+        let comentario = new Comentario()
+        comentario.message = message
+        comentario.creatorId = userLogged.id
+        comentario.timeCreated = Date.now()
+        comentario.depth = 0
+        createCommentProfile(comentario,user).then(()=>{
+            console.info("Comentario de perfil criado com sucesso")
+        })
+    }
 
     return (
         <View style={style.container}>
@@ -21,7 +42,7 @@ export default AddComments = () => {
                 underlineColorAndroid='transparent'
                 onChangeText={(value) => {setMessage(value)}}/>
             <TouchableOpacity style={style.sendButton}
-                onPress={() => {}}>
+                onPress={handleCreateComment}>
                 <Icon name={'send'} size={26} color={color1} />
             </TouchableOpacity>
         </View>
