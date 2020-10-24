@@ -17,6 +17,7 @@ export default Category = (props) => {
 
     useEffect(() => {
         navigation.setOptions({
+            headerShown: !loading,
             title: category,
             // Quando clicar em voltar, coloca novamente o bottomBar
             headerLeft: (props) => (
@@ -34,7 +35,7 @@ export default Category = (props) => {
                 <Filter setPost={setPosts} />
             )
         })
-    }, [])
+    }, [loading])
 
     useEffect(() => {
         setLoading(true)

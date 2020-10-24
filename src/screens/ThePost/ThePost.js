@@ -54,14 +54,14 @@ const ThePost = () => {
         setTypeComment(type)
     }
 
-    useEffect(() => {
-        setLoading(true)
-        setOptions({       
+    useEffect(() => {        
+        navigation.setOptions({       
             // title: post.title,
             // headerStyle: {
             //     backgroundColor: color2,
             // },
             // headerTitleStyle: styleTitle,
+            headerShown: !loading,
             headerTintColor: color1,
             headerTitleAlign: 'center',
             headerTitle: () => {
@@ -81,6 +81,10 @@ const ThePost = () => {
                 }
             }
         })
+    }, [loading])
+
+    useEffect(() => {
+        setLoading(true)
         post.getUser().then((user) => {
             setAuthor(user.name)
             setLoading(false)
