@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { Dimensions, StyleSheet } from "react-native"
 import { color1, color2, fontTitle } from '../../global/constant/constant'
  
 const style = StyleSheet.create({
@@ -8,9 +8,13 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: color2
     },
+    animationContainer: {
+        width: Dimensions.get('window').width * 3 / 4,
+        height: Dimensions.get('window').width * 3 / 4
+    },
     titleContainer: {
         alignItems: 'center',
-        marginBottom: '20%'
+        marginBottom: '5%'
     },
     title: {       
         fontSize: 50,

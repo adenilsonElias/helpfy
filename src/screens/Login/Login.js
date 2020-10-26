@@ -10,7 +10,9 @@ import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
 import { color1 } from '../../global/constant/constant'
+import Lottie from 'lottie-react-native'
 
+import animation from '../../assets/animations/box.json'
 
 export default Login = () => {
     const auth = useContext(AuthContext);
@@ -30,6 +32,9 @@ export default Login = () => {
 	
     return(
         <View style={style.container}>
+			<View style={style.animationContainer}>
+				<Lottie resizeMode={"contain"} source={animation} autoPlay loop/>
+			</View>
 			<View style={style.titleContainer}>
 				<Text style={style.title}>Helpfy</Text>
 			</View>
