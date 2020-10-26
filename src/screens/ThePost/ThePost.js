@@ -7,7 +7,7 @@ import { color1, color2, styleTitle } from '../../global/constant/constant'
 import Post from '../../model/post_model'
 import Comments from './components/Comments/Comments'
 import { SliderBox } from "react-native-image-slider-box";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import User from '../../model/user'
 import Comentario from '../../model/comments'
 import { adicionarComentarios, getComentarios } from '../../firebase/comentarios'
@@ -20,6 +20,7 @@ import PreviewImages from './components/PreviewImages/PreviewImages'
 import Icon from 'react-native-vector-icons/Feather';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import Description from './components/Description/Description'
+import { setLoading } from '../../store/actions/loading'
 
 // @TODO - corrigir warning Non-serializable values were found in the navigation state. Check:
 // Tela Inicial > Home > ThePost > params.post.donatario._firestore._app._deleteApp (Function)
@@ -38,7 +39,8 @@ const ThePost = () => {
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
     const [author, setAuthor] = useState()
-    const [loading, setLoading] = useState(false)
+    const loading = useSelector(state => state.loadingState.loading)
+    const dispatch = useDispatch()
     const parameter = {
         message,
         setMessage,
@@ -84,29 +86,29 @@ const ThePost = () => {
     }, [loading])
 
     useEffect(() => {
-        setLoading(true)
+        dispatch(setLoading(true))
         post.getUser().then((user) => {
             setAuthor(user.name)
-            setLoading(false)
+            dispatch(setLoading(false))
         })
     }, [])
 
     useEffect(() => {
-        setLoading(true)
+        dispatch(setLoading(true))
         const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
             console.info("listener chamado com sucesso")
             setPost(new Post({ ...documentSnapshot.data(), IdPost: documentSnapshot.id }));
-            setLoading(false)
+            dispatch(setLoading(false))
         })
         return () => sub()
     }, [])
 
     useEffect(() => {
         // @TODO adicionar butao de ordenacao
-        setLoading(true)
+        dispatch(setLoading(true))
         getComentarios(post.IdPost, 'desc').then(value => {
             setComentarios(value)
-            setLoading(false)
+            dispatch(setLoading(false))
         })
     }, [update])
 

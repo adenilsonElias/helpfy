@@ -12,6 +12,8 @@ import { getPostList, getPost } from '../../firebase/Post';
 import AuthContext from '../../context/auth_context';
 import PostCarousel from './components/Post_Carousel/PostCarousel'
 import Loading from '../Loading/Loading'
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '../../store/actions/loading'
 
 export default Feed = () => {
     //@ TODO Resolver problema de que a tela so puxa os post uma vez
@@ -24,13 +26,14 @@ export default Feed = () => {
         "https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
         "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
     ]
-    const [loading, setLoading] = useState(false)
     const [mostLiked, setMostLiked] = useState([])
     const [recentes, setRecentes] = useState([])
     const [mostComments, setMostComments] = useState([])
+    const loading = useSelector(state => state.loadingState.loading)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        setLoading(true)
+        dispatch(setLoading(true))
         async function getPosts() {
             const liked = await getPostList(null, { limit: 5 }, { field: 'likeNumber', direction: "desc" })
             const post = await getPostList(null, { limit: 5 }, { field: 'timePost', direction: 'desc' });
@@ -38,7 +41,7 @@ export default Feed = () => {
             setMostLiked(liked)
             setRecentes(post);
             setMostComments(comments)
-            setLoading(false)
+            dispatch(setLoading(false))
         }
         getPosts()
     }, [])

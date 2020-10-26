@@ -14,9 +14,12 @@ import { getUserByRef } from '../../firebase/Authentication';
 export default Chat_List = () => {
     const navigation = useNavigation()
     const [useList,setUseList] = useState([])
-    const user: User = useSelector(state => state.userState.user)
+    const user: User = useSelector(state => state.userState.user)    
 
     useEffect(()=>{
+        if (user == null) {
+            return
+        }
         chatListener(user,(chatCollection : FirebaseFirestoreTypes.QuerySnapshot)=>{
             let usersPromise = chatCollection.docs.map(async (documents) =>{
                 return getUserByRef(documents.data()['user'])

@@ -9,11 +9,13 @@ import { StackChat } from './StackChat'
 import { color1 } from '../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
 // import StackLogin from './StackLogin';
 
 const Tab = createBottomTabNavigator();
 
 function getTabBarVisible(route) {
+    const loading = useSelector(state => state.loadingState.loading)
     // Tela esconde o bottomBar    
     const routeName = route.state
         ? route.state.routes[route.state.index].name
@@ -41,6 +43,9 @@ function getTabBarVisible(route) {
         return false;
     }
     if (routeName === 'Notifications') {        
+        return false;
+    }
+    if (loading) {
         return false;
     }
     return true;

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import setUser from './user'
-
-
+import setLoading from './loading'
 
 export default combineReducers({
-    userState : setUser
+    userState : setUser,
+    loadingState : setLoading
 });
