@@ -16,6 +16,7 @@ import SliderImages from './components/SliderImages/SliderImages'
 import ImageView from 'react-native-image-view';
 import Loading from '../Loading/Loading'
 import Icon from 'react-native-vector-icons/Feather'
+import Header from './components/Header/Header'
 
 export default AddPost = () => {
     const user: User | null = useSelector(state => state.userState.user);
@@ -106,33 +107,7 @@ export default AddPost = () => {
 
     useLayoutEffect(() => {
         converToPickerItem(categorys)
-        navigation.setOptions({
-            // Quando clicar em voltar, coloca novamente o bottomBar
-            headerLeft: (props) => (
-                < HeaderBackButton
-                    tintColor={color1}
-                    onPress={() => {
-                        navigation.setOptions({
-                            tabBarVisible: true
-                        }),
-                            navigation.goBack()
-                    }}
-                />),
-            title: postParam ? 'Editar Postagem' : 'Nova Postagem',
-            headerRight: () => (                
-                <TouchableOpacity style={style.save}
-					onPress={handleSavePost}>
-					<Icon name={'save'} size={25} color={color1} />
-				</TouchableOpacity>
-			)
-        })
     }, [])
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerShown: !loading
-        })
-    }, [loading])
 
     //Converter toda imagem salva no array Images para o preview
     useEffect(() => {
@@ -147,40 +122,43 @@ export default AddPost = () => {
     }
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={style.container}>
-                <Title title={'Título da Postagem'} />
-                <View style={style.inputContainer}>
-                    <TextInput style={style.input} placeholder='Insira o título...'
-                        placeholderTextColor={color1}
-                        // maxLength={20}
-                        // autoFocus={true}
-                        value={title} onChangeText={setTitle} />
+        <View style={style.container}>
+            <Header handleSavePost={handleSavePost} postParam={postParam}/>
+            <ScrollView showsVerticalScrollIndicator={false} >
+                <View style={{ flex: 2 }}>
+                    <Title title={'Título da Postagem'} />
+                    <View style={style.inputContainer}>
+                        <TextInput style={style.input} placeholder='Insira o título...'
+                            placeholderTextColor={color1}
+                            // maxLength={20}
+                            // autoFocus={true}
+                            value={title} onChangeText={setTitle} />
+                    </View>
+                    <Title title={'Categoria'} />
+                    <RNPickerSelect onValueChange={value => {
+                            setChoiceCategory(value)
+                        }}
+                        items={category} placeholder={placeholderValue}
+                        value={choiceCategory}
+                        style={placeHolderStyle} useNativeAndroidPickerStyle={false} />
+                    <Title title={`Imagem (${images.length}/5)`} />
+                    <SliderImages pickerImage={pickImage} setVisible={setVisible} 
+                        images={images} setImages={setImages} displayImages={displayImages} 
+                        setDisplayImages={setDisplayImages} />
+                    {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
+                    <Title title={'Descrição'} />
+                    <View style={[style.inputContainer, style.inputDescriptionContainer]}>
+                        <TextInput style={style.input} placeholder='Insira a descrição...'
+                            placeholderTextColor={color1} multiline={true}
+                            // autoFocus={true}
+                            value={description} onChangeText={setDescription} />
+                    </View>
+                    <ImageView glideAlways images={previewImages}
+                        imageIndex={imageIndex} animationType="fade"
+                        isVisible={visible} onClose={() => setVisible(false)} />
                 </View>
-                <Title title={'Categoria'} />
-                <RNPickerSelect onValueChange={value => {
-                        setChoiceCategory(value)
-                    }}
-                    items={category} placeholder={placeholderValue}
-                    value={choiceCategory}
-                    style={placeHolderStyle} useNativeAndroidPickerStyle={false} />
-                <Title title={`Imagem (${images.length}/5)`} />
-                <SliderImages pickerImage={pickImage} setVisible={setVisible} 
-                    images={images} setImages={setImages} displayImages={displayImages} 
-                    setDisplayImages={setDisplayImages} />
-                {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
-                <Title title={'Descrição'} />
-                <View style={[style.inputContainer, style.inputDescriptionContainer]}>
-                    <TextInput style={style.input} placeholder='Insira a descrição...'
-                        placeholderTextColor={color1} multiline={true}
-                        // autoFocus={true}
-                        value={description} onChangeText={setDescription} />
-                </View>
-                <ImageView glideAlways images={previewImages}
-                    imageIndex={imageIndex} animationType="fade"
-                    isVisible={visible} onClose={() => setVisible(false)} />
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     )
 }
 

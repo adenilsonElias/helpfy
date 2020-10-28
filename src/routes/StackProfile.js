@@ -13,16 +13,7 @@ export function StackProfile() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-            <Stack.Screen name="Edit" component={Edit}
-                options={{
-                    title: 'Editar Perfil',
-                    headerStyle: {
-                        backgroundColor: color2,
-                    },
-                    headerTintColor: color1,
-                    headerTitleAlign: 'center',
-                    headerTitleStyle: styleTitle,
-                }} />
+            <Stack.Screen name="Edit" component={Edit} options={{ headerShown: false }} />
             <Stack.Screen name="Rating" component={Rating} 
                 options={{
                     title: 'Avaliação',

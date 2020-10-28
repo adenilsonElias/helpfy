@@ -12,6 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { HeaderBackButton } from '@react-navigation/stack'
 import EditImage from './components/Edit_Image/Edit_Image'
 import EditBackground from './components/Edit_Background/Edit_Background'
+import Header from './components/Header/Header'
 
 export default Edit = () => {
 	const navigation = useNavigation()
@@ -63,92 +64,94 @@ export default Edit = () => {
     }, [])
 
     return (
-        <ScrollView style={style.container} 
-			showsVerticalScrollIndicator={false}>
-			{/* <View style={style.container}> */}
-			<EditImage />
-			<EditBackground />
-			<View style={style.inputContainer}>
-				<Icon name={'user'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Nome'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={name}
-					underlineColorAndroid='transparent'
-					onChangeText={name => setName(name)} />
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'at-sign'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='E-mail'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={email}
-					underlineColorAndroid='transparent'
-					onChangeText={email => setEmail(email)} />
-			</View>
-			<View style={style.inputContainer}>
-				<Icon2 name={'cake-variant'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Data de Nascimento'
-					placeholderTextColor={color1}
-					keyboardType='number-pad'
-					value={birth}
-					underlineColorAndroid='transparent'
-					onChangeText={birth => setBirth(birth)} />
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Estado'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={state}
-					underlineColorAndroid='transparent'
-					onChangeText={state => setState(state)} />
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Cidade'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={city}
-					underlineColorAndroid='transparent'
-					onChangeText={city => setCity(city)} />
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-				<TextInput style={[style.input, { paddingRight: '15%' }]}
-					placeholder='Senha'
-					placeholderTextColor={color1}
-					secureTextEntry={showPass}
-					value={password}
-					underlineColorAndroid='transparent'
-					onChangeText={password => setPassword(password)} />
-				<TouchableOpacity style={style.btnEye}
-					onPress={showPassFuntion}>
-					<Icon name={showPass === false ? 'eye' : 'eye-off'}
-						size={26} color={color1} />
-				</TouchableOpacity>
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-				<TextInput style={[style.input, { paddingRight: '15%' }]}
-					placeholder='Confirmar senha'
-					placeholderTextColor={color1}
-					secureTextEntry={showPassConfirm}
-					value={confirmPass}
-					underlineColorAndroid='transparent'
-					onChangeText={confirmPass => setConfirmPass(confirmPass)} />
-				<TouchableOpacity style={style.btnEye}
-					onPress={showPassConfirmFuntion}>
-					<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
-						size={26} color={color1} />
-				</TouchableOpacity>
-			</View>
-			{/* </View> */}
-		</ScrollView>
+		<>
+			<Header password={password} confirmPass={confirmPass}/>
+			<ScrollView style={style.container} 
+				showsVerticalScrollIndicator={false}>
+				{/* <View style={style.container}> */}
+				<EditImage />
+				<EditBackground />
+				<View style={style.inputContainer}>
+					<Icon name={'user'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='Nome'
+						placeholderTextColor={color1}
+						keyboardType='email-address'
+						value={name}
+						underlineColorAndroid='transparent'
+						onChangeText={name => setName(name)} />
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'at-sign'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='E-mail'
+						placeholderTextColor={color1}
+						keyboardType='email-address'
+						value={email}
+						underlineColorAndroid='transparent'
+						onChangeText={email => setEmail(email)} />
+				</View>
+				<View style={style.inputContainer}>
+					<Icon2 name={'cake-variant'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='Data de Nascimento'
+						placeholderTextColor={color1}
+						keyboardType='number-pad'
+						value={birth}
+						underlineColorAndroid='transparent'
+						onChangeText={birth => setBirth(birth)} />
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='Estado'
+						placeholderTextColor={color1}
+						keyboardType='email-address'
+						value={state}
+						underlineColorAndroid='transparent'
+						onChangeText={state => setState(state)} />
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='Cidade'
+						placeholderTextColor={color1}
+						keyboardType='email-address'
+						value={city}
+						underlineColorAndroid='transparent'
+						onChangeText={city => setCity(city)} />
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
+					<TextInput style={[style.input, { paddingRight: '15%' }]}
+						placeholder='Senha'
+						placeholderTextColor={color1}
+						secureTextEntry={showPass}
+						value={password}
+						underlineColorAndroid='transparent'
+						onChangeText={password => setPassword(password)} />
+					<TouchableOpacity style={style.btnEye}
+						onPress={showPassFuntion}>
+						<Icon name={showPass === false ? 'eye' : 'eye-off'}
+							size={26} color={color1} />
+					</TouchableOpacity>
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
+					<TextInput style={[style.input, { paddingRight: '15%' }]}
+						placeholder='Confirmar senha'
+						placeholderTextColor={color1}
+						secureTextEntry={showPassConfirm}
+						value={confirmPass}
+						underlineColorAndroid='transparent'
+						onChangeText={confirmPass => setConfirmPass(confirmPass)} />
+					<TouchableOpacity style={style.btnEye}
+						onPress={showPassConfirmFuntion}>
+						<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
+							size={26} color={color1} />
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
+		</>
     )
 }

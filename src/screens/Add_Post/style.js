@@ -3,6 +3,7 @@ import { color1, fontTitle, styleTitle, color2, color3 } from '../../global/cons
 
 const style = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: 'center',
         backgroundColor: color2,
     },
@@ -26,10 +27,7 @@ const style = StyleSheet.create({
     },
     pickerSelect: {
         backgroundColor: color1
-    },
-    save: {
-        marginRight: 10,
-    },
+    }
 })
 
 export const placeholderValue = {

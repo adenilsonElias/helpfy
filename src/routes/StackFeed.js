@@ -17,18 +17,10 @@ export function StackFeed() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Feed" component={Feed} options={{ headerShown: false }} />
-            <Stack.Screen name="ThePost" component={ThePost} />
+            <Stack.Screen name="ThePost" component={ThePost}/>
             <Stack.Screen name='Search' component={Search} />
             <Stack.Screen name="User-Profile" component={Profile} options={{ headerShown: false }} />
-            <Stack.Screen name='AddPost' component={AddPost}
-                options={{
-                    headerStyle: {
-                        backgroundColor: color2,
-                    },
-                    headerTintColor: color1,
-                    headerTitleAlign: 'center',
-                    headerTitleStyle: styleTitle,
-                }} />
+            <Stack.Screen name='AddPost' component={AddPost} options={{ headerShown: false }} />
             <Stack.Screen name='Category' component={Category}
                 options={{
                     headerStyle: {

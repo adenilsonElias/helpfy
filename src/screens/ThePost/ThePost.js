@@ -58,7 +58,7 @@ const ThePost = () => {
 
     useEffect(() => {        
         navigation.setOptions({       
-            // title: post.title,
+            title: '',
             // headerStyle: {
             //     backgroundColor: color2,
             // },
@@ -66,12 +66,12 @@ const ThePost = () => {
             headerShown: !loading,
             headerTintColor: color1,
             headerTitleAlign: 'center',
-            headerTitle: () => {
-                return(
-                    <Text style={style.titleHeader} adjustsFontSizeToFit={true} 
-                        allowFontScaling={true}>{post.title}</Text>
-                )
-            },
+            // headerTitle: () => {
+            //     return(
+            //         <Text style={style.titleHeader} adjustsFontSizeToFit={true} 
+            //             allowFontScaling={true}>{post.title}</Text>
+            //     )
+            // },
             headerRight: () => {
                 if (user && user.id == post.authorRef.id) {
                     return (
