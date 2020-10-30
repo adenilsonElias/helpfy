@@ -17,7 +17,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         paddingVertical: 5,
-        alignItems: 'center',
         // borderWidth: 1
     },
     titleText: {

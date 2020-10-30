@@ -42,7 +42,10 @@ export default AddComments = ({user} : Props) => {
                 underlineColorAndroid='transparent'
                 onChangeText={(value) => {setMessage(value)}}/>
             <TouchableOpacity style={style.sendButton}
-                onPress={handleCreateComment}>
+                onPress={() => {
+                    handleCreateComment()
+                    setMessage('')
+                }}>
                 <Icon name={'send'} size={26} color={color1} />
             </TouchableOpacity>
         </View>

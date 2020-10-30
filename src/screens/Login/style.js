@@ -20,22 +20,7 @@ const style = StyleSheet.create({
         fontSize: 50,
         color: color1,
         fontFamily: fontTitle
-    },
-    buttom: {
-        height: 45,
-        marginBottom: 20,
-        width: '45%',
-        borderRadius: 5,                
-        justifyContent: 'center',
-		alignContent: 'center',
-		backgroundColor: color1
-    },
-    buttomText: {
-        fontSize: 20,
-        color: 'white',
-        textAlignVertical: 'center',
-        textAlign: 'center'
-    },
+    },    
     input: {                
         backgroundColor: 'transparent',
         height: 45,

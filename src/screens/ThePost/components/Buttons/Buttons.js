@@ -148,9 +148,12 @@ const Buttons = ({ post, setPost }: Props) => {
                                 <Text style={style.choosedPeopleText}>{donatario.name}</Text>
                                 <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
                             </View>
-                            <TouchableOpacity onPress={handleCancelDonation} >
-                                <Icon2 name={'x'} size={40} color={color1} />
-                            </TouchableOpacity>
+                            <View style={style.buttonContainerAcecptOrRefuse}>
+                                <TouchableOpacity onPress={handleCancelDonation} >
+                                    <Icon2 name={'x'} size={40} color={color1} />
+                                </TouchableOpacity>
+                                <Text style={style.choosedPeopleConfirmText}>Cancelar</Text>
+                            </View>
                         </View>
                     )
                 // usuario é o donatario
@@ -161,12 +164,18 @@ const Buttons = ({ post, setPost }: Props) => {
                                 <Text style={style.choosedPeopleText}>{donatario.name}</Text>
                                 <Text style={style.choosedPeopleConfirmText}>Escolhido</Text>
                             </View>
-                            <TouchableOpacity onPress={handleCancelDonation}>
-                                <Icon2 name={'x'} size={40} color={color1} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={handleAccept}>
-                                <Icon2 name={'check'} size={40} color={color1} />
-                            </TouchableOpacity>
+                            <View style={style.buttonContainerAcecptOrRefuse}>
+                                <TouchableOpacity onPress={handleCancelDonation}>
+                                    <Icon2 name={'x'} size={40} color={color1} />
+                                </TouchableOpacity>
+                                <Text style={style.choosedPeopleConfirmText}>Cancelar</Text>
+                            </View>
+                            <View style={style.buttonContainerAcecptOrRefuse}>
+                                <TouchableOpacity onPress={handleAccept}>
+                                    <Icon2 name={'check'} size={40} color={color1} />
+                                </TouchableOpacity>
+                                <Text style={style.choosedPeopleConfirmText}>Confirmar</Text>
+                            </View>
                         </View>
                     )
                 // usuario não é nenhum do dois ou não esta logado

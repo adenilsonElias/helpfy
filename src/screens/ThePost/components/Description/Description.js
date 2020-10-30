@@ -18,7 +18,7 @@ export default Description = ({ post, authorName }) => {
                 <Text style={style.typeText}>Categoria: </Text>
                 <Text style={style.descriptionInfo}>{post.category}</Text>
             </View>
-            <View style={style.rowContainer}>
+            <View style={[style.rowContainer, { alignItems: 'center' }]}>
                 <The_Avatar size={'small'} />
                 <Text style={[style.descriptionInfo, { paddingHorizontal: 5, color: color1 }]}>{authorName}</Text>
             </View>

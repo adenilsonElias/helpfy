@@ -48,7 +48,11 @@ const style = StyleSheet.create({
     choosedPeopleConfirmText:{
         color: color1,
         fontStyle: "italic",
-    }
+    },
+    buttonContainerAcecptOrRefuse: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 })
 
 export default style

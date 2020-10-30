@@ -6,21 +6,20 @@ import {
 	TextInput
 } from 'react-native'
 import AuthContext from '../../context/auth_context'
-import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
 import { color1 } from '../../global/constant/constant'
+import Buttons from './components/Buttons/Buttons'
 import Lottie from 'lottie-react-native'
 
 import animation from '../../assets/animations/box.json'
 
 export default Login = () => {
-    const auth = useContext(AuthContext);
-    const navigation = useNavigation();
+    const auth = useContext(AuthContext);    
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPass, setShowPass] = useState(true) 
-	// const [press, setPress] = useState(false)
+	const [press, setPress] = useState(false)
 	    
     function handle_entrar_button_press(){
         auth.logIn(email,password);
@@ -64,16 +63,7 @@ export default Login = () => {
 						size={26} color={color1}/>
 				</TouchableOpacity>
 			</View>
-			<View style={style.buttom}>
-				<TouchableOpacity onPress={handle_entrar_button_press}>
-					<Text style={style.buttomText}>Entrar</Text>
-				</TouchableOpacity>
-        	</View>
-			<View style={style.buttom}>
-				<TouchableOpacity onPress={()=> navigation.navigate('Register')}>
-					<Text style={style.buttomText}>Registrar</Text>
-				</TouchableOpacity>
-        	</View>
+			<Buttons login={handle_entrar_button_press} />
         </View>
     )
 }
