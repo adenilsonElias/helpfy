@@ -5,8 +5,14 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native'
+import Post from '../../../../model/post_model'
 
-export default Header = ({ handleSavePost, postParam }) => {
+type Props = {
+    handleSavePost : Function,
+    postParam : Post
+}
+
+export default Header = ({ handleSavePost, postParam } : Props) => {
     const navigation = useNavigation()
 
     return(

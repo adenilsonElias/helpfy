@@ -112,6 +112,20 @@ export async function getPostListLike(userId: String) {
 
 export async function editPost(post: Post) {
     try {
+        let newImages = post.image.map(async (image) => {
+            if (image.includes('firebasestorage.googleapis')) {
+                return image
+            }
+            else {
+                let imageUrl = "";
+                const bucketReference = Storage().ref(`Post/${post.IdPost}/${image.split('/').pop()}`);
+                await bucketReference.putFile(image).then(async () => {
+                    imageUrl = await bucketReference.getDownloadURL()
+                })
+                return imageUrl
+            }
+        })
+        post.image = await Promise.all(newImages)
         await Firestore().collection('Post').doc(post.IdPost).update(post.toJson())
     }
     catch (e) {

@@ -10,7 +10,7 @@ import Title from './components/Title/Title'
 import Post from '../../model/post_model'
 import { useSelector } from 'react-redux'
 import User from '../../model/user'
-import { createPost } from '../../firebase/Post'
+import { createPost, editPost } from '../../firebase/Post'
 import ImagePicker from 'react-native-image-picker'
 import SliderImages from './components/SliderImages/SliderImages'
 import ImageView from 'react-native-image-view';
@@ -33,35 +33,31 @@ export default AddPost = () => {
     const [visible, setVisible] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    //UseEffect para setar parametros no navigation para ser coletados no botao salvar no header
-    useEffect(() => {        
-        navigation.setParams({
-            title: title,
-            description: description,
-            choiceCategory: choiceCategory,
-            images: images 
-        })        
-    }, [title, description, choiceCategory, images])
-
     function handleSavePost() {
         if (user == null) {
             return;
         }
-        if(postParam){
+        if (postParam) {
+            postParam.title = title;
+            postParam.description = description;
+            postParam.category = choiceCategory;
+            postParam.image = images;
+            setLoading(true)
+            editPost(postParam).then(() => {
+                console.info("Post editado com sucesso");
+                setLoading(false)
+
+            })
             console.log('IF do postParam')
         } else {
             const newPost = new Post({
-                title: navigation.dangerouslyGetState().routes[1].params.title,
-                description: navigation.dangerouslyGetState().routes[1].params.description,
-                category: navigation.dangerouslyGetState().routes[1].params.choiceCategory,
-                image: navigation.dangerouslyGetState().routes[1].params.images,
+                title: title,
+                description: description,
+                category: choiceCategory,
+                image: images,
                 userId: user.id,
                 timePost: Date.now(),
-                donatarioId: null,
-                donatarioRef: null,
-                donationStatus: 1
             })
-            console.log('teste',newPost)
             setLoading(true)
             createPost(newPost, user.id).then((response) => {
                 console.info('Post criado com sucesso')
@@ -115,15 +111,15 @@ export default AddPost = () => {
     }, [images])
 
 
-    if(loading){
-        return(
+    if (loading) {
+        return (
             <Loading />
         )
     }
 
     return (
         <View style={style.container}>
-            <Header handleSavePost={handleSavePost} postParam={postParam}/>
+            <Header handleSavePost={handleSavePost} postParam={postParam} />
             <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={{ flex: 2 }}>
                     <Title title={'Título da Postagem'} />
@@ -136,14 +132,14 @@ export default AddPost = () => {
                     </View>
                     <Title title={'Categoria'} />
                     <RNPickerSelect onValueChange={value => {
-                            setChoiceCategory(value)
-                        }}
+                        setChoiceCategory(value)
+                    }}
                         items={category} placeholder={placeholderValue}
                         value={choiceCategory}
                         style={placeHolderStyle} useNativeAndroidPickerStyle={false} />
                     <Title title={`Imagem (${images.length}/5)`} />
-                    <SliderImages pickerImage={pickImage} setVisible={setVisible} 
-                        images={images} setImages={setImages} displayImages={displayImages} 
+                    <SliderImages pickerImage={pickImage} setVisible={setVisible}
+                        images={images} setImages={setImages} displayImages={displayImages}
                         setDisplayImages={setDisplayImages} />
                     {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
                     <Title title={'Descrição'} />
