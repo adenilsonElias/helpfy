@@ -3,14 +3,13 @@ import { color1, color2, fontTitle } from '../../global/constant/constant'
  
 const style = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // flex: 1,
         backgroundColor: color2
     },
     animationContainer: {
         width: Dimensions.get('window').width * 3 / 4,
-        height: Dimensions.get('window').width * 3 / 4
+        height: Dimensions.get('window').width * 3 / 4,        
+        alignSelf: 'center'
     },
     titleContainer: {
         alignItems: 'center',

@@ -10,6 +10,7 @@ import { color1 } from '../../global/constant/constant'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { getCities, getStates } from '../../api/ibge'
 import RNPickerSelect from 'react-native-picker-select';
+import TheDatePicker from './components/The_Date_Picker/TheDatePicker'
 
 // @TODO Conserta waning quando tem uma cidade selecionada e você altera o estado
 
@@ -59,7 +60,8 @@ export default Register = () => {
 
 	return (
 		<KeyboardAwareScrollView
-			scrollEnabled={true}
+			showsVerticalScrollIndicator={false}
+			scrollEnabled={true}			
 			enableAutomaticScroll={true}
 			contentContainerStyle={style.container}>
 			{/* <View style={style.container}> */}
@@ -86,16 +88,7 @@ export default Register = () => {
 					underlineColorAndroid='transparent'
 					onChangeText={email => setEmail(email)} />
 			</View>
-			<View style={style.inputContainer}>
-				<Icon2 name={'cake-variant'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Data de Nascimento'
-					placeholderTextColor={color1}
-					keyboardType='number-pad'
-					value={birth}
-					underlineColorAndroid='transparent'
-					onChangeText={birth => setBirth(birth)} />
-			</View>
+			<TheDatePicker birth={birth} setBirth={setBirth}/>
 			<RNPickerSelect
 				onValueChange={(value, index) => {
 					setStateUf('')

@@ -1,10 +1,5 @@
 import React, { useContext, useState } from 'react'
-import {
-    View,
-    Text,
-	TouchableOpacity,
-	TextInput
-} from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import AuthContext from '../../context/auth_context'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
@@ -30,7 +25,7 @@ export default Login = () => {
     }
 	
     return(
-        <View style={style.container}>
+        <ScrollView style={style.container}>
 			<View style={style.animationContainer}>
 				<Lottie resizeMode={"contain"} source={animation} autoPlay loop/>
 			</View>
@@ -64,7 +59,8 @@ export default Login = () => {
 				</TouchableOpacity>
 			</View>
 			<Buttons login={handle_entrar_button_press} />
-        </View>
+			<View style={{ flex: 1 }}/> 
+        </ScrollView>
     )
 }
 

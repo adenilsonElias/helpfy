@@ -9,11 +9,13 @@ export default About = () => {
         <>
             <Header title={'Sobre'} icon={'info'} />
             <View style={style.container}>
-                <Collaborator author={'Freepik'} />
-                <Collaborator author={'Iconixar'} />
-                <Collaborator author={'dDara'} />
-                <Collaborator author={'photo3idea_studio'} />
-                <Collaborator author={'Payungkead'} />
+                <Collaborator author={'Freepik'} type={'Ícone'} site={'www.flaticon.com'}/>
+                <Collaborator author={'Iconixar'} type={'Ícone'} site={'www.flaticon.com'}/>
+                <Collaborator author={'dDara'} type={'Ícone'} site={'www.flaticon.com'}/>
+                <Collaborator author={'photo3idea_studio'} type={'Ícone'} site={'www.flaticon.com'}/>
+                <Collaborator author={'Payungkead'} type={'Ícone'} site={'www.flaticon.com'}/>
+                <Collaborator author={'NorthSea'} type={'Animação'} site={'www.lottiefiles.com/'}/>
+                <Collaborator author={'Thalia Tran'} type={'Animação'} site={'www.lottiefiles.com/'}/>
             </View>
         </>
     )
