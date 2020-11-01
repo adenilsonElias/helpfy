@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import AuthContext from '../../context/auth_context'
 import { useNavigation } from '@react-navigation/native'
@@ -30,6 +30,8 @@ export default Register = () => {
 	const [showPass, setShowPass] = useState(true)
 	const [showPassConfirm, setShowPassConfirm] = useState(true)
 	const [textInputRef, setTextInputRef] = useState(0)
+	const ref1 = useRef(null)
+	const ref2 = useRef(null)
 
 	function handleCreateUser() {
 		const user = new User({
@@ -59,138 +61,152 @@ export default Register = () => {
 	}
 
 	return (
-		<KeyboardAwareScrollView
-			showsVerticalScrollIndicator={false}
-			scrollEnabled={true}			
-			enableAutomaticScroll={true}
-			contentContainerStyle={style.container}>
-			{/* <View style={style.container}> */}
-			<View style={style.titleContainer}>
-				<Text style={style.title}>Registrar</Text>
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'user'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='Nome'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={name}
-					underlineColorAndroid='transparent'
-					onChangeText={name => setName(name)} />
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'at-sign'} size={26} color={color1} style={style.icon} />
-				<TextInput style={style.input}
-					placeholder='E-mail'
-					placeholderTextColor={color1}
-					keyboardType='email-address'
-					value={email}
-					underlineColorAndroid='transparent'
-					onChangeText={email => setEmail(email)} />
-			</View>
-			<TheDatePicker birth={birth} setBirth={setBirth}/>
-			<RNPickerSelect
-				onValueChange={(value, index) => {
-					setStateUf('')
-					if (value != '') {
-						setStateUf(value)
-						setState(stateList[index - 1].nome);
-						getCitiesFunction(value)
-					}
-					else {
+		<View style={style.container}>
+			<KeyboardAwareScrollView
+				showsVerticalScrollIndicator={false}
+				scrollEnabled={true}
+				enableAutomaticScroll={true}
+				// contentContainerStyle={style.container}
+				>
+				{/* <View style={style.container}> */}
+				<View style={style.titleContainer}>
+					<Text style={style.title}>Registrar</Text>
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'user'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='Nome'
+						placeholderTextColor={color1}
+						keyboardType='email-address'
+						value={name}
+						underlineColorAndroid='transparent'
+						onSubmitEditing={() => {
+							ref1.current.focus()
+						}}
+						returnKeyType={"next"}
+						onChangeText={name => setName(name)} />
+				</View>
+				<View style={style.inputContainer}>
+					<Icon name={'at-sign'} size={26} color={color1} style={style.icon} />
+					<TextInput style={style.input}
+						placeholder='E-mail'
+						placeholderTextColor={color1}
+						keyboardType='email-address'
+						value={email}
+						underlineColorAndroid='transparent'
+						ref={ref1}
+						onChangeText={email => setEmail(email)} />
+				</View>
+				<TheDatePicker birth={birth} setBirth={setBirth}/>
+				<RNPickerSelect
+					onValueChange={(value, index) => {
 						setStateUf('')
-						setState('')
-						setCity('')
-						setCityList([])
-					}
-				}}
-				items={stateList.map((e) => {
-					return { label: e.nome, value: e.sigla }
-				})}
-				placeholder={placeholderValue}
-				// placeholder={{
-				// 	label: 'Selecione um estado',
-				// 	value: '',
-				// }}
-				style={placeHolderStyle}
-				useNativeAndroidPickerStyle={false}
-				Icon={() => {
-					return(
-						<Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
-					)
-				}}
-			/>
-			<RNPickerSelect
-				value={stateUF != '' ? city : ''}
-				onValueChange={(value, index) => {
-					if (value != '') {
-						setCity(value)
-					}
-					else {
-						setCity('')
-					}
-				}}
-				items={cityList.map((city) => {
-					return { label: city, value: city }
-				})}
-				placeholder={placeholderValue2}
-				style={placeHolderStyle}
-				useNativeAndroidPickerStyle={false}
-				Icon={() => {
-					return <Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
-				}}
-			/>
-			<View style={style.inputContainer}>
-				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-				<TextInput style={[style.input, { paddingRight: '15%' }]}
-					placeholder='Senha'
-					placeholderTextColor={color1}
-					secureTextEntry={showPass}
-					value={password}
-					underlineColorAndroid='transparent'
-					onChangeText={password => setPassword(password)} />
-				<TouchableOpacity style={style.btnEye}
-					onPress={showPassFuntion}>
-					<Icon name={showPass === false ? 'eye' : 'eye-off'}
-						size={26} color={color1} />
-				</TouchableOpacity>
-			</View>
-			<View style={style.inputContainer}>
-				<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-				<TextInput style={[style.input, { paddingRight: '15%' }]}
-					placeholder='Confirmar senha'
-					placeholderTextColor={color1}
-					secureTextEntry={showPassConfirm}
-					value={confirmPass}
-					underlineColorAndroid='transparent'
-					onChangeText={confirmPass => setConfirmPass(confirmPass)} />
-				<TouchableOpacity style={style.btnEye}
-					onPress={showPassConfirmFuntion}>
-					<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
-						size={26} color={color1} />
-				</TouchableOpacity>
-			</View>
-			<View style={style.buttomContainer}>
-				<View style={style.buttom}>
-					<TouchableOpacity onPress={() => {
-						navigation.goBack()
-					}}>
-						<Text style={style.buttomText}>Voltar</Text>
-					</TouchableOpacity>
-				</View>
-				<View style={style.buttom}>
-					<TouchableOpacity onPress={() => {
-						if (password != confirmPass) {
-							//@ TODO Colocar error para quando senhas forem diferentes
-							return
+						if (value != '') {
+							setStateUf(value)
+							setState(stateList[index - 1].nome);
+							getCitiesFunction(value)
 						}
-						handleCreateUser()
-					}}>
-						<Text style={style.buttomText}>Salvar</Text>
+						else {
+							setStateUf('')
+							setState('')
+							setCity('')
+							setCityList([])
+						}
+					}}
+					items={stateList.map((e) => {
+						return { label: e.nome, value: e.sigla }
+					})}
+					placeholder={placeholderValue}
+					// placeholder={{
+					// 	label: 'Selecione um estado',
+					// 	value: '',
+					// }}
+					style={placeHolderStyle}
+					useNativeAndroidPickerStyle={false}
+					Icon={() => {
+						return(
+							<Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
+						)
+					}}
+				/>
+				<RNPickerSelect
+					value={stateUF != '' ? city : ''}
+					onValueChange={(value, index) => {
+						if (value != '') {
+							setCity(value)
+						}
+						else {
+							setCity('')
+						}
+					}}
+					items={cityList.map((city) => {
+						return { label: city, value: city }
+					})}
+					placeholder={placeholderValue2}
+					style={placeHolderStyle}
+					useNativeAndroidPickerStyle={false}
+					Icon={() => {
+						return <Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
+					}}
+				/>
+				<View style={style.inputContainer}>
+					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
+					<TextInput style={[style.input, { paddingRight: '15%' }]}
+						placeholder='Senha'
+						placeholderTextColor={color1}
+						secureTextEntry={showPass}
+						value={password}
+						underlineColorAndroid='transparent'
+						onSubmitEditing={() => {
+							ref2.current.focus()
+						}}
+						returnKeyType={"next"}
+						onChangeText={password => setPassword(password)} />
+					<TouchableOpacity style={style.btnEye}
+						onPress={showPassFuntion}>
+						<Icon name={showPass === false ? 'eye' : 'eye-off'}
+							size={26} color={color1} />
 					</TouchableOpacity>
 				</View>
-			</View>
-			{/* </View> */ }
-		</KeyboardAwareScrollView >
+				<View style={style.inputContainer}>
+					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
+					<TextInput style={[style.input, { paddingRight: '15%' }]}
+						placeholder='Confirmar senha'
+						placeholderTextColor={color1}
+						secureTextEntry={showPassConfirm}
+						value={confirmPass}
+						underlineColorAndroid='transparent'
+						ref={ref2}
+						onChangeText={confirmPass => setConfirmPass(confirmPass)} />
+					<TouchableOpacity style={style.btnEye}
+						onPress={showPassConfirmFuntion}>
+						<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
+							size={26} color={color1} />
+					</TouchableOpacity>
+				</View>
+				<View style={style.buttomContainer}>
+					<View style={style.buttom}>
+						<TouchableOpacity onPress={() => {
+							navigation.goBack()
+						}}>
+							<Text style={style.buttomText}>Voltar</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={style.buttom}>
+						<TouchableOpacity onPress={() => {
+							if (password != confirmPass) {
+								//@ TODO Colocar error para quando senhas forem diferentes
+								return
+							}
+							handleCreateUser()
+						}}>
+							<Text style={style.buttomText}>Salvar</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+				{/* </View> */ }
+				<View style={{ paddingTop: '5%' }}/>
+			</KeyboardAwareScrollView>
+		</View>
 	)
 }

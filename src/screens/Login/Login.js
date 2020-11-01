@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import AuthContext from '../../context/auth_context'
 import Icon from 'react-native-vector-icons/Feather'
@@ -8,13 +8,15 @@ import Buttons from './components/Buttons/Buttons'
 import Lottie from 'lottie-react-native'
 
 import animation from '../../assets/animations/box.json'
+import { cos } from 'react-native-reanimated'
 
 export default Login = () => {
     const auth = useContext(AuthContext);    
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPass, setShowPass] = useState(true) 
-	const [press, setPress] = useState(false)
+	const [press, setPress] = useState(false)	
+	const ref = useRef(null)
 	    
     function handle_entrar_button_press(){
         auth.logIn(email,password);
@@ -22,10 +24,11 @@ export default Login = () => {
 
     const showPassFuntion = () => {        
         setShowPass(!showPass)
-    }
+	}
 	
     return(
-        <ScrollView style={style.container}>
+        <ScrollView style={style.container} 
+			showsVerticalScrollIndicator={false}>
 			<View style={style.animationContainer}>
 				<Lottie resizeMode={"contain"} source={animation} autoPlay loop/>
 			</View>
@@ -37,10 +40,13 @@ export default Login = () => {
 				<TextInput style={style.input}
 					placeholder='E-mail'
 					placeholderTextColor={color1}
-					// autoFocus={true} 
 					keyboardType='email-address'
 					value={email}
 					underlineColorAndroid='transparent'
+					onSubmitEditing={() => {
+						ref.current.focus()
+					}}
+					returnKeyType={"next"}
 					onChangeText={email => setEmail(email)} />
 			</View>
 			<View style={style.inputContainer}>
@@ -51,6 +57,8 @@ export default Login = () => {
 					secureTextEntry={showPass}
 					value={password}
 					underlineColorAndroid='transparent'
+					ref={ref}
+					onSubmitEditing={handle_entrar_button_press}
 					onChangeText={password => setPassword(password)} />                      
 				<TouchableOpacity style={style.btnEye} 
 					onPress={showPassFuntion}>
@@ -59,7 +67,7 @@ export default Login = () => {
 				</TouchableOpacity>
 			</View>
 			<Buttons login={handle_entrar_button_press} />
-			<View style={{ flex: 1 }}/> 
+			<View style={{ flex: 1, paddingTop: '5%' }}/> 
         </ScrollView>
     )
 }

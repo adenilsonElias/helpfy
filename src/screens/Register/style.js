@@ -3,16 +3,13 @@ import { color1, color2, color3, fontTitle } from "../../global/constant/constan
  
 const style = StyleSheet.create({
     container: {
-        // flex: 1,
-        paddingTop: '20%',
-        paddingBottom: '10%',
-        // alignItems: 'center',
-        // justifyContent: 'center',
+        flex: 1,
         backgroundColor: color2
     },
     titleContainer: {
+        paddingTop: '10%',
         alignItems: 'center',
-        marginBottom: '10%'
+        marginBottom: '5%'
     },
     title: {       
         fontSize: 50,
@@ -51,7 +48,7 @@ const style = StyleSheet.create({
         width: '40%',
         borderRadius: 5,
         backgroundColor: color1,
-        marginTop: '5%',
+        // marginTop: '5%',
         marginHorizontal: '5%'
     },
     buttomText: {
@@ -67,7 +64,6 @@ const style = StyleSheet.create({
     pickerIcon: { 
         position:'absolute',
         right: Dimensions.get('window').width * 0.83,
-        // backgroundColor: 'red',
         marginVertical: 13
     }
 })

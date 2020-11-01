@@ -13,6 +13,7 @@ import { HeaderBackButton } from '@react-navigation/stack'
 import EditImage from './components/Edit_Image/Edit_Image'
 import EditBackground from './components/Edit_Background/Edit_Background'
 import Header from './components/Header/Header'
+import TheDatePicker from './components/TheDatePicker/TheDatePicker'
 
 export default Edit = () => {
 	const navigation = useNavigation()
@@ -91,16 +92,7 @@ export default Edit = () => {
 						underlineColorAndroid='transparent'
 						onChangeText={email => setEmail(email)} />
 				</View>
-				<View style={style.inputContainer}>
-					<Icon2 name={'cake-variant'} size={26} color={color1} style={style.icon} />
-					<TextInput style={style.input}
-						placeholder='Data de Nascimento'
-						placeholderTextColor={color1}
-						keyboardType='number-pad'
-						value={birth}
-						underlineColorAndroid='transparent'
-						onChangeText={birth => setBirth(birth)} />
-				</View>
+				<TheDatePicker birth={birth} setBirth={setBirth}/>
 				<View style={style.inputContainer}>
 					<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
 					<TextInput style={style.input}
