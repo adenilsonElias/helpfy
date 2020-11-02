@@ -24,6 +24,8 @@ export default Edit = () => {
 	const [birth, setBirth] = useState(usesrParam ? usesrParam.birthDay : '')
 	const [state, setState] = useState(usesrParam ? usesrParam.state : '')
 	const [city, setCity] = useState(usesrParam ? usesrParam.city : '')
+	const [profileImage, setProfileImage] = useState(usesrParam ? usesrParam.profileImage : null)
+	const [coverImage, setCoverImage] = useState(usesrParam ? usesrParam.coverImage : null)
 	const [password, setPassword] = useState('')
 	const [confirmPass, setConfirmPass] = useState('')
 	const [showPass, setShowPass] = useState(true)
@@ -70,8 +72,8 @@ export default Edit = () => {
 			<ScrollView style={style.container} 
 				showsVerticalScrollIndicator={false}>
 				{/* <View style={style.container}> */}
-				<EditImage />
-				<EditBackground />
+				<EditImage profileImage={profileImage} setProfileImage={setProfileImage}/>
+				<EditBackground coverImage={coverImage} setCoverImage={setCoverImage}/>
 				<View style={style.inputContainer}>
 					<Icon name={'user'} size={26} color={color1} style={style.icon} />
 					<TextInput style={style.input}

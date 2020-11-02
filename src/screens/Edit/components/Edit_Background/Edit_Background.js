@@ -4,18 +4,30 @@ import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 import { color1 } from '../../../../global/constant/constant'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
+import ImagePicker from 'react-native-image-picker'
 
-export default EditBackground = () => {
+export default EditBackground = ({ coverImage, setCoverImage }) => {
+
+    const pickImage = () => {
+        ImagePicker.showImagePicker({
+            title: 'Selecione a imagem'
+        }, res => {
+            if (!res.didCancel) {
+                setCoverImage(res.uri)
+            }
+        })
+    }
+
     return (
         <View style={style.container}>
             <View style={style.titleContainer}>
                 <Text style={style.titleText}>Foto de Capa</Text>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={pickImage}>
                     <Icon name={'edit'} size={26} color={color1} style={style.icon} />
                 </TouchableOpacity>
             </View>
             <View style={style.photoCntainer}>
-                <Image source={require('../../../../assets/imgs/planeta.jpg')}
+                <Image source={{ uri: coverImage }}
                     style={style.image} />
             </View>
         </View>

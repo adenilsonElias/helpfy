@@ -20,7 +20,7 @@ export default BackgroundTop = ({ isMyProfile }) => {
                             <Icon name='arrow-left' size={30} color={color1} />
                         </TouchableOpacity> : null
                     }
-                    <TheAvatar size={'xlarge'} showAccessory={true} />
+                    <TheAvatar size={'xlarge'} showAccessory={false} />
                 </View>            
             <ToolbarMid />
         </ImageBackground>
