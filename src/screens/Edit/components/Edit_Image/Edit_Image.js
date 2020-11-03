@@ -4,18 +4,30 @@ import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 import { color1 } from '../../../../global/constant/constant'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
+import ImagePicker from 'react-native-image-picker'
 
-export default EditImage = () => {
+export default EditImage = ({ profileImage, setProfileImage }) => {
+
+    const pickImage = () => {
+        ImagePicker.showImagePicker({
+            title: 'Selecione a imagem'
+        }, res => {
+            if (!res.didCancel) {
+                setProfileImage(res.uri)
+            }
+        })
+    }
+
     return(
         <View style={style.container}>
             <View style={style.titleContainer}>
                 <Text style={style.titleText}>Foto de Perfil</Text>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={pickImage}>
                     <Icon name={'edit'} size={26} color={color1} style={style.icon} />
                 </TouchableOpacity>
             </View>
             <View style={style.photoCntainer}>
-                <TheAvatar size={120}/>
+                <TheAvatar size={120} image={profileImage}/>
             </View>
         </View>
     )

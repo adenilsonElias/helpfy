@@ -47,7 +47,7 @@ const ProfileScreen = ({ userProps }: Props) => {
                 {
                     isMyProfile ? <TouchableOpacity style={style.settingButton}
                         onPress={() => { navigation.navigate('Edit', { user: user }) }}>
-                        <Icon name={'settings'} size={30} color={color2} />
+                        <Icon name={'edit'} size={30} color={color2} />
                     </TouchableOpacity>
                         : null
                 }
