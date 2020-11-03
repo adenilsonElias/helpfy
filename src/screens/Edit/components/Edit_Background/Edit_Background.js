@@ -27,7 +27,8 @@ export default EditBackground = ({ coverImage, setCoverImage }) => {
                 </TouchableOpacity>
             </View>
             <View style={style.photoCntainer}>
-                <Image source={{ uri: coverImage }}
+                <Image source={coverImage ? { uri: coverImage } 
+                    : require('../../../../assets/imgs/coverDefault.png')}
                     style={style.image} />
             </View>
         </View>
