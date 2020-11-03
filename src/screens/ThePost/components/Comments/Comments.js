@@ -3,7 +3,6 @@ import { View, Text, Image } from 'react-native'
 import style from './style'
 import { TouchableOpacity, FlatList, TextInput } from 'react-native-gesture-handler'
 import moment from 'moment';
-import { converTime } from '../../../../global/constant/constant'
 import Responses from '../Responses/Responses'
 import Add_Comments from '../Add_Comments/Add_Comments'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -26,8 +25,7 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay }: Props)
     const routes = useRoute()
     const [author, setAuthor] = useState(new User({}))
 
-    useEffect(() => {
-        converTime()
+    useEffect(() => {        
         getUserByRef(comentario.authorRef).then((user) => {
             setAuthor(user)
         })

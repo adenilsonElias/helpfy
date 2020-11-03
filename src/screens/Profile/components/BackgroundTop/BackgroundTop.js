@@ -10,7 +10,7 @@ import ToolbarMid from '../ToolbarMid/ToolbarMid'
 export default BackgroundTop = ({ isMyProfile }) => {
     const navigation = useNavigation()
     return (
-        <ImageBackground source={require('../../../../assets/imgs/planeta.jpg')}
+        <ImageBackground source={require('../../../../assets/imgs/coverDefault.png')}
             style={style.imageBackground} imageStyle={style.backgroundStyle}>
                 <View style={style.profileContainer}>
                     {
