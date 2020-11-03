@@ -26,18 +26,6 @@ export default Edit = () => {
 	const [city, setCity] = useState(usesrParam ? usesrParam.city : '')
 	const [profileImage, setProfileImage] = useState(usesrParam ? usesrParam.profileImage : null)
 	const [coverImage, setCoverImage] = useState(usesrParam ? usesrParam.coverImage : null)
-	const [password, setPassword] = useState('')
-	const [confirmPass, setConfirmPass] = useState('')
-	const [showPass, setShowPass] = useState(true)
-	const [showPassConfirm, setShowPassConfirm] = useState(true)
-
-	const showPassFuntion = () => {
-		setShowPass(!showPass)
-	}
-
-	const showPassConfirmFuntion = () => {
-		setShowPassConfirm(!showPassConfirm)
-	}
 
 	useEffect(() => {
         navigation.setOptions({
@@ -68,7 +56,7 @@ export default Edit = () => {
 
     return (
 		<>
-			<Header password={password} confirmPass={confirmPass}/>
+			<Header/>
 			<ScrollView style={style.container} 
 				showsVerticalScrollIndicator={false}>
 				{/* <View style={style.container}> */}
@@ -117,32 +105,12 @@ export default Edit = () => {
 				</View>
 				<View style={style.inputContainer}>
 					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-					<TextInput style={[style.input, { paddingRight: '15%' }]}
-						placeholder='Senha'
-						placeholderTextColor={color1}
-						secureTextEntry={showPass}
-						value={password}
-						underlineColorAndroid='transparent'
-						onChangeText={password => setPassword(password)} />
-					<TouchableOpacity style={style.btnEye}
-						onPress={showPassFuntion}>
-						<Icon name={showPass === false ? 'eye' : 'eye-off'}
-							size={26} color={color1} />
-					</TouchableOpacity>
-				</View>
-				<View style={style.inputContainer}>
-					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-					<TextInput style={[style.input, { paddingRight: '15%' }]}
-						placeholder='Confirmar senha'
-						placeholderTextColor={color1}
-						secureTextEntry={showPassConfirm}
-						value={confirmPass}
-						underlineColorAndroid='transparent'
-						onChangeText={confirmPass => setConfirmPass(confirmPass)} />
-					<TouchableOpacity style={style.btnEye}
-						onPress={showPassConfirmFuntion}>
-						<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
-							size={26} color={color1} />
+					<TouchableOpacity style={[style.input, { justifyContent: 'center' }]}
+						activeOpacity={1}
+						onPress={() => {
+							navigation.navigate('ChangePassword')
+						}}>
+							<Text style={style.text}>Editar Senha</Text>						
 					</TouchableOpacity>
 				</View>
 			</ScrollView>

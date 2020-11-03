@@ -1,16 +1,12 @@
-import { StyleSheet } from "react-native"
-import { color1, color2, fontTitle } from "../../global/constant/constant"
- 
+import { StyleSheet } from 'react-native'
+import { color1, color2 } from '../../global/constant/constant'
+
 const style = StyleSheet.create({
     container: {
         flex: 1,        
         paddingBottom: '10%',
         backgroundColor: color2,
-    },
-    title: {       
-        fontSize: 50,
-        color: color1,
-        fontFamily: fontTitle
+        justifyContent: 'center'
     },
     input: {                
         backgroundColor: 'transparent',
@@ -40,10 +36,6 @@ const style = StyleSheet.create({
     save: {
         marginRight: 10,
     },
-    text: {
-        fontSize: 16,
-        color: color1,
-    }
 })
 
 export default style

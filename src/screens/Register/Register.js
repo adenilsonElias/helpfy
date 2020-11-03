@@ -60,6 +60,37 @@ export default Register = () => {
 		setCityList(await getCities(sigla))
 	}
 
+	const renderCity = () => {
+		if (stateUF == '') {
+			return(
+				<View />
+			)
+		} else {
+			return(
+				<RNPickerSelect
+						value={stateUF != '' ? city : ''}
+						onValueChange={(value, index) => {
+							if (value != '') {
+								setCity(value)
+							}
+							else {
+								setCity('')
+							}
+						}}
+						items={cityList.map((city) => {
+							return { label: city, value: city }
+						})}
+						placeholder={placeholderValue2}
+						style={placeHolderStyle}
+						useNativeAndroidPickerStyle={false}
+						Icon={() => {
+							return <Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
+						}}
+					/>
+			)
+		}
+	}
+
 	return (
 		<View style={style.container}>
 			<KeyboardAwareScrollView
@@ -129,26 +160,7 @@ export default Register = () => {
 						)
 					}}
 				/>
-				<RNPickerSelect
-					value={stateUF != '' ? city : ''}
-					onValueChange={(value, index) => {
-						if (value != '') {
-							setCity(value)
-						}
-						else {
-							setCity('')
-						}
-					}}
-					items={cityList.map((city) => {
-						return { label: city, value: city }
-					})}
-					placeholder={placeholderValue2}
-					style={placeHolderStyle}
-					useNativeAndroidPickerStyle={false}
-					Icon={() => {
-						return <Icon name={'map-pin'} size={26} color={color1} style={style.pickerIcon} />
-					}}
-				/>
+				{ renderCity() }
 				<View style={style.inputContainer}>
 					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
 					<TextInput style={[style.input, { paddingRight: '15%' }]}

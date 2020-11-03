@@ -6,6 +6,7 @@ import Profile from '../screens/Profile/Profile'
 import MyPosts from '../screens/MyPosts/MyPosts'
 import { color1, color2, styleTitle } from '../global/constant/constant';
 import Rating from '../screens/Rating/Rating';
+import ChangePassword from '../screens/Change_Password/ChangePassword'
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export function StackProfile() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: styleTitle,
                 }} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
