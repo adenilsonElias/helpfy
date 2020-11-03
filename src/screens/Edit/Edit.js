@@ -35,6 +35,7 @@ export default Edit = () => {
 	const [city, setCity] = useState(usesrParam ? usesrParam.city : '')
 	const [profileImage, setProfileImage] = useState(usesrParam ? usesrParam.profileImage : null)
 	const [coverImage, setCoverImage] = useState(usesrParam ? usesrParam.coverImage : null)
+	const [password, setPassword] = useState("")
 
 	const toggleOverlay = () => {
 		setVisible(true);
@@ -188,10 +189,10 @@ export default Edit = () => {
 					<>
 						<Text>Insira sua senha</Text>
 						<View style={style.inputContainer}>
-							<TextInput style={[style.input, { paddingRight: '15%' }]}
+							<TextInput 
 								placeholder='Insira a senha'
 								placeholderTextColor={color1}
-								secureTextEntry={showPass}
+								secureTextEntry={true}
 								value={password}
 								underlineColorAndroid='transparent'
 								onChangeText={passwod => setPassword(passwod)} />
