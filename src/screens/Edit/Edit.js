@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ScrollView, Button } from 'react-native'
 import AuthContext from '../../context/auth_context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import style from './style'
 import User from '../../model/user'
-import { CreateNewUser } from '../../firebase/Authentication'
+import { CreateNewUser, updateUser } from '../../firebase/Authentication'
 import { color1 } from '../../global/constant/constant'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { HeaderBackButton } from '@react-navigation/stack'
@@ -14,11 +14,15 @@ import EditImage from './components/Edit_Image/Edit_Image'
 import EditBackground from './components/Edit_Background/Edit_Background'
 import Header from './components/Header/Header'
 import TheDatePicker from './components/TheDatePicker/TheDatePicker'
+import { useSelector } from 'react-redux'
+import { Overlay } from 'react-native-elements'
 
 export default Edit = () => {
 	const navigation = useNavigation()
 	const usesrParam: User = useRoute().params.user;
+	const user: User = useSelector(state => state.userState.user)
 	const auth = useContext(AuthContext);
+	const [visible, setVisible] = useState(false);
 	const [email, setEmail] = useState(usesrParam ? usesrParam.email : '')
 	const [name, setName] = useState(usesrParam ? usesrParam.name : '')
 	const [birth, setBirth] = useState(usesrParam ? usesrParam.birthDay : '')
@@ -37,37 +41,45 @@ export default Edit = () => {
 		setShowPassConfirm(!showPassConfirm)
 	}
 
-	useEffect(() => {
-        navigation.setOptions({
-            // Quando clicar em voltar, coloca novamente o bottomBar
-            headerLeft: (props) => (
-                < HeaderBackButton
-					tintColor={color1}
-                    onPress={() => {
-                        navigation.setOptions({
-                            tabBarVisible: true
-                        }),
-                        navigation.goBack()
-                    }}
-				/>),
-			headerRight: () => (
-				<TouchableOpacity style={style.save}
-					onPress={() => {
-						if (password != confirmPass) {
-							//@ TODO Colocar error para quando senhas forem diferentes
-							return
-						}
-					}}>
-					<Icon name={'save'} size={25} color={color1} />
-				</TouchableOpacity>
-			)
-        })
-    }, [])
+	const toggleOverlay = () => {
+		setVisible(true);
+	};
 
-    return (
+	function HandleEdit() {
+		setVisible(false)
+		let newUser = user
+		newUser.name = name
+		newUser.email = email
+		newUser.birthDay = birth
+		newUser.city = city
+		newUser.state = state
+		newUser.profileImage = null // aqui vai a nova imagem
+		newUser.converImage = null // aqui vai a nova imagem de fundo
+
+		updateUser(newUser, password, email, user).then(() => {
+			console.info("usuario atualizado com sucesso")
+			navigation.goBack()
+		}).catch((error) => {
+			console.debug(error)
+			switch (error) {
+				case 'Erro ao reautenticar':
+					// senha errada provavelmente
+					break
+				case 'Erro ao atualizar email':
+					// novo email invalido ou ja existe
+					break
+				default :
+					"Erro aleatorio"
+			}
+			setPassword("")
+		})
+
+	}
+
+	return (
 		<>
-			<Header password={password} confirmPass={confirmPass}/>
-			<ScrollView style={style.container} 
+			<Header alterUser={toggleOverlay} />
+			<ScrollView style={style.container}
 				showsVerticalScrollIndicator={false}>
 				{/* <View style={style.container}> */}
 				<EditImage />
@@ -92,7 +104,7 @@ export default Edit = () => {
 						underlineColorAndroid='transparent'
 						onChangeText={email => setEmail(email)} />
 				</View>
-				<TheDatePicker birth={birth} setBirth={setBirth}/>
+				<TheDatePicker birth={birth} setBirth={setBirth} />
 				<View style={style.inputContainer}>
 					<Icon name={'map-pin'} size={26} color={color1} style={style.icon} />
 					<TextInput style={style.input}
@@ -113,37 +125,24 @@ export default Edit = () => {
 						underlineColorAndroid='transparent'
 						onChangeText={city => setCity(city)} />
 				</View>
-				<View style={style.inputContainer}>
-					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-					<TextInput style={[style.input, { paddingRight: '15%' }]}
-						placeholder='Senha'
-						placeholderTextColor={color1}
-						secureTextEntry={showPass}
-						value={password}
-						underlineColorAndroid='transparent'
-						onChangeText={password => setPassword(password)} />
-					<TouchableOpacity style={style.btnEye}
-						onPress={showPassFuntion}>
-						<Icon name={showPass === false ? 'eye' : 'eye-off'}
-							size={26} color={color1} />
-					</TouchableOpacity>
-				</View>
-				<View style={style.inputContainer}>
-					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-					<TextInput style={[style.input, { paddingRight: '15%' }]}
-						placeholder='Confirmar senha'
-						placeholderTextColor={color1}
-						secureTextEntry={showPassConfirm}
-						value={confirmPass}
-						underlineColorAndroid='transparent'
-						onChangeText={confirmPass => setConfirmPass(confirmPass)} />
-					<TouchableOpacity style={style.btnEye}
-						onPress={showPassConfirmFuntion}>
-						<Icon name={showPassConfirm === false ? 'eye' : 'eye-off'}
-							size={26} color={color1} />
-					</TouchableOpacity>
-				</View>
+				<Overlay isVisible={visible} onBackdropPress={() => setVisible(false)} >
+					<>
+						<Text>Insira sua senha</Text>
+						<View style={style.inputContainer}>
+							<TextInput style={[style.input, { paddingRight: '15%' }]}
+								placeholder='Insira a senha'
+								placeholderTextColor={color1}
+								secureTextEntry={showPass}
+								value={password}
+								underlineColorAndroid='transparent'
+								onChangeText={passwod => setPassword(passwod)} />
+							<View style={{ marginTop: 10 }}>
+								<Button onPress={HandleEdit} title="Confirmar" />
+							</View>
+						</View>
+					</>
+				</Overlay>
 			</ScrollView>
 		</>
-    )
+	)
 }

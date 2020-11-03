@@ -13,6 +13,7 @@ export default class User {
     state : String = null
     city : String = null
     profileImage: String = null
+    converImage : String = null
     score: Number = null
 
     constructor(user : User){

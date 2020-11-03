@@ -5,11 +5,16 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native'
+import User from '../../../../model/user'
+import { updateUser } from '../../../../firebase/Authentication'
 
-export default Header = ({ password, confirmPass }) => {
+type Props = {
+    alterUser: Function
+}
+
+export default Header = ({ alterUser }: Props) => {
     const navigation = useNavigation()
-
-    return(
+    return (
         <View style={style.container}>
             <TouchableOpacity onPress={() => {
                 navigation.setOptions({ tabBarVisible: true })
@@ -20,12 +25,7 @@ export default Header = ({ password, confirmPass }) => {
             <View>
                 <Text style={style.titleText}>Editar Perfil</Text>
             </View>
-            <TouchableOpacity onPress={() => {
-                if (password != confirmPass) {
-                    //@ TODO Colocar error para quando senhas forem diferentes
-                    return
-                }
-            }}>
+            <TouchableOpacity onPress={alterUser}>
                 <Icon name={'save'} size={25} color={color1} />
             </TouchableOpacity>
         </View>
