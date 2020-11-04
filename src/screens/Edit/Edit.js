@@ -48,6 +48,19 @@ export default Edit = () => {
 		getStatesFunction()
 	}, [])
 
+	useEffect(() => {
+		if (stateList.length > 0) {
+			const userState = stateList.filter((value) => {
+				if (value.nome == user.state) {
+					return value
+				}
+			})[0]
+			setStateUf(userState.sigla)
+			setState(userState.nome)
+			getCitiesFunction(userState.sigla)
+		}
+	}, [stateList])
+
 	async function getCitiesFunction(sigla: String) {
 		setCityList(await getCities(sigla))
 	}
@@ -161,11 +174,15 @@ export default Edit = () => {
 					items={stateList.map((e) => {
 						return { label: e.nome, value: e.sigla }
 					})}
-					placeholder={placeholderValue}
-					// placeholder={{
-					// 	label: 'Selecione um estado',
-					// 	value: '',
+					// value= {{
+					// 	label: state,
+					// 	value : stateUF
 					// }}
+					// placeholder={placeholderValue}
+					placeholder={{
+						label: state,
+						value: stateUF,
+					}}
 					style={placeHolderStyle}
 					useNativeAndroidPickerStyle={false}
 					Icon={() => {
@@ -189,7 +206,7 @@ export default Edit = () => {
 					<>
 						<Text>Insira sua senha</Text>
 						<View style={style.inputContainer}>
-							<TextInput 
+							<TextInput
 								placeholder='Insira a senha'
 								placeholderTextColor={color1}
 								secureTextEntry={true}
