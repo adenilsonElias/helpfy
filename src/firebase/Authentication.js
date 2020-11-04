@@ -114,6 +114,23 @@ export async function updateUser(newUser: User, password: String, newEmail: Stri
 
 }
 
+export async function changePassword(newPassword :String , oldPassword :String){
+    try {
+        await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email, oldPassword))
+    }
+    catch (e) {
+        console.debug(e)
+        throw "Erro ao reautenticar"
+    }
+    try{
+        await authentication.currentUser.updatePassword(newPassword)
+    }
+    catch (e){
+        console.debug(e)
+        throw "Erro ao alterar a senha"
+    }
+}
+
 export async function MakeLogout() {
     await authentication.signOut()
 }

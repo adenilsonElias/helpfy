@@ -6,7 +6,11 @@ import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native'
 
-export default Header = ({ password, confirmPass }) => {
+type Props = {
+    setPassFunction : Function
+}
+
+export default Header = ({ setPassFunction } : Props) => {
     const navigation = useNavigation()
 
     return(
@@ -20,12 +24,7 @@ export default Header = ({ password, confirmPass }) => {
             <View>
                 <Text style={style.titleText}>Editar Senha</Text>
             </View>
-            <TouchableOpacity onPress={() => {
-                if (password != confirmPass) {
-                    //@ TODO Colocar error para quando senhas forem diferentes
-                    return
-                }
-            }}>
+            <TouchableOpacity onPress={setPassFunction}>
                 <Icon name={'save'} size={25} color={color1} />
             </TouchableOpacity>
         </View>

@@ -4,11 +4,15 @@ import { color1 } from '../../global/constant/constant'
 import Header from './components/Header/Header'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
+import { useSelector } from 'react-redux'
+import User from '../../model/user'
+import { changePassword } from '../../firebase/Authentication'
 
 export default ChangePassword = () => {
+    const user: User = useSelector(state => state.userState.user)
     const [password, setPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
-	const [confirmPass, setConfirmPass] = useState('')
+    const [confirmPass, setConfirmPass] = useState('')
     const [showPass, setShowPass] = useState(true)
     const [showNewPass, setNewShowPass] = useState(true)
     const [showPassConfirm, setShowPassConfirm] = useState(true)
@@ -16,20 +20,41 @@ export default ChangePassword = () => {
     const ref3 = useRef(null)
 
     const showPassFuntion = () => {
-		setShowPass(!showPass)
+        setShowPass(!showPass)
     }
 
     const showNewPassFuntion = () => {
-		setNewShowPass(!showNewPass)
-	}
+        setNewShowPass(!showNewPass)
+    }
 
-	const showPassConfirmFuntion = () => {
-		setShowPassConfirm(!showPassConfirm)
-	}
-    
+    const showPassConfirmFuntion = () => {
+        setShowPassConfirm(!showPassConfirm)
+    }
+
+    function handleChangePassword(){
+        if(newPassword != confirmPass){
+            // senha não conferem
+            return
+        }
+        changePassword(newPassword,password).then(()=>{
+            console.info("Senha Alterada com sucesso")
+        }).catch((error)=>{
+            switch(error){
+                case "Erro ao reautenticar":
+                    // provavelmente senha errada
+                    break 
+                case "Erro ao alterar a senha":
+                    // nova senha invalida
+                    break
+                default :
+                    // erro aleatorio
+            }
+        })
+    }
+
     return (
         <>
-            <Header />
+            <Header setPassFunction={handleChangePassword} />
             <View style={style.container}>
                 <View style={style.inputContainer}>
                     <Icon name={'lock'} size={26} color={color1} style={style.icon} />
