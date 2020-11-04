@@ -2,6 +2,7 @@
 
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import Firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
+import Storage from '@react-native-firebase/storage'
 import User from '../model/user';
 
 const authentication = auth();
@@ -62,21 +63,45 @@ export async function MakeLogin(username: String, password: String) {
     }
 }
 
-export async function updateUser(newUser: User, password : String ,newEmail: String, oldUser: User) {
+export async function updateUser(newUser: User, password: String, newEmail: String, oldUser: User) {
     const rollback = new User(oldUser.ToJson())
-    try{
-        await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email,password))
+    try {
+        await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email, password))
     }
-    catch (e){
+    catch (e) {
         console.debug(e[0])
         throw "Erro ao reautenticar"
     }
-    try{
+    try {
         await authentication.currentUser.updateEmail(newEmail)
     }
-    catch (e){
+    catch (e) {
         console.error(e)
         throw "Erro ao atualizar email"
+    }
+    try {
+        let imageUrl = "";
+        let bucketReference = null
+        if (newUser.profileImage != null && !newUser.profileImage.includes("firebasestorage")) {
+            bucketReference = Storage().ref(`User/${newUser.id}/${newUser.profileImage.split('/').pop()}`);
+            await bucketReference.putFile(newUser.profileImage).then(async () => {
+                imageUrl = await bucketReference.getDownloadURL()
+            })
+            newUser.profileImage = imageUrl
+        }
+        imageUrl = null
+        if (newUser.converImage != null && !newUser.converImage.includes("firebasestorage")) {
+            bucketReference = Storage().ref(`User/${newUser.id}/${newUser.converImage.split('/').pop()}`);
+            await bucketReference.putFile(newUser.converImage).then(async () => {
+                imageUrl = await bucketReference.getDownloadURL()
+            })
+            newUser.converImage = imageUrl
+        }
+    }
+    catch (e) {
+        console.error(e)
+        await authentication.currentUser.updateEmail(rollback.email)
+        throw "Erro ao atualizar imagens"
     }
     try {
         await Firestore().collection("User").doc(newUser.id).update(newUser.ToJson())

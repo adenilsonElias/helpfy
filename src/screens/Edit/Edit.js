@@ -91,8 +91,8 @@ export default Edit = () => {
 		newUser.birthDay = birth
 		newUser.city = city
 		newUser.state = state
-		newUser.profileImage = null // aqui vai a nova imagem
-		newUser.converImage = null // aqui vai a nova imagem de fundo
+		newUser.profileImage = profileImage // aqui vai a nova imagem
+		newUser.converImage = coverImage // aqui vai a nova imagem de fundo
 
 		updateUser(newUser, password, email, user).then(() => {
 			console.info("usuario atualizado com sucesso")
