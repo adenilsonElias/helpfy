@@ -4,13 +4,15 @@ import { StackLogin } from '../../routes/StackLogin';
 import BackgroundTop from './components/BackgroundTop/BackgroundTop'
 import ProfileInfoBot from './components/ProfileInfoBot/ProfileInfoBot'
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import User from '../../model/user';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { color2 } from '../../global/constant/constant';
+import { color1, color2 } from '../../global/constant/constant';
 import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import ProfileContext, { ProfileContextProvider } from './Profile_Context';
+import { FloatingAction } from "react-native-floating-action";
+import { setLoading } from '../../store/actions/loading'
 
 type Props = {
     userProps?: User
@@ -22,7 +24,9 @@ const ProfileScreen = ({ userProps }: Props) => {
     const auth = useContext(AuthContext);
     const userLogged: User = useSelector(state => state.userState.user)
     const [user, setUser] = [profileContext.user, profileContext.setUser]
-    const [isMyProfile, setIsMyProfile] = [profileContext.isMyProfile, profileContext.setIsMyProfile] 
+    const [isMyProfile, setIsMyProfile] = [profileContext.isMyProfile, profileContext.setIsMyProfile]
+    const loading = useSelector(state => state.loadingState.loading) //loading utilizado para tirar o bottomBar
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (userProps == null) {
@@ -33,11 +37,30 @@ const ProfileScreen = ({ userProps }: Props) => {
         setUser(userProps)
     })
 
+    const actions = [
+        {
+            text: "Editar Perfil",
+            icon: <Icon name={'user'} size={20} color={color2} />,
+            name: "Edit",
+            position: 1,
+            color: color1,
+            textColor: color1
+        },
+        {
+            text: "Editar Senha",
+            icon: <Icon name={'lock'} size={20} color={color2} />,
+            name: "ChangePassword",
+            position: 2,
+            color: color1,
+            textColor: color1
+        }
+    ];
+
     if (auth.isLogged) {
         return (
             <>
                 <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
-                    <BackgroundTop isMyProfile={isMyProfile}/>
+                    <BackgroundTop isMyProfile={isMyProfile} />
                     <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />
                     <ProfileInfoBot title={'E-mail'} content={user.email} icon={'at-sign'} />
                     <ProfileInfoBot title={'Data de Nascimento'} content={user.birthDay} icon2={'cake-variant'} />
@@ -45,11 +68,19 @@ const ProfileScreen = ({ userProps }: Props) => {
                     <ProfileInfoBot title={'Cidade'} content={user.city} icon={'map-pin'} />
                 </ScrollView>
                 {
-                    isMyProfile ? <TouchableOpacity style={style.settingButton}
-                        onPress={() => { navigation.navigate('Edit', { user: user }) }}>
-                        <Icon name={'edit'} size={30} color={color2} />
-                    </TouchableOpacity>
-                        : null
+                    isMyProfile ? 
+                        <FloatingAction actions={actions} color={color1}
+                            floatingIcon={ <Icon name={'edit'} size={30} color={color2} /> }
+                            onOpen={() => { dispatch(setLoading(true)) }}
+                            onClose={() => { dispatch(setLoading(false)) }}
+                            onPressItem={name => {
+                                if (name == 'Edit') {
+                                    navigation.navigate('Edit', { user: user })
+                                } else {
+                                    navigation.navigate(name)
+                                }
+                            }}
+                        /> : null
                 }
             </>
         )

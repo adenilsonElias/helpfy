@@ -6,11 +6,16 @@ import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native';
 import { color1 } from '../../../../global/constant/constant';
 import ToolbarMid from '../ToolbarMid/ToolbarMid'
+import { useSelector } from 'react-redux';
+import User from '../../../../model/user';
 
 export default BackgroundTop = ({ isMyProfile }) => {
     const navigation = useNavigation()
+    const user: User = useSelector(state => state.userState.user)
+    
     return (
-        <ImageBackground source={require('../../../../assets/imgs/coverDefault.png')}
+        <ImageBackground source={user.converImage ? { uri: user.converImage}
+            : require('../../../../assets/imgs/coverDefault.png')}
             style={style.imageBackground} imageStyle={style.backgroundStyle}>
                 <View style={style.profileContainer}>
                     {

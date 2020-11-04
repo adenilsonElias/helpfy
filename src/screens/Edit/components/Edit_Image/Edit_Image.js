@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 import { color1 } from '../../../../global/constant/constant'
@@ -7,13 +7,15 @@ import style from './style'
 import ImagePicker from 'react-native-image-picker'
 
 export default EditImage = ({ profileImage, setProfileImage }) => {
+    const [image, setImage] = useState()
 
     const pickImage = () => {
         ImagePicker.showImagePicker({
             title: 'Selecione a imagem'
         }, res => {
             if (!res.didCancel) {
-                setProfileImage(res.uri)
+                setProfileImage(res.path)
+                setImage(res.uri)
             }
         })
     }
@@ -27,7 +29,7 @@ export default EditImage = ({ profileImage, setProfileImage }) => {
                 </TouchableOpacity>
             </View>
             <View style={style.photoCntainer}>
-                <TheAvatar size={120} image={profileImage}/>
+                <TheAvatar size={120} image={image}/>
             </View>
         </View>
     )

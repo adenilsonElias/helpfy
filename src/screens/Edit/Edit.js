@@ -192,16 +192,6 @@ export default Edit = () => {
 					}}
 				/>
 				{renderCity()}
-				<View style={style.inputContainer}>
-					<Icon name={'lock'} size={26} color={color1} style={style.icon} />
-					<TouchableOpacity style={[style.input, { justifyContent: 'center' }]}
-						activeOpacity={1}
-						onPress={() => {
-							navigation.navigate('ChangePassword')
-						}}>
-						<Text style={style.text}>Editar Senha</Text>
-					</TouchableOpacity>
-				</View>
 				<Overlay isVisible={visible} onBackdropPress={() => setVisible(false)} >
 					<>
 						<Text>Insira sua senha</Text>

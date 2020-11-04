@@ -45,6 +45,9 @@ function getTabBarVisible(route) {
     if (routeName === 'Notifications') {        
         return false;
     }
+    if (routeName === 'ChangePassword') {        
+        return false;
+    }
     if (loading) {
         return false;
     }
