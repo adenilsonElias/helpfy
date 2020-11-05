@@ -49,10 +49,6 @@ export default TheChat = () => {
             if (message) {
                 setMessages(message.docs.map(snapshot => {
                     let data = snapshot.data()
-                    console.debug(data)
-                    if(!data.createdAt){
-                        data.createdAt = 0
-                    }
                     data['createdAt'] = data['createdAt']._seconds * 1000
                     return data
                 }).sort((a, b) => a['createdAt'] - b['createdAt']).reverse())
@@ -60,7 +56,7 @@ export default TheChat = () => {
         })
     }, [])
 
-    const onSend = useCallback((messages = []) => {
+    const onSend = useCallback((messages = [], video, image) => {
         if (video && image) {
             // tentando mandar video e imagem juntos
             return
@@ -82,6 +78,7 @@ export default TheChat = () => {
             return
         }
         sendMessage(user, receiver, messages)
+        console.info("message enviada com sucesso")
     }, [])
 
     return (
@@ -118,7 +115,7 @@ export default TheChat = () => {
             }} title="teste image"></Button>
             <GiftedChat
                 messages={messages}
-                onSend={messages => onSend(messages)}
+                onSend={messages => onSend(messages, video, image)}
 
                 user={{
                     _id: user.id, name: user.name
