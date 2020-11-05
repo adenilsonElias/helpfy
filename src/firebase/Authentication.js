@@ -58,7 +58,7 @@ export async function MakeLogin(username: String, password: String) {
     }
     catch (e) {
         // @Todo - separar os erros
-        console.error("ERRO AO FAZER LOGIN");
+        // console.error("ERRO AO FAZER LOGIN");
         throw "Erro ao fazer login"
     }
 }
@@ -69,7 +69,6 @@ export async function updateUser(newUser: User, password: String, newEmail: Stri
         await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email, password))
     }
     catch (e) {
-        console.debug(e[0])
         throw "Erro ao reautenticar"
     }
     try {
@@ -119,14 +118,14 @@ export async function changePassword(newPassword :String , oldPassword :String){
         await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email, oldPassword))
     }
     catch (e) {
-        console.debug(e)
+        console.error(e)
         throw "Erro ao reautenticar"
     }
     try{
         await authentication.currentUser.updatePassword(newPassword)
     }
     catch (e){
-        console.debug(e)
+        console.error(e)
         throw "Erro ao alterar a senha"
     }
 }

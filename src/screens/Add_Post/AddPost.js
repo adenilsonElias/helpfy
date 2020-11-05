@@ -17,6 +17,7 @@ import ImageView from 'react-native-image-view';
 import Loading from '../Loading/Loading'
 import Icon from 'react-native-vector-icons/Feather'
 import Header from './components/Header/Header'
+import Toast from 'react-native-simple-toast'
 
 export default AddPost = () => {
     const user: User | null = useSelector(state => state.userState.user);
@@ -46,7 +47,11 @@ export default AddPost = () => {
             editPost(postParam).then(() => {
                 console.info("Post editado com sucesso");
                 setLoading(false)
+                navigation.goBack()
 
+            }).catch((error)=>{
+                setLoading(false)
+                Toast.show("Não foi possivel editar o post", Toast.LONG)
             })
             console.log('IF do postParam')
         } else {
@@ -63,6 +68,8 @@ export default AddPost = () => {
                 console.info('Post criado com sucesso')
                 setLoading(false)
                 navigation.navigate('Feed')
+            }).catch((error) =>{
+                Toast.show("Não foi possivel criar o post")
             });
         }
     }

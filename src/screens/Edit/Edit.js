@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux'
 import { Overlay } from 'react-native-elements'
 import RNPickerSelect from 'react-native-picker-select';
 import { getCities, getStates } from '../../api/ibge'
+import Toast from 'react-native-simple-toast'
 
 export default Edit = () => {
 	const navigation = useNavigation()
@@ -111,15 +112,17 @@ export default Edit = () => {
 			console.info("usuario atualizado com sucesso")
 			navigation.goBack()
 		}).catch((error) => {
-			console.debug(error)
 			switch (error) {
 				case 'Erro ao reautenticar':
 					// senha errada provavelmente
+					Toast.show("Senha incorreta", Toast.LONG)
 					break
 				case 'Erro ao atualizar email':
 					// novo email invalido ou ja existe
+					Toast.show("E-mail invalido", Toast.LONG)
 					break
 				default:
+					Toast.show("Não foi possivel fazer atualização dos dados",Toast.LONG)
 					"Erro aleatorio"
 			}
 			setPassword("")
@@ -204,7 +207,7 @@ export default Edit = () => {
 								underlineColorAndroid='transparent'
 								onChangeText={passwod => setPassword(passwod)} />
 							<View style={{ marginTop: 10 }}>
-								<Button onPress={HandleEdit} title="Confirmar" />
+								<Button onPress={password.length != 0 ? HandleEdit : null} title="Confirmar" />
 							</View>
 						</View>
 					</>

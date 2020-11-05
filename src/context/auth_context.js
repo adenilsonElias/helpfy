@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text} from 'react-native'
 import { MakeLogin, createAuthObserver, CreateNewUser, MakeLogout, getUser } from '../firebase/Authentication'
 import { useDispatch } from 'react-redux'
 import { setUser, makeLogout } from '../store/actions/user'
@@ -7,21 +7,24 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import Loading from '../screens/Loading/Loading'
 import User from '../model/user'
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
+import Toast from 'react-native-simple-toast'
 
 // cria o contexto
-const AuthContext = createContext({})
+const AuthContext = createContext({} )
 
 // cria um provider do contexto
 export const AuthContextProvider = ({ children }) => {
+    // @TODO não deixar ele voltar para a tela feed quando login falhar
+
     const [isLogged, setIsLogged] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
-    let unsub = ()=>{}
+    let unsub = () => { }
 
     function addUserToRedux(user: User) {
         dispatch(setUser(user))
-        unsub = user.Listener((user : FirebaseFirestoreTypes.DocumentSnapshot)=>{
-            dispatch(setUser(new User({...user.data(), id : user.id})))
+        unsub = user.Listener((user: FirebaseFirestoreTypes.DocumentSnapshot) => {
+            dispatch(setUser(new User({ ...user.data(), id: user.id })))
         })
     }
 
@@ -46,6 +49,9 @@ export const AuthContextProvider = ({ children }) => {
         setIsLoading(true)
         MakeLogin(username, password).then((value) => {
             setIsLoading(false);
+        }).catch((error) => {
+            setIsLoading(false)
+            Toast.show("E-mail ou senha incorretos", Toast.LONG)
         })
     }
 
@@ -59,21 +65,23 @@ export const AuthContextProvider = ({ children }) => {
     function logOut() {
         setIsLoading(true)
         MakeLogout().then(() => {
-            unsub()
-            unsub = ()=>{}
+            if (unsub) {
+                unsub()
+            }
+            unsub = () => { }
             setIsLoading(false)
         })
     }
 
-    if (isLoading) {
-        return (
-            <Loading />
-        )
-    }
+    // if (isLoading) {
+    //     return (
+    //         <Loading />
+    //     )
+    // }
 
     return (
         <AuthContext.Provider value={{ logIn, createUser, logOut, isLogged }}>
-            {children}
+            {isLoading ? <Loading /> : children}
         </AuthContext.Provider>
     )
 }

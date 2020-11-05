@@ -66,7 +66,7 @@ export default Login = () => {
 						size={26} color={color1}/>
 				</TouchableOpacity>
 			</View>
-			<Buttons login={handle_entrar_button_press} />
+			<Buttons login={handle_entrar_button_press} enabled={email.length != 0 && password.length != 0} />
 			<View style={{ flex: 1, paddingTop: '5%' }}/> 
         </ScrollView>
     )
