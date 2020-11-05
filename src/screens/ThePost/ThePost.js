@@ -39,6 +39,7 @@ const ThePost = () => {
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
     const [author, setAuthor] = useState()
+    const [profileImage, setProfileImage] = useState()
     const loading = useSelector(state => state.loadingState.loading)
     const dispatch = useDispatch()
     const parameter = {
@@ -89,6 +90,7 @@ const ThePost = () => {
         dispatch(setLoading(true))
         post.getUser().then((user) => {
             setAuthor(user.name)
+            setProfileImage(user.profileImage)
             dispatch(setLoading(false))
         })
     }, [])
@@ -132,7 +134,7 @@ const ThePost = () => {
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
                 showsVerticalScrollIndicator={false}>
                 <PreviewImages image={post.image} />
-                <Description post={post} authorName={author} />
+                <Description post={post} authorName={author} profileImage={profileImage}/>
                 <Buttons post={post} setPost={setPost} />
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>

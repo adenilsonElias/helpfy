@@ -10,6 +10,7 @@ import AuthContext from '../../../../context/auth_context';
 import User from '../../../../model/user';
 import { getUserByRef } from '../../../../firebase/Authentication';
 import Comentario from '../../../../model/comments';
+import OtherAvatar from '../../../../global/components/Other_Avatar/OtherAvatar'
 
 type Props = {
     index: Number,
@@ -20,7 +21,6 @@ type Props = {
 
 const Comments = ({ index, comentario, setResponseField, toggleOverlay }: Props) => {
     const auth = useContext(AuthContext)
-
     const navigation = useNavigation()
     const routes = useRoute()
     const [author, setAuthor] = useState(new User({}))
@@ -46,8 +46,7 @@ const Comments = ({ index, comentario, setResponseField, toggleOverlay }: Props)
         <View style={{ flex: 1 }}>
             <View style={style.container}>
                 <TouchableOpacity onPress={handleNavigation}>
-                    <Image source={require('../../../../assets/imgs/icon.png')}
-                        style={style.profile} />
+                    <OtherAvatar size={40} image={author.profileImage}/>
                 </TouchableOpacity>
                 <View style={style.infoContainer}>
                     <View style={style.headerContainer}>

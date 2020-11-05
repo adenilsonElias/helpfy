@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import The_Avatar from '../../../../global/components/Avatar/The_Avatar'
+import OtherAvatar from '../../../../global/components/Other_Avatar/OtherAvatar'
 import { color1 } from '../../../../global/constant/constant'
 import style from './style'
 
-export default Description = ({ post, authorName }) => {
+export default Description = ({ post, authorName, profileImage }) => {
     return (
         <View style={style.container}>
             <View style={style.titleContainer}>
@@ -19,7 +19,7 @@ export default Description = ({ post, authorName }) => {
                 <Text style={style.descriptionInfo}>{post.category}</Text>
             </View>
             <View style={[style.rowContainer, { alignItems: 'center' }]}>
-                <The_Avatar size={'small'} />
+                <OtherAvatar size={'small'} image={profileImage}/>
                 <Text style={[style.descriptionInfo, { paddingHorizontal: 5, color: color1 }]}>{authorName}</Text>
             </View>
         </View>

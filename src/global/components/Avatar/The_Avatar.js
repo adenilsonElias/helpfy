@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar } from 'react-native-elements';
-import style, { editIcon } from './style'
+import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../constant/constant';
 import { useSelector } from 'react-redux';

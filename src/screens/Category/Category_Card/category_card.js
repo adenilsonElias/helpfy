@@ -18,7 +18,7 @@ export default CategoryCard = ({post} : Props) =>{
 
     useEffect(()=>{
         async function getAuthor(){
-            setAuthor(await post.getUser())
+            setAuthor(await post.getUser())            
         }
         getAuthor()
     })
@@ -30,7 +30,7 @@ export default CategoryCard = ({post} : Props) =>{
                     post: post
                 })
             }}>
-            <HeaderPost name={author.name} timePost={post.timePost}/>
+            <HeaderPost name={author.name} timePost={post.timePost} image={author.profileImage}/>
             <Image source={{ uri: post.image[0] }} style={style.iconCateogry} />
             <View style={style.textContainer}>
                 <Text style={style.textTitle}>{post.title}</Text>

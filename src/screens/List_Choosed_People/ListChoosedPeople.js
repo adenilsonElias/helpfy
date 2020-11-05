@@ -7,6 +7,7 @@ import { color1, color2 } from '../../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
 import { upDonationStage } from '../../firebase/Post';
 import Loading from '../Loading/Loading'
+import OtherAvatar from '../../global/components/Other_Avatar/OtherAvatar'
 
 export default ListChoosedPeople = () => {
     const navigation = useNavigation()
@@ -47,7 +48,7 @@ export default ListChoosedPeople = () => {
                 renderItem={({ item }) => (
                     <View style={style.containerListItem}>
                         <View style={style.ListItem}>
-                            <Image source={require('../../assets/imgs/icon.png')} style={style.profile} />
+                            <OtherAvatar size={40} image={item.profileImage}/>
                             <Text style={style.name}>{item.name}</Text>
                         </View>
                         <View style={style.containerButtons}>

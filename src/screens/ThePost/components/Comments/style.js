@@ -13,14 +13,6 @@ const style = StyleSheet.create({
     containerResponse: {
         paddingLeft: 60
     },
-    profile: {
-        height: 40,
-        width: 40,
-        borderWidth: 1,
-        borderRadius: 40,
-        borderColor: color1,        
-        backgroundColor: color2
-    },
     infoContainer:{
         flex: 1,
         width: '100%',

@@ -37,10 +37,15 @@ export default Edit = () => {
 	const [profileImage, setProfileImage] = useState(user.profileImage)
 	const [coverImage, setCoverImage] = useState(user.converImage)
 	const [password, setPassword] = useState("")
+	const [showPass, setShowPass] = useState(true) 
 
 	const toggleOverlay = () => {
 		setVisible(true);
 	};
+
+	const showPassFuntion = () => {        
+        setShowPass(!showPass)
+	}
 
 	useEffect(() => {
 		async function getStatesFunction() {
@@ -122,7 +127,7 @@ export default Edit = () => {
 					Toast.show("E-mail invalido", Toast.LONG)
 					break
 				default:
-					Toast.show("Não foi possivel fazer atualização dos dados",Toast.LONG)
+					Toast.show("Não foi possivel fazer atualização dos dados", Toast.LONG)
 					"Erro aleatorio"
 			}
 			setPassword("")
@@ -195,20 +200,28 @@ export default Edit = () => {
 					}}
 				/>
 				{renderCity()}
-				<Overlay isVisible={visible} onBackdropPress={() => setVisible(false)} >
+				<Overlay isVisible={visible} onBackdropPress={() => setVisible(false)}
+					overlayStyle={style.overlayContainer}>
 					<>
-						<Text>Insira sua senha</Text>
+						<Text style={style.titleText}>Insira sua senha para confirmar as atualizações</Text>
 						<View style={style.inputContainer}>
-							<TextInput
-								placeholder='Insira a senha'
+							<TextInput style={[style.input, { paddingLeft: '5%', width: '100%', paddingRight: '17%' }]}
+								placeholder='Senha'
 								placeholderTextColor={color1}
-								secureTextEntry={true}
+								secureTextEntry={showPass}
 								value={password}
 								underlineColorAndroid='transparent'
 								onChangeText={passwod => setPassword(passwod)} />
-							<View style={{ marginTop: 10 }}>
-								<Button onPress={password.length != 0 ? HandleEdit : null} title="Confirmar" />
-							</View>
+							<TouchableOpacity style={[style.btnEye, { right: '5%' }]}
+								onPress={showPassFuntion}>
+								<Icon name={showPass === false ? 'eye' : 'eye-off'}
+									size={26} color={color1} />
+							</TouchableOpacity>
+						</View>
+						<View style={style.buttom}>
+							<TouchableOpacity onPress={password.length != 0 ? HandleEdit : null}>
+								<Text style={style.buttomText}>Confirmar</Text>
+							</TouchableOpacity>
 						</View>
 					</>
 				</Overlay>

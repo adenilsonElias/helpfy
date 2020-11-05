@@ -21,7 +21,8 @@ const style = StyleSheet.create({
         color: color1,
         fontSize: 16,
         paddingLeft: '15%',
-        width: '90%',        
+        paddingRight: '5%',
+        width: '90%',
     },
     inputContainer: {
         marginBottom: '5%',
@@ -48,7 +49,30 @@ const style = StyleSheet.create({
         position:'absolute',
         right: Dimensions.get('window').width * 0.83,
         marginVertical: 13
-    }
+    },
+    overlayContainer:{
+        width: Dimensions.get('window').width * 3 / 4
+    },
+    titleText: {
+        fontSize: 18,
+        color: color1,
+        alignSelf: 'center',    
+        marginBottom: 20,
+        textAlign: "center"
+    },
+    buttom: {
+        justifyContent: 'center',
+        height: 40,
+        width: '40%',
+        borderRadius: 5,
+        backgroundColor: color1,
+        alignSelf: 'center'        
+    },
+    buttomText: {
+        fontSize: 18,
+        color: color2,
+        textAlign: 'center'
+    },
 })
 
 export const placeholderValue = {

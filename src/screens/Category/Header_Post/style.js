@@ -15,16 +15,8 @@ const style = StyleSheet.create({
         alignItems: 'center',    
         width: '75%',    
     },
-    profile: {
-        height: 40,
-        width: 40,
-        borderWidth: 2,
-        borderRadius: 40,
-        borderColor: color1,
-        marginRight: 20,
-        backgroundColor: color2
-    },
-    name: {        
+    name: {
+        marginLeft: 10,
         fontFamily: fontTitle,        
         fontSize: 28,
         color: color1,

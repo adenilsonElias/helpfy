@@ -6,6 +6,7 @@ import Comentario from '../../../../model/comments';
 import User from '../../../../model/user';
 import { getUserByRef } from '../../../../firebase/Authentication';
 import { useNavigation } from '@react-navigation/native';
+import OtherAvatar from '../../../../global/components/Other_Avatar/OtherAvatar'
 
 type Props = {
     response: Comentario
@@ -30,8 +31,9 @@ export default Responses = ({ response }: Props) => {
         <View>
             <View style={[style.container, style.containerResponse]} >
                 <TouchableOpacity onPress={handleNavigation}>
-                    <Image source={require('../../../../assets/imgs/icon.png')}
-                        style={[style.profile, style.profileResponse]} />
+                    <OtherAvatar size={'small'} image={author.profileImage}/>
+                    {/* <Image source={require('../../../../assets/imgs/icon.png')}
+                        style={[style.profile, style.profileResponse]} /> */}
                 </TouchableOpacity>
                 <View style={style.infoContainer}>
                     <View style={style.headerContainer}>

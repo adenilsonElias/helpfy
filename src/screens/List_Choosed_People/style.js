@@ -22,16 +22,8 @@ const style = StyleSheet.create({
         alignContent: 'center',
         alignItems: "center",
     },
-    profile: {
-        height: 40,
-        width: 40,
-        borderWidth: 2,
-        borderRadius: 40,
-        borderColor: color1,
-        marginRight: 20,
-        backgroundColor: '#fff'
-    },
     name: {
+        marginLeft: 10,
         color: color1,
         fontSize: 20
     },

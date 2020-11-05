@@ -10,6 +10,7 @@ import User from '../../model/user';
 import { useSelector } from 'react-redux';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { getUserByRef } from '../../firebase/Authentication';
+import OtherAvatar from '../../global/components/Other_Avatar/OtherAvatar'
 
 export default Chat_List = () => {
     const navigation = useNavigation()
@@ -41,7 +42,7 @@ export default Chat_List = () => {
                     <TouchableOpacity style={style.containerListItem}
                         onPress={() => {navigation.navigate('TheChat',{receiver: item})}}>
                         <View style={style.ListItem}>
-                            <Image source={require('../../assets/imgs/icon.png')} style={style.profile} />
+                            <OtherAvatar size={40} image={item.profileImage}/>
                             <Text style={style.name}>{item.name}</Text>
                         </View>
                         <View style={style.iconContainer}>
