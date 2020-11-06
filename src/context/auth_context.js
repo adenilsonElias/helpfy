@@ -62,6 +62,9 @@ export const AuthContextProvider = ({ children }) => {
         })
     }
 
+    //@TODO Quando edita imagem atualiza as contas logadas para o mesmo usuario
+    //Parece ser problema de listerner morto
+    //Em edicao de imagem e salvar nao executa o unsub
     function logOut() {
         setIsLoading(true)
         MakeLogout().then(() => {

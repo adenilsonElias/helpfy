@@ -4,6 +4,7 @@ import style from './style'
 import moment from 'moment';
 import { getUserByRef } from '../../../../firebase/Authentication';
 import User from '../../../../model/user';
+import OtherAvatar from '../../../../global/components/Other_Avatar/OtherAvatar'
 
 const Comments = ({ comentario }) => {
     const [author, setAuthor] = useState(new User({}))
@@ -17,8 +18,7 @@ const Comments = ({ comentario }) => {
 
     return (
         <View style={style.container}>
-            <Image source={require('../../../../assets/imgs/icon.png')}
-                style={style.profile} />
+            <OtherAvatar size={40} image={author.profileImage}/>
             <View style={style.infoContainer}>
                 <View style={style.headerContainer}>
                     <Text style={style.author}>{author.name}</Text>

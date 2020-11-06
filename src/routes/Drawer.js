@@ -6,7 +6,7 @@ import LeaderBoard from '../screens/Leader_Board/Leader_Board';
 import { Bottomnavigation } from './Bottom'
 import DrawerCustom from '../global/components/DrawerCustom/DrawerCustom'
 import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { color1, color4 } from '../global/constant/constant'
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -60,19 +60,21 @@ export default DrawerNavigation = () => {
             }} /> : null
 
     return (
-        <Drawer.Navigator drawerContent={DrawerCustom} drawerContentOptions={{
-            user,
-            level,
-            progresso,
-            activeTintColor: color1,
-            itemStyle: {
-                width: '100%',
-                marginHorizontal: 0,
-                marginVertical: 0,
-                height: 50,
-                justifyContent: 'center'
-            },
-        }}>
+        <Drawer.Navigator drawerContent={DrawerCustom}
+            drawerStyle={{ width: Dimensions.get('window').width * 3 / 4 }}
+            drawerContentOptions={{
+                user,
+                level,
+                progresso,
+                activeTintColor: color1,
+                itemStyle: {
+                    width: '100%',
+                    marginHorizontal: 0,
+                    marginVertical: 0,
+                    height: 50,
+                    justifyContent: 'center'
+                }
+            }}>
             <Drawer.Screen name="Tela Inicial" component={Bottomnavigation}
                 options={{
                     drawerIcon: ({ focused, size }) => (

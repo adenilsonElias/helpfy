@@ -14,11 +14,13 @@ import EditImage from './components/Edit_Image/Edit_Image'
 import EditBackground from './components/Edit_Background/Edit_Background'
 import Header from './components/Header/Header'
 import TheDatePicker from './components/TheDatePicker/TheDatePicker'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Overlay } from 'react-native-elements'
 import RNPickerSelect from 'react-native-picker-select';
 import { getCities, getStates } from '../../api/ibge'
 import Toast from 'react-native-simple-toast'
+import { setLoading } from '../../store/actions/loading'
+import Loading from '../Loading/Loading'
 
 export default Edit = () => {
 	const navigation = useNavigation()
@@ -37,7 +39,9 @@ export default Edit = () => {
 	const [profileImage, setProfileImage] = useState(user.profileImage)
 	const [coverImage, setCoverImage] = useState(user.converImage)
 	const [password, setPassword] = useState("")
-	const [showPass, setShowPass] = useState(true) 
+	const [showPass, setShowPass] = useState(true)
+	const loading = useSelector(state => state.loadingState.loading)
+    const dispatch = useDispatch()
 
 	const toggleOverlay = () => {
 		setVisible(true);
@@ -113,8 +117,10 @@ export default Edit = () => {
 		newUser.profileImage = profileImage // aqui vai a nova imagem
 		newUser.converImage = coverImage // aqui vai a nova imagem de fundo
 
+		dispatch(setLoading(true))
 		updateUser(newUser, password, email, user).then(() => {
 			console.info("usuario atualizado com sucesso")
+			dispatch(setLoading(false))
 			navigation.goBack()
 		}).catch((error) => {
 			switch (error) {
@@ -134,6 +140,12 @@ export default Edit = () => {
 		})
 
 	}
+
+	if(loading){
+        return(
+            <Loading />
+        )
+    }
 
 	return (
 		<>

@@ -44,6 +44,7 @@ export default MyPosts = () => {
                 keyExtractor={item => `${item.IdPost}`}
                 // Padding com mesmo valor do margins container do PostList
                 style={{ paddingVertical: 5 }}
+                ListFooterComponent={ <View style={{ height: 10 }}/>}
                 renderItem={({ item }) => {
                     return (
                         <PostList post={item} isMyPosts={true}/>

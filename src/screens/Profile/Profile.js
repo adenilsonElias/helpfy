@@ -12,7 +12,7 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import ProfileContext, { ProfileContextProvider } from './Profile_Context';
 import { FloatingAction } from "react-native-floating-action";
-import { setLoading } from '../../store/actions/loading'
+import { setBottomBar } from '../../store/actions/loading'
 
 type Props = {
     userProps?: User
@@ -25,7 +25,7 @@ const ProfileScreen = ({ userProps }: Props) => {
     const userLogged: User = useSelector(state => state.userState.user)
     const [user, setUser] = [profileContext.user, profileContext.setUser]
     const [isMyProfile, setIsMyProfile] = [profileContext.isMyProfile, profileContext.setIsMyProfile]
-    const loading = useSelector(state => state.loadingState.loading) //loading utilizado para tirar o bottomBar
+    const bottomBar = useSelector(state => state.loadingState.bottomBar) //loading utilizado para tirar o bottomBar
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -71,8 +71,8 @@ const ProfileScreen = ({ userProps }: Props) => {
                     isMyProfile ? 
                         <FloatingAction actions={actions} color={color1}
                             floatingIcon={ <Icon name={'edit'} size={30} color={color2} /> }
-                            onOpen={() => { dispatch(setLoading(true)) }}
-                            onClose={() => { dispatch(setLoading(false)) }}
+                            onOpen={() => { dispatch(setBottomBar(true)) }}
+                            onClose={() => { dispatch(setBottomBar(false)) }}
                             onPressItem={name => {
                                 if (name == 'Edit') {
                                     navigation.navigate('Edit', { user: user })
