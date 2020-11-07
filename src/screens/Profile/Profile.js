@@ -25,8 +25,6 @@ const ProfileScreen = ({ userProps }: Props) => {
     const userLogged: User = useSelector(state => state.userState.user)
     const [user, setUser] = [profileContext.user, profileContext.setUser]
     const [isMyProfile, setIsMyProfile] = [profileContext.isMyProfile, profileContext.setIsMyProfile]
-    const bottomBar = useSelector(state => state.loadingState.bottomBar) //loading utilizado para tirar o bottomBar
-    const dispatch = useDispatch()
 
     useEffect(() => {
         if (userProps == null) {
@@ -70,9 +68,8 @@ const ProfileScreen = ({ userProps }: Props) => {
                 {
                     isMyProfile ? 
                         <FloatingAction actions={actions} color={color1}
+                            overlayColor={'transparent'}
                             floatingIcon={ <Icon name={'edit'} size={30} color={color2} /> }
-                            onOpen={() => { dispatch(setBottomBar(true)) }}
-                            onClose={() => { dispatch(setBottomBar(false)) }}
                             onPressItem={name => {
                                 if (name == 'Edit') {
                                     navigation.navigate('Edit', { user: user })

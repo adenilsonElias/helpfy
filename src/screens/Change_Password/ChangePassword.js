@@ -4,12 +4,16 @@ import { color1 } from '../../global/constant/constant'
 import Header from './components/Header/Header'
 import Icon from 'react-native-vector-icons/Feather'
 import style from './style'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import User from '../../model/user'
 import { changePassword } from '../../firebase/Authentication'
+import { useNavigation } from '@react-navigation/native'
+import { setLoading } from '../../store/actions/loading'
+import Loading from '../Loading/Loading'
 
 export default ChangePassword = () => {
     const user: User = useSelector(state => state.userState.user)
+    const navigation = useNavigation()
     const [password, setPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
@@ -18,6 +22,8 @@ export default ChangePassword = () => {
     const [showPassConfirm, setShowPassConfirm] = useState(true)
     const ref2 = useRef(null)
     const ref3 = useRef(null)
+    const loading = useSelector(state => state.loadingState.loading)
+    const dispatch = useDispatch()
 
     const showPassFuntion = () => {
         setShowPass(!showPass)
@@ -32,12 +38,15 @@ export default ChangePassword = () => {
     }
 
     function handleChangePassword(){
+        dispatch(setLoading(true))
         if(newPassword != confirmPass){
             // senha não conferem
             return
         }
         changePassword(newPassword,password).then(()=>{
             console.info("Senha Alterada com sucesso")
+            navigation.navigate('Profile')
+            dispatch(setLoading(false))
         }).catch((error)=>{
             switch(error){
                 case "Erro ao reautenticar":
@@ -50,6 +59,12 @@ export default ChangePassword = () => {
                     // erro aleatorio
             }
         })
+    }
+
+    if(loading){
+        return(
+            <Loading />
+        )
     }
 
     return (
