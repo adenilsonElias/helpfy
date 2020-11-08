@@ -23,6 +23,7 @@ export default TheChat = () => {
     const [messages, setMessages] = useState([]);
     const [image, setImage] = useState(null) // coloque o caminho da imagem neste estado
     const [video, setVideo] = useState(null) // coloque o caminho do video neste estado
+    const [inputText, setInputText] = useState("")
     const user: User = useSelector(state => state.userState.user)
 
 
@@ -125,7 +126,10 @@ export default TheChat = () => {
                 renderSend={SendButton}
                 textInputStyle={style.input}
                 alwaysShowSend
-                text={image || video ? ' ' : null}
+                text={image && !inputText.length > 0 ? ' ' : inputText}
+                onInputTextChanged={(text) => {
+                    setInputText(text)
+                }}
                 scrollToBottom
                 scrollToBottomComponent={ScrollToBottom}
                 renderLoading={Loading}
