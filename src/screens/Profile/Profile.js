@@ -58,7 +58,7 @@ const ProfileScreen = ({ userProps }: Props) => {
         return (
             <>
                 <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
-                    <BackgroundTop isMyProfile={isMyProfile} />
+                    <BackgroundTop isMyProfile={isMyProfile} user={user}/>
                     <ProfileInfoBot title={'Nome'} content={user.name} icon={'user'} />
                     <ProfileInfoBot title={'E-mail'} content={user.email} icon={'at-sign'} />
                     <ProfileInfoBot title={'Data de Nascimento'} content={user.birthDay} icon2={'cake-variant'} />
