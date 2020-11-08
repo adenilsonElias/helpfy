@@ -7,8 +7,8 @@ const style = StyleSheet.create({
         backgroundColor: color2
     },
     animationContainer: {
-        width: Dimensions.get('window').width * 3 / 4,
-        height: Dimensions.get('window').width * 3 / 4,        
+        width: Dimensions.get('window').height * 2 / 7,
+        height: Dimensions.get('window').height * 2 / 7,        
         alignSelf: 'center'
     },
     titleContainer: {

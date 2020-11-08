@@ -27,7 +27,8 @@ export default Login = () => {
 	}
 	
     return(
-        <ScrollView style={style.container} 
+		<ScrollView style={style.container}
+			keyboardShouldPersistTaps={"always"}
 			showsVerticalScrollIndicator={false}>
 			<View style={style.animationContainer}>
 				<Lottie resizeMode={"contain"} source={animation} autoPlay loop/>
@@ -58,7 +59,11 @@ export default Login = () => {
 					value={password}
 					underlineColorAndroid='transparent'
 					ref={ref}
-					onSubmitEditing={handle_entrar_button_press}
+					onSubmitEditing={() => {
+						if(email.length != 0 && password.length != 0){
+							handle_entrar_button_press()
+						}
+					}}
 					onChangeText={password => setPassword(password)} />                      
 				<TouchableOpacity style={style.btnEye} 
 					onPress={showPassFuntion}>

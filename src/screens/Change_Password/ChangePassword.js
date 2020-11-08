@@ -58,6 +58,7 @@ export default ChangePassword = () => {
                 default :
                     // erro aleatorio
             }
+            dispatch(setLoading(false))
         })
     }
 
@@ -69,7 +70,8 @@ export default ChangePassword = () => {
 
     return (
         <>
-            <Header setPassFunction={handleChangePassword} />
+            <Header setPassFunction={handleChangePassword} password={password}
+                newPassword={newPassword} confirmPass={confirmPass}/>
             <View style={style.container}>
                 <View style={style.inputContainer}>
                     <Icon name={'lock'} size={26} color={color1} style={style.icon} />
@@ -118,6 +120,12 @@ export default ChangePassword = () => {
                         secureTextEntry={showPassConfirm}
                         value={confirmPass}
                         underlineColorAndroid='transparent'
+                        onSubmitEditing={() => {
+                            if(password.length != 0 && newPassword.length != 0
+                                && confirmPass.length != 0){
+                                handleChangePassword()
+                            }
+                        }}
                         ref={ref3}
                         onChangeText={confirmPass => setConfirmPass(confirmPass)} />
                     <TouchableOpacity style={style.btnEye}

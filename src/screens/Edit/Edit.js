@@ -151,6 +151,7 @@ export default Edit = () => {
 		<>
 			<Header alterUser={toggleOverlay} />
 			<ScrollView style={style.container}
+				keyboardShouldPersistTaps={"always"}
 				showsVerticalScrollIndicator={false}>
 				{/* <View style={style.container}> */}
 				<EditImage profileImage={profileImage} setProfileImage={setProfileImage} />

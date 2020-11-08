@@ -10,7 +10,7 @@ type Props = {
     setPassFunction : Function
 }
 
-export default Header = ({ setPassFunction } : Props) => {
+export default Header = ({ password, newPassword, confirmPass, setPassFunction } : Props) => {
     const navigation = useNavigation()
 
     return(
@@ -24,7 +24,8 @@ export default Header = ({ setPassFunction } : Props) => {
             <View>
                 <Text style={style.titleText}>Editar Senha</Text>
             </View>
-            <TouchableOpacity onPress={setPassFunction}>
+            <TouchableOpacity onPress={password.length != 0 && newPassword.length != 0
+                && confirmPass.length != 0 ? setPassFunction : null}>
                 <Icon name={'save'} size={25} color={color1} />
             </TouchableOpacity>
         </View>

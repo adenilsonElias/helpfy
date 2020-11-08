@@ -17,7 +17,6 @@ export default AddComments = ({user} : Props) => {
     const [message, setMessage] = useState('')
     const userLogged: User = useSelector(state => state.userState.user)
 
-
     function handleCreateComment(){
         let comentario = new Comentario()
         comentario.message = message
@@ -40,6 +39,7 @@ export default AddComments = ({user} : Props) => {
                 placeholderTextColor={color1}
                 keyboardType='email-address'
                 underlineColorAndroid='transparent'
+                value={message}
                 onChangeText={(value) => {setMessage(value)}}/>
             <TouchableOpacity style={style.sendButton}
                 onPress={() => {
