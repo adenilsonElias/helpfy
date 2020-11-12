@@ -3,7 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/stack';
 import { GiftedChat } from 'react-native-gifted-chat'
 import style from './style'
-import { Button, View } from 'react-native';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import BubbleMessage from './components/Bubble_Message/BubbleMessage';
 import SendButton from './components/ButtonSend/SendButton'
 import ScrollToBottom from './components/ScrollToBottom/ScrollToBottom'
@@ -11,10 +11,15 @@ import Loading from '../Loading/Loading'
 import 'dayjs/locale/pt-br'
 import { messageListener, sendMessage, sendMessageWithImage, sendMessageWithVideo } from '../../firebase/chat';
 import User from '../../model/user';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { color1 } from '../../global/constant/constant';
 import ImagePicker from 'react-native-image-picker'
+import Actions from './components/Actions/Actions'
+import PreviewImage from './components/PreviewImages/PreviewImage'
+import Icon from 'react-native-vector-icons/Feather'
+import { setLoading } from '../../store/actions/loading'
+import MessageImage from './components/Message_Image/MessageImage'
 
 export default TheChat = () => {
     const navigation = useNavigation()
@@ -25,7 +30,9 @@ export default TheChat = () => {
     const [video, setVideo] = useState(null) // coloque o caminho do video neste estado
     const [inputText, setInputText] = useState("")
     const user: User = useSelector(state => state.userState.user)
-
+    const [preview, setPreview] = useState(null)
+    const loading = useSelector(state => state.loadingState.loading)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         navigation.setOptions({
@@ -69,12 +76,13 @@ export default TheChat = () => {
             })
             return
         }
-        console.debug(image)
         if (image) {
             sendMessageWithImage(user, receiver, messages, image).then(() => {
                 //@TODO tentar não permitir o usuario de manda outra mensagem
                 console.info("mensagem com foto enviada com sucesso")
                 setImage(null)
+                setPreview(null)
+                dispatch(setLoading(false))
             })
             return
         }
@@ -82,42 +90,26 @@ export default TheChat = () => {
         console.info("message enviada com sucesso")
     }, [])
 
+    if(loading){
+        return(
+            <Loading />
+        )
+    }
+
+    if (preview){
+        return(
+            <PreviewImage preview={preview} setPreview={setPreview} onSend={onSend} user={user} 
+                image={image} setImage={setImage} video={video}/>
+        )
+    }
+
+
     return (
         <View style={style.container}>
-            <Button color={video ? 'green' : null} onPress={() => {
-                ImagePicker.showImagePicker({
-                    mediaType: 'video'
-                }, (response) => {
-                    if (response.didCancel) {
-                        return
-                    }
-                    if (response.error) {
-                        return
-                    }
-                    setVideo(response.path)
-                    setImage(null)
-                    console.debug("video carregado com sucesso")
-                })
-            }} title="teste video"></Button>
-            <Button color={image ? 'green' : null} onPress={() => {
-                ImagePicker.showImagePicker({
-                    mediaType: 'photo'
-                }, (response) => {
-                    if (response.didCancel) {
-                        return
-                    }
-                    if (response.error) {
-                        return
-                    }
-                    setImage(response.path)
-                    setVideo(null)
-                    console.debug("imagem coletada com sucesso")
-                })
-            }} title="teste image"></Button>
             <GiftedChat
+                imageStyle={style.image}
                 messages={messages}
                 onSend={messages => onSend(messages, video, image)}
-
                 user={{
                     _id: user.id, name: user.name
                 }}
@@ -132,6 +124,7 @@ export default TheChat = () => {
                 }}
                 scrollToBottom
                 scrollToBottomComponent={ScrollToBottom}
+                renderActions={() => <Actions setImage={setImage} setPreview={setPreview}/>}
                 renderLoading={Loading}
                 locale={'pt-br'}
                 showUserAvatar={true}
