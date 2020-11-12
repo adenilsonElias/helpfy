@@ -21,6 +21,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import Description from './components/Description/Description'
 import { setLoading } from '../../store/actions/loading'
+import { setBottomBar } from '../../store/actions/loading'
+import Animations from './components/Animation/Animations'
 
 // @TODO - corrigir warning Non-serializable values were found in the navigation state. Check:
 // Tela Inicial > Home > ThePost > params.post.donatario._firestore._app._deleteApp (Function)
@@ -41,6 +43,7 @@ const ThePost = () => {
     const [author, setAuthor] = useState()
     const [profileImage, setProfileImage] = useState()
     const loading = useSelector(state => state.loadingState.loading)
+    const donationAnimation = useSelector(state => state.loadingState.bottomBar)
     const dispatch = useDispatch()
     const parameter = {
         message,
@@ -87,6 +90,12 @@ const ThePost = () => {
     }, [loading])
 
     useEffect(() => {
+        navigation.setOptions({
+            headerShown: !donationAnimation,
+        })
+    }, [donationAnimation])
+
+    useEffect(() => {
         dispatch(setLoading(true))
         post.getUser().then((user) => {
             setAuthor(user.name)
@@ -113,6 +122,12 @@ const ThePost = () => {
             dispatch(setLoading(false))
         })
     }, [update])
+
+    if(donationAnimation){
+        return(
+            <Animations />
+        )
+    }
 
     if(loading){
         return(

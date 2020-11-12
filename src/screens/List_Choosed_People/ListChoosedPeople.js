@@ -8,6 +8,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import { upDonationStage } from '../../firebase/Post';
 import Loading from '../Loading/Loading'
 import OtherAvatar from '../../global/components/Other_Avatar/OtherAvatar'
+import Animations from './components/Animation/Animations'
+import { useDispatch, useSelector } from 'react-redux';
+import { setBottomBar } from '../../store/actions/loading'
 
 export default ListChoosedPeople = () => {
     const navigation = useNavigation()
@@ -16,6 +19,14 @@ export default ListChoosedPeople = () => {
     const [choose, setChoose] = useState(false)
     const [loading, setLoading] = useState(false)
     const chooseText = choose ? 'Escolhido' : 'Escolher'
+    const donation = useSelector(state => state.loadingState.bottomBar)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerShown: !donation,
+        })
+    }, [donation])
 
     useEffect(() => {
         setLoading(true)
@@ -26,15 +37,25 @@ export default ListChoosedPeople = () => {
         collect()
     }, [])
 
-    function handleGrantee(idGrantee : String){
+    function handleGrantee(idGrantee: String) {
+        dispatch(setBottomBar(true))
         upDonationStage(post,idGrantee).then(()=>{
             console.info("estado de doação alterado com sucesso")
-            navigation.goBack()
+            setTimeout(() => {
+                navigation.goBack()
+                dispatch(setBottomBar(false))
+            }, 3000)
         })
     }
 
-    if(loading){
-        return(
+    if (donation) {
+        return (
+            <Animations />
+        )        
+    }
+
+    if (loading) {
+        return (
             <Loading />
         )
     }
@@ -48,18 +69,18 @@ export default ListChoosedPeople = () => {
                 renderItem={({ item }) => (
                     <View style={style.containerListItem}>
                         <View style={style.ListItem}>
-                            <OtherAvatar size={40} image={item.profileImage}/>
+                            <OtherAvatar size={40} image={item.profileImage} />
                             <Text style={style.name}>{item.name}</Text>
                         </View>
                         <View style={style.containerButtons}>
-                            <TouchableOpacity style={[style.button, { backgroundColor: choose ? color1 : color2 }]} 
-                            onPress={() => handleGrantee(item.id)}>
+                            <TouchableOpacity style={[style.button, { backgroundColor: choose ? color1 : color2 }]}
+                                onPress={() => handleGrantee(item.id)}>
                                 <Text style={[style.text, { color: choose ? color2 : color1 }]}>{chooseText}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ justifyContent: 'center' }}
-                            onPress={()=>{
-                                navigation.navigate('TheChat',{receiver: item})
-                            }}>
+                                onPress={() => {
+                                    navigation.navigate('TheChat', { receiver: item })
+                                }}>
                                 <Icon name={'message-circle'} size={30} color={color1} />
                             </TouchableOpacity>
                         </View>

@@ -4,7 +4,7 @@ import { TouchableOpacity, View, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Feather';
 import style from './style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isLiked, addLike, removeLike, getPost, cancelDonation, upDonationStage } from '../../../../firebase/Post';
 import { color4, color1, color2 } from '../../../../global/constant/constant';
 import { addIWant, removeIWant, isWanted } from '../../../../firebase/eu_quero';
@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import Post from '../../../../model/post_model';
 import { getUserByRef } from '../../../../firebase/Authentication';
 import User from '../../../../model/user';
+import { setBottomBar } from '../../../../store/actions/loading'
 
 type Props = {
     post: Post,
@@ -28,6 +29,7 @@ const Buttons = ({ post, setPost }: Props) => {
     const user: User = useSelector(state => state.userState.user)
     const navigation = useNavigation()
     const [donatario, setDonatario] = useState(new User({}))
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setLoadingLike(false)
@@ -99,8 +101,12 @@ const Buttons = ({ post, setPost }: Props) => {
     }
 
     function handleAccept(){
+        dispatch(setBottomBar(true))
         upDonationStage(post).then(()=>{
             console.info("donatario recebeu a doação")
+            setTimeout(() => {
+                dispatch(setBottomBar(false))
+            }, 3000)
         })
     }
 

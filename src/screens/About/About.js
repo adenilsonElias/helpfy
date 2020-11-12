@@ -16,6 +16,7 @@ export default About = () => {
                 <Collaborator author={'Payungkead'} type={'Ícone'} site={'www.flaticon.com'}/>
                 <Collaborator author={'NorthSea'} type={'Animação'} site={'www.lottiefiles.com/'}/>
                 <Collaborator author={'Thalia Tran'} type={'Animação'} site={'www.lottiefiles.com/'}/>
+                <Collaborator author={'Daniela Stein'} type={'Animação'} site={'www.lottiefiles.com/'}/>
             </View>
         </>
     )
