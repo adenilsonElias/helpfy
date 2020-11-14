@@ -107,38 +107,42 @@ export default Edit = () => {
 	}
 
 	function HandleEdit() {
-		setVisible(false)
-		let newUser = user
-		newUser.name = name
-		newUser.email = email
-		newUser.birthDay = birth
-		newUser.city = city
-		newUser.state = state
-		newUser.profileImage = profileImage // aqui vai a nova imagem
-		newUser.converImage = coverImage // aqui vai a nova imagem de fundo
-
-		dispatch(setLoading(true))
-		updateUser(newUser, password, email, user).then(() => {
-			console.info("usuario atualizado com sucesso")
-			dispatch(setLoading(false))
-			navigation.goBack()
-		}).catch((error) => {
-			switch (error) {
-				case 'Erro ao reautenticar':
-					// senha errada provavelmente
-					Toast.show("Senha incorreta", Toast.LONG)
-					break
-				case 'Erro ao atualizar email':
-					// novo email invalido ou ja existe
-					Toast.show("E-mail invalido", Toast.LONG)
-					break
-				default:
-					Toast.show("Não foi possivel fazer atualização dos dados", Toast.LONG)
-					"Erro aleatorio"
-			}
-			setPassword("")
-		})
-
+		if (name.length == 0 || email.length == 0 || birth.length == 0 || city.length == 0 || state.length == 0) {
+			setVisible(false)
+			Toast.show("Verifique se todos os campos estão preenchidos", Toast.LONG)
+		} else {
+			setVisible(false)
+			let newUser = user
+			newUser.name = name
+			newUser.email = email
+			newUser.birthDay = birth
+			newUser.city = city
+			newUser.state = state
+			newUser.profileImage = profileImage // aqui vai a nova imagem
+			newUser.converImage = coverImage // aqui vai a nova imagem de fundo
+	
+			dispatch(setLoading(true))
+			updateUser(newUser, password, email, user).then(() => {
+				console.info("usuario atualizado com sucesso")
+				dispatch(setLoading(false))
+				navigation.goBack()
+			}).catch((error) => {
+				switch (error) {
+					case 'Erro ao reautenticar':
+						// senha errada provavelmente
+						Toast.show("Senha incorreta", Toast.LONG)
+						break
+					case 'Erro ao atualizar email':
+						// novo email invalido ou ja existe
+						Toast.show("E-mail invalido", Toast.LONG)
+						break
+					default:
+						Toast.show("Não foi possivel fazer atualização dos dados", Toast.LONG)
+						"Erro aleatorio"
+				}
+				setPassword("")
+			})
+		}
 	}
 
 	if(loading){

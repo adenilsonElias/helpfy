@@ -10,6 +10,7 @@ import { changePassword } from '../../firebase/Authentication'
 import { useNavigation } from '@react-navigation/native'
 import { setLoading } from '../../store/actions/loading'
 import Loading from '../Loading/Loading'
+import Toast from 'react-native-simple-toast'
 
 export default ChangePassword = () => {
     const user: User = useSelector(state => state.userState.user)
@@ -124,6 +125,8 @@ export default ChangePassword = () => {
                             if(password.length != 0 && newPassword.length != 0
                                 && confirmPass.length != 0){
                                 handleChangePassword()
+                            } else {
+                                Toast.show("Verifique se todos os campos estão preenchidos", Toast.LONG)
                             }
                         }}
                         ref={ref3}

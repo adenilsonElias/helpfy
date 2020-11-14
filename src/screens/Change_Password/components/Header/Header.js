@@ -5,6 +5,7 @@ import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native'
+import Toast from 'react-native-simple-toast'
 
 type Props = {
     setPassFunction : Function
@@ -25,7 +26,8 @@ export default Header = ({ password, newPassword, confirmPass, setPassFunction }
                 <Text style={style.titleText}>Editar Senha</Text>
             </View>
             <TouchableOpacity onPress={password.length != 0 && newPassword.length != 0
-                && confirmPass.length != 0 ? setPassFunction : null}>
+                && confirmPass.length != 0 ? setPassFunction : 
+                Toast.show("Verifique se todos os campos estão preenchidos", Toast.LONG)}>
                 <Icon name={'save'} size={25} color={color1} />
             </TouchableOpacity>
         </View>

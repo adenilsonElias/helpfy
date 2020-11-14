@@ -19,7 +19,6 @@ import Actions from './components/Actions/Actions'
 import PreviewImage from './components/PreviewImages/PreviewImage'
 import Icon from 'react-native-vector-icons/Feather'
 import { setLoading } from '../../store/actions/loading'
-import MessageImage from './components/Message_Image/MessageImage'
 
 export default TheChat = () => {
     const navigation = useNavigation()

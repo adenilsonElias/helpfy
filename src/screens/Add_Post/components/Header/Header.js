@@ -6,14 +6,27 @@ import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'
 import { useNavigation } from '@react-navigation/native'
 import Post from '../../../../model/post_model'
+import Toast from 'react-native-simple-toast'
 
 type Props = {
     handleSavePost : Function,
-    postParam : Post
+    postParam : Post,
+    title : String,
+    description : String,
+    choiceCategory : String,
+    images : String[]
 }
 
-export default Header = ({ handleSavePost, postParam } : Props) => {
+export default Header = ({ handleSavePost, postParam, title, description, choiceCategory, images } : Props) => {
     const navigation = useNavigation()
+
+    const verifySavePost = () => {
+        if (title.length == 0 || description.length == 0 || choiceCategory.length == 0 || images.length == 0){
+            Toast.show("Verifique se todos os campos estão preenchidos", Toast.LONG)
+        } else {
+            handleSavePost()
+        }
+    }
 
     return(
         <View style={style.container}>
@@ -26,7 +39,7 @@ export default Header = ({ handleSavePost, postParam } : Props) => {
             <View>
                 <Text style={style.titleText}>{ postParam ? 'Editar Postagem' : 'Nova Postagem' }</Text>
             </View>
-            <TouchableOpacity onPress={() => { handleSavePost() }}>
+            <TouchableOpacity onPress={() => { verifySavePost() }}>
                 <Icon name={'save'} size={25} color={color1} />
             </TouchableOpacity>
         </View>

@@ -53,7 +53,6 @@ export default AddPost = () => {
                 setLoading(false)
                 Toast.show("Não foi possivel editar o post", Toast.LONG)
             })
-            console.log('IF do postParam')
         } else {
             const newPost = new Post({
                 title: title,
@@ -126,7 +125,8 @@ export default AddPost = () => {
 
     return (
         <View style={style.container}>
-            <Header handleSavePost={handleSavePost} postParam={postParam} />
+            <Header handleSavePost={handleSavePost} postParam={postParam} images={images}
+                title={title} description={description} choiceCategory={choiceCategory}/>
             <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={{ flex: 2 }}>
                     <Title title={'Título da Postagem'} />
