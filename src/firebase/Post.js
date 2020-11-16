@@ -208,6 +208,8 @@ export async function upDonationStage(post: Post, donatarioId: String = null, ju
                 await Firestore().collection('Post').doc(post.IdPost).update(
                     { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
                 )
+                addPoint(donatarioId)
+                addPoint(post.userId)
                 console.info("Post foi para o estado: Doado (3)")
                 return;
             default:

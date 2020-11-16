@@ -102,7 +102,7 @@ const Buttons = ({ post, setPost }: Props) => {
 
     function handleAccept(){
         dispatch(setBottomBar(true))
-        upDonationStage(post).then(()=>{
+        upDonationStage(post, user.id).then(()=>{
             console.info("donatario recebeu a doação")
             setTimeout(() => {
                 dispatch(setBottomBar(false))
