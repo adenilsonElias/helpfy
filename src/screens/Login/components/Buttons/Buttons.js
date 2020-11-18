@@ -13,7 +13,7 @@ export default Buttons = ({ login , enabled }) => {
                     <Text style={style.buttomText}>Registrar</Text>
                 </TouchableOpacity>
             </View>
-            <View style={style.buttom}>
+            <View style={enabled ? style.buttom : [style.buttom, { backgroundColor: 'rgba(84, 76, 126, 0.7)' }]}>
                 <TouchableOpacity onPress={enabled ? login : null}>
                     <Text style={style.buttomText}>Entrar</Text>
                 </TouchableOpacity>
