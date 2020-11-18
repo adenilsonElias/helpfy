@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { View, Text} from 'react-native'
-import { MakeLogin, createAuthObserver, CreateNewUser, MakeLogout, getUser } from '../firebase/Authentication'
+import { MakeLogin, createAuthObserver, CreateNewUser, MakeLogout, getUser, setUserListener, makeUnsub } from '../firebase/Authentication'
 import { useDispatch } from 'react-redux'
 import { setUser, makeLogout } from '../store/actions/user'
 import { FirebaseAuthTypes } from '@react-native-firebase/auth'
@@ -19,11 +18,9 @@ export const AuthContextProvider = ({ children }) => {
     const [isLogged, setIsLogged] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
-    let unsub = () => { }
-
     function addUserToRedux(user: User) {
         dispatch(setUser(user))
-        unsub = user.Listener((user: FirebaseFirestoreTypes.DocumentSnapshot) => {
+        setUserListener(user.id, (user: FirebaseFirestoreTypes.DocumentSnapshot) => {
             dispatch(setUser(new User({ ...user.data(), id: user.id })))
         })
     }
@@ -68,10 +65,7 @@ export const AuthContextProvider = ({ children }) => {
     function logOut() {
         setIsLoading(true)
         MakeLogout().then(() => {
-            if (unsub) {
-                unsub()
-            }
-            unsub = () => { }
+            makeUnsub()
             setIsLoading(false)
         })
     }
