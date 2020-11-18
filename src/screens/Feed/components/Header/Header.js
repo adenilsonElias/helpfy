@@ -17,10 +17,6 @@ import TheAvatar from '../../../../global/components/Avatar/The_Avatar'
 const Header = () => {
     const auth = useContext(AuthContext)
     const navigation = useNavigation()
-    
-    const avatar = auth.isLogged ?
-        <Image source={require('../../../../assets/imgs/icon.png')} style={style.profile} /> :
-        <Image source={require('../../../../assets/imgs/mao.png')} style={style.profile} />
 
     // const notificationIcon = this.props.notificationIcon ? 'bell-off' : 'bell'
 

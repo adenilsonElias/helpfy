@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
 import style from './style';
 import { SliderBox } from "react-native-image-slider-box";
 import Header from './components/Header/Header';
@@ -60,6 +60,7 @@ export default Feed = () => {
 
     return (
         <View style={style.container}>
+            <StatusBar barStyle={"dark-content"} backgroundColor={color2} />
             <Header />
             <View style={style.containerBody}>
                 <ScrollView showsVerticalScrollIndicator={false}

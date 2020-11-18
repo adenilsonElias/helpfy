@@ -32,8 +32,6 @@ export default Responses = ({ response }: Props) => {
             <View style={[style.container, style.containerResponse]} >
                 <TouchableOpacity onPress={handleNavigation}>
                     <OtherAvatar size={'small'} image={author.profileImage}/>
-                    {/* <Image source={require('../../../../assets/imgs/icon.png')}
-                        style={[style.profile, style.profileResponse]} /> */}
                 </TouchableOpacity>
                 <View style={style.infoContainer}>
                     <View style={style.headerContainer}>
