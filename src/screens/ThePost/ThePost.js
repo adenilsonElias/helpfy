@@ -115,7 +115,6 @@ const ThePost = () => {
     }, [])
 
     useEffect(() => {
-        // @TODO adicionar butao de ordenacao
         dispatch(setLoading(true))
         getComentarios(post.IdPost, 'desc').then(value => {
             setComentarios(value)

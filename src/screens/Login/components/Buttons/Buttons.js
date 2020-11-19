@@ -4,7 +4,6 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import style from './style'
 
 export default Buttons = ({ login , enabled }) => {
-    // @TODO quando enabled for falso deixar botão de entrar cinza 
     const navigation = useNavigation();
     return (
         <View style={style.container}>

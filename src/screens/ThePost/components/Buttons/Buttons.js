@@ -203,8 +203,7 @@ const Buttons = ({ post, setPost }: Props) => {
                     </View>
                 )
             default:
-                //@TODO Lembrar de remover antes de finalizar a aplicacao
-                return <Text style={{ color: 'red' }}>Se caiu nessa condicao deu ruim</Text>
+                return navigation.navigate('Feed')
         }
     }
 

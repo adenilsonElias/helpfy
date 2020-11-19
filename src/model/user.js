@@ -1,7 +1,5 @@
 // @flow
 
-// @TODO Não subir o id do usuario para a tabela do firebase 
-
 import { setUserListener } from "../firebase/Authentication"
 
 export default class User {

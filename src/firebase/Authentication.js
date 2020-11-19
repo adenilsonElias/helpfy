@@ -56,8 +56,6 @@ export async function MakeLogin(username: String, password: String) {
         const userCredential = await authentication.signInWithEmailAndPassword(username, password);
         return userCredential;
     } catch (e) {
-        // @Todo - separar os erros
-        // console.error("ERRO AO FAZER LOGIN");
         throw "Erro ao fazer login"
     }
 }
