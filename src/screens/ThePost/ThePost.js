@@ -40,8 +40,7 @@ const ThePost = () => {
     const [responseField, setResponseField] = useState(-1)
     const [visible, setVisible] = useState(false)
     const [typeComment, setTypeComment] = useState('')
-    const [author, setAuthor] = useState()
-    const [profileImage, setProfileImage] = useState()
+    const [author, setAuthor] = useState(null)
     const loading = useSelector(state => state.loadingState.loading)
     const donationAnimation = useSelector(state => state.loadingState.bottomBar)
     const dispatch = useDispatch()
@@ -97,15 +96,6 @@ const ThePost = () => {
 
     useEffect(() => {
         dispatch(setLoading(true))
-        post.getUser().then((user) => {
-            setAuthor(user.name)
-            setProfileImage(user.profileImage)
-            dispatch(setLoading(false))
-        })
-    }, [])
-
-    useEffect(() => {
-        dispatch(setLoading(true))
         const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
             console.info("listener chamado com sucesso")
             setPost(new Post({ ...documentSnapshot.data(), IdPost: documentSnapshot.id }));
@@ -121,6 +111,14 @@ const ThePost = () => {
             dispatch(setLoading(false))
         })
     }, [update])
+
+    useEffect(() => {
+        dispatch(setLoading(true))
+        post.getUser().then((user) => {
+            setAuthor(user)
+            dispatch(setLoading(false))
+        })
+    }, [])
 
     if(donationAnimation){
         return(
@@ -148,7 +146,7 @@ const ThePost = () => {
             <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps={"always"}
                 showsVerticalScrollIndicator={false}>
                 <PreviewImages image={post.image} />
-                <Description post={post} authorName={author} profileImage={profileImage}/>
+                <Description post={post} author={author}/>
                 <Buttons post={post} setPost={setPost} />
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>

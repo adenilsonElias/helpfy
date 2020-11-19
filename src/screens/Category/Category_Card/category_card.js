@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { Image, Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather';
 import { color4 } from '../../../global/constant/constant';
 import Post from '../../../model/post_model'
@@ -13,10 +12,10 @@ type Props = {
 }
 
 export default CategoryCard = ({post} : Props) =>{
-    const [author, setAuthor] = useState({})
+    const [author, setAuthor] = useState(null)
     const navigation = useNavigation()
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getAuthor(){
             setAuthor(await post.getUser())            
         }
@@ -30,7 +29,7 @@ export default CategoryCard = ({post} : Props) =>{
                     post: post
                 })
             }}>
-            <HeaderPost name={author.name} timePost={post.timePost} image={author.profileImage}/>
+            <HeaderPost author={author} timePost={post.timePost} />
             <Image source={{ uri: post.image[0] }} style={style.iconCateogry} />
             <View style={style.textContainer}>
                 <Text style={style.textTitle}>{post.title}</Text>
@@ -38,7 +37,9 @@ export default CategoryCard = ({post} : Props) =>{
             </View>
             <View style={style.locationContainer}>
                 <Icon name={'map-pin'} size={20} color={color4}/>
-                <Text style={style.textLocation}>{author.city} - {author.state}</Text>
+                <Text style={style.textLocation}>
+                    {author ? author.city : null} - {author ? author.state : null}
+                </Text>
             </View>
         </TouchableOpacity>
     )

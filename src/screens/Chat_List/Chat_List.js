@@ -17,8 +17,9 @@ export default Chat_List = () => {
     const [useList,setUseList] = useState([])
     const user: User = useSelector(state => state.userState.user)    
 
-    useEffect(()=>{
+    useEffect(() => {
         if (user == null) {
+            // navigation.jumpTo('Profile')
             return
         }
         chatListener(user,(chatCollection : FirebaseFirestoreTypes.QuerySnapshot)=>{

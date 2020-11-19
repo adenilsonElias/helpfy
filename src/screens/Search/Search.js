@@ -12,30 +12,7 @@ import { getPostList } from '../../firebase/Post'
 
 const Search = () => {
     const [data, setData] = useState([])
-    const [arrayHolder, setArrayHolder] = useState([
-        {
-            title: 'teste',
-            author: 'teste',
-            image: 'teste',
-            comments: 'teste',
-            description: 'teste',
-            postId: 1,
-            emailPost: 'teste1',
-            timePost: 'teste',
-            userId: 'teste1'
-        },
-        {
-            title: 'teste',
-            author: 'teste',
-            image: 'teste',
-            comments: 'teste',
-            description: 'teste',
-            postId: 2,
-            emailPost: 'teste2',
-            timePost: 'teste',
-            userId: 'teste2'
-        }
-    ])
+    const [arrayHolder, setArrayHolder] = useState([])
     const [value, setValue] = useState('')
     const [renderResult, setRenderResult] = useState(false)
     const navigation = useNavigation()

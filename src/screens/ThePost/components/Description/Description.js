@@ -1,10 +1,17 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import OtherAvatar from '../../../../global/components/Other_Avatar/OtherAvatar'
 import { color1 } from '../../../../global/constant/constant'
 import style from './style'
 
-export default Description = ({ post, authorName, profileImage }) => {
+export default Description = ({ post, author }) => {
+    const navigation = useNavigation()
+
+    function handleNavigation() {
+        navigation.navigate("User-Profile", { user: author })
+    }
+
     return (
         <View style={style.container}>
             <View style={style.titleContainer}>
@@ -19,8 +26,12 @@ export default Description = ({ post, authorName, profileImage }) => {
                 <Text style={style.descriptionInfo}>{post.category}</Text>
             </View>
             <View style={[style.rowContainer, { alignItems: 'center' }]}>
-                <OtherAvatar size={'small'} image={profileImage}/>
-                <Text style={[style.descriptionInfo, { paddingHorizontal: 5, color: color1 }]}>{authorName}</Text>
+                <TouchableOpacity onPress={handleNavigation}>
+                    <OtherAvatar size={'small'} image={author ? author.profileImage : null}/>
+                </TouchableOpacity>
+                <Text style={[style.descriptionInfo, { paddingHorizontal: 5, color: color1 }]}>
+                    {author ? author.name : null}
+                </Text>
             </View>
         </View>
     )

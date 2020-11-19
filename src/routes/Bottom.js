@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import Feed from '../screens/Feed/Feed';
 import Profile from '../screens/Profile/Profile';
 import Chat_List from '../screens/Chat_List/Chat_List';
