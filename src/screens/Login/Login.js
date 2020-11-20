@@ -11,7 +11,7 @@ import animation from '../../assets/animations/box.json'
 import { cos } from 'react-native-reanimated'
 
 export default Login = () => {
-    const auth = useContext(AuthContext);    
+    const auth = useContext(AuthContext);
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPass, setShowPass] = useState(true) 

@@ -52,6 +52,10 @@ export default Feed = () => {
         )
     }
 
+    if(auth.loginScreen){
+        navigation.navigate('Profile')
+    }
+
     const AddPost = auth.isLogged ?
         <TouchableOpacity style={style.buttonAdd}
             onPress={() => { navigation.navigate('AddPost', {}) }}>

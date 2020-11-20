@@ -18,7 +18,7 @@ export default function Navigator() {
         // Adicionei o authcontext na arvore
         <AuthContextProvider>
             <NavigationContainer>
-                <DrawerNavigation />
+                <DrawerNavigation/>
             </NavigationContainer>
         </AuthContextProvider>
     );

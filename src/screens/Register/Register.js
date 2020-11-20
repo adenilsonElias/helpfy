@@ -11,6 +11,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { getCities, getStates } from '../../api/ibge'
 import RNPickerSelect from 'react-native-picker-select';
 import TheDatePicker from './components/The_Date_Picker/TheDatePicker'
+import Toast from 'react-native-simple-toast'
 
 // @TODO Conserta waning quando tem uma cidade selecionada e você altera o estado
 
@@ -91,10 +92,24 @@ export default Register = () => {
 		}
 	}
 
+	const verifyCreateUser = () => {
+		if (email.length == 0 || name.length <= 0 || password.length < 6 || birth.length == 0 ||
+			state.length == 0 || city.length == 0){
+            Toast.show("Verifique se todos os campos estão preenchidos corretamente", Toast.LONG)
+        } else {
+			if (password != confirmPass) {
+				return Toast.show("Senhas não conferem", Toast.LONG)
+			} else {
+				handleCreateUser()
+			}
+		}
+    }
+
 	return (
 		<View style={style.container}>
 			<KeyboardAwareScrollView
 				showsVerticalScrollIndicator={false}
+				keyboardShouldPersistTaps={"always"}
 				scrollEnabled={true}
 				enableAutomaticScroll={true}
 				// contentContainerStyle={style.container}
@@ -133,6 +148,7 @@ export default Register = () => {
 					onValueChange={(value, index) => {
 						setStateUf('')
 						if (value != '') {
+							console.log('Valor aqui',value)
 							setStateUf(value)
 							setState(stateList[index - 1].nome);
 							getCitiesFunction(value)
@@ -205,13 +221,7 @@ export default Register = () => {
 						</TouchableOpacity>
 					</View>
 					<View style={style.buttom}>
-						<TouchableOpacity onPress={() => {
-							if (password != confirmPass) {
-								//@ TODO Colocar error para quando senhas forem diferentes
-								return
-							}
-							handleCreateUser()
-						}}>
+						<TouchableOpacity onPress={verifyCreateUser}>
 							<Text style={style.buttomText}>Salvar</Text>
 						</TouchableOpacity>
 					</View>

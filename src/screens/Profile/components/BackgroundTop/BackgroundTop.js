@@ -11,18 +11,20 @@ export default BackgroundTop = ({ isMyProfile, user }) => {
     const navigation = useNavigation()
     
     return (
-        <ImageBackground source={user.converImage ? { uri: user.converImage}
-            : require('../../../../assets/imgs/coverDefault.png')}
+        <ImageBackground source={!user ? require('../../../../assets/imgs/coverDefault.png') : 
+            user.converImage ? { uri: user.converImage} : require('../../../../assets/imgs/coverDefault.png')}
             style={style.imageBackground} imageStyle={style.backgroundStyle}>
                 <View style={style.profileContainer}>
                     {
                         !isMyProfile ?
                         <TouchableOpacity style={style.buttonContainer}
-                            onPress={() => {navigation.goBack()}}>
+                            onPress={() => {
+                                navigation.goBack()
+                            }}>
                             <Icon name='arrow-left' size={30} color={color1} />
                         </TouchableOpacity> : null
                     }
-                    <OtherAvatar size={'xlarge'} image={user.profileImage}/>
+                    <OtherAvatar size={'xlarge'} image={user ? user.profileImage : null}/>
                 </View>            
             <ToolbarMid />
         </ImageBackground>

@@ -37,7 +37,7 @@ export async function CreateNewUser(user: User, setUserReduxCallback: Function =
         return userCredential;
     } catch (e) {
         // @Todo - Separar os tipos de erros 
-        console.error(e)
+        // console.error(e)
         throw "Erro ao criar usuario"
     }
 }

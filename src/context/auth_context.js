@@ -17,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const [isLogged, setIsLogged] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [loginScreen, setLoginScreen] = useState(false)
     const dispatch = useDispatch()
     function addUserToRedux(user: User) {
         dispatch(setUser(user))
@@ -46,8 +47,10 @@ export const AuthContextProvider = ({ children }) => {
         setIsLoading(true)
         MakeLogin(username, password).then((value) => {
             setIsLoading(false);
+            setLoginScreen(false)
         }).catch((error) => {
             setIsLoading(false)
+            setLoginScreen(true)
             Toast.show("E-mail ou senha incorretos", Toast.LONG)
         })
     }
@@ -56,6 +59,11 @@ export const AuthContextProvider = ({ children }) => {
         setIsLoading(true)
         CreateNewUser(user, addUserToRedux).then((value) => {
             setIsLoading(false)
+            setLoginScreen(false)
+        }).catch((error) => {
+            setIsLoading(false)
+            setLoginScreen(true)
+            Toast.show("Erro ao criar usuário", Toast.LONG)
         })
     }
 
@@ -74,7 +82,7 @@ export const AuthContextProvider = ({ children }) => {
     // }
 
     return (
-        <AuthContext.Provider value={{ logIn, createUser, logOut, isLogged }}>
+        <AuthContext.Provider value={{ logIn, createUser, logOut, isLogged, loginScreen }}>
             {isLoading ? <Loading /> : children}
         </AuthContext.Provider>
     )
