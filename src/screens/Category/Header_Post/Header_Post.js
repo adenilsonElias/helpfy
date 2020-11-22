@@ -3,7 +3,10 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import style from './style'
 import { color4 } from '../../../global/constant/constant'
 import Icon from 'react-native-vector-icons/Feather';
-import moment from 'moment';
+import 'moment';
+import 'moment/locale/pt-br';
+import moment from 'moment-timezone';
+moment().locale('pt-br');
 import OtherAvatar from '../../../global/components/Other_Avatar/OtherAvatar'
 import { useNavigation } from '@react-navigation/native';
 
