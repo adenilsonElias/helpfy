@@ -30,10 +30,10 @@ const Header = () => {
                 <Text style={style.title}>Helpfy</Text>
             </View>
             <View style={style.iconContainer}>
-                <TouchableOpacity style={style.icon}
+                {/* <TouchableOpacity style={style.icon}
                 onPress={()=> {navigation.navigate('Notifications')}}>
                     <Icon name={'bell'} size={30} color={color1}/>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity style={style.icon} 
                     onPress={()=> {navigation.navigate('Search')}}>                    
                     <Icon name={'search'} size={30} color={color1}/>

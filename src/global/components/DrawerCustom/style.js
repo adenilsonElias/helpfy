@@ -1,10 +1,7 @@
 import { StyleSheet } from 'react-native'
-import { color1, color2, color3, fontTitle } from '../../constant/constant'
+import { color1, color2, color3, color4, fontTitle } from '../../constant/constant'
 
 const style = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     profileContainer: {
         padding: 10,
         paddingTop: 40,
@@ -40,6 +37,14 @@ const style = StyleSheet.create({
     level: {
         color: color1,
         fontSize: 20,
+    },
+    containerVersion: {
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textVersion: {
+        color: color4,
     }
 })
 

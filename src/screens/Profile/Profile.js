@@ -25,6 +25,7 @@ const ProfileScreen = ({ userProps }: Props) => {
     const userLogged: User = useSelector(state => state.userState.user)
     const [user, setUser] = [profileContext.user, profileContext.setUser]
     const [isMyProfile, setIsMyProfile] = [profileContext.isMyProfile, profileContext.setIsMyProfile]
+    const [birthFormat, setBirthFormat] = useState(user ? user.birthDay : '')
 
     useEffect(() => {
         if (userProps == null) {
@@ -34,6 +35,21 @@ const ProfileScreen = ({ userProps }: Props) => {
         }
         setUser(userProps)
     })
+
+    useEffect(() => {
+        function convertBirth(birth){
+            if(birth){
+                let year = birth.slice(4)
+                let month = birth.slice(2, 4)
+                let day = birth.slice(0, 2)
+                let births = day.concat('/', month, '/', year)
+                setBirthFormat(births)
+            }
+        }
+        if(user){
+            convertBirth(user.birthDay)
+        }
+    }, [user])
 
     const actions = [
         {
@@ -61,7 +77,7 @@ const ProfileScreen = ({ userProps }: Props) => {
                     <BackgroundTop isMyProfile={isMyProfile} user={user}/>
                     <ProfileInfoBot title={'Nome'} content={user ? user.name : null} icon={'user'} />
                     <ProfileInfoBot title={'E-mail'} content={user ? user.email : null} icon={'at-sign'} />
-                    <ProfileInfoBot title={'Data de Nascimento'} content={user ? user.birthDay : null} icon2={'cake-variant'} />
+                    <ProfileInfoBot title={'Data de Nascimento'} content={user ? birthFormat : null} icon2={'cake-variant'} />
                     <ProfileInfoBot title={'Estado'} content={user ? user.state : null} icon={'map-pin'} />
                     <ProfileInfoBot title={'Cidade'} content={user ? user.city: null} icon={'map-pin'} />
                 </ScrollView>

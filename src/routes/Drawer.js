@@ -22,6 +22,7 @@ export default DrawerNavigation = () => {
     const user = useSelector(state => state.userState.user)
     const [level, setLevel] = useState(0)
     const [progresso, setProgresso] = useState(0)
+    const [witdhDrawer, setWidthDrawer] = useState(Dimensions.get('window').width * 3 / 4)
 
     useEffect(() => {
         if(user){
@@ -61,11 +62,12 @@ export default DrawerNavigation = () => {
 
     return (
         <Drawer.Navigator drawerContent={DrawerCustom}
-            drawerStyle={{ width: Dimensions.get('window').width * 3 / 4 }}
+            drawerStyle={{ width: witdhDrawer }}
             drawerContentOptions={{
                 user,
                 level,
                 progresso,
+                witdhDrawer,
                 activeTintColor: color1,
                 itemStyle: {
                     width: '100%',
