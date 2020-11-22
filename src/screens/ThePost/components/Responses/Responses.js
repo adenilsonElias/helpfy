@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import style from './style'
-import moment from 'moment';
+import 'moment';
+import 'moment/locale/pt-br';
+import moment from 'moment-timezone';
+moment().locale('pt-br');
 import Comentario from '../../../../model/comments';
 import User from '../../../../model/user';
 import { getUserByRef } from '../../../../firebase/Authentication';

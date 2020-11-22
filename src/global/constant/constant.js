@@ -1,5 +1,8 @@
-import moment from 'moment';
+import 'moment';
+import 'moment/locale/pt-br';
+import moment from 'moment-timezone';
 
+moment().locale('pt-br');
 // color 1 = Cor das Informacoes
 export const color1 = 'rgb(84, 76, 126)'
 // color 2 = Cor dd Fundo

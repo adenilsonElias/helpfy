@@ -1,5 +1,6 @@
 import Firestore from '@react-native-firebase/firestore'
 import Storage from '@react-native-firebase/storage'
+import SendNotification from '../model/notification';
 import Post from '../model/post_model';
 import User from '../model/user';
 import { addPoint } from './Gamification'
@@ -202,6 +203,14 @@ export async function upDonationStage(post: Post, donatarioId: String = null, ju
                     { ...post.toJson(), donationStatus: Firestore.FieldValue.increment(1) }
                 )
                 console.info("Post foi para o estado: Aguardando Receber (2)")
+                // try{
+                //     const notification = new SendNotification({
+                //         type : 
+                //     })
+                // }
+                // catch(e){
+
+                // }
                 return;
             case 2:
                 // Donatario aceitou a doação e está esperando receber

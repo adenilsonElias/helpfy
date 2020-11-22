@@ -4,10 +4,12 @@ import { ImageBackground, TouchableOpacity, View, } from 'react-native'
 import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { color1 } from '../../../../global/constant/constant'
-import moment from 'moment';
+import 'moment';
+import 'moment/locale/pt-br';
+import moment from 'moment-timezone';
 import { setLoading } from '../../../../store/actions/loading'
 import { useDispatch } from 'react-redux'
-
+moment().locale('pt-br');
 export default PreviewImage = ({ preview, onSend, image, video, user, setPreview, setImage }) => {
     const navigation = useNavigation()
     const dispatch = useDispatch()

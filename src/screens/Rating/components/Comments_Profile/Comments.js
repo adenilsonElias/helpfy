@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Image } from 'react-native'
 import style from './style'
-import moment from 'moment';
+import 'moment';
+import 'moment/locale/pt-br';
+import moment from 'moment-timezone';
 import { getUserByRef } from '../../../../firebase/Authentication';
 import User from '../../../../model/user';
 import OtherAvatar from '../../../../global/components/Other_Avatar/OtherAvatar'
 
+moment().locale('pt-br');
 const Comments = ({ comentario }) => {
     const [author, setAuthor] = useState(new User({}))
 

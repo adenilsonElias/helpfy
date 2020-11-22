@@ -2,7 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, Image } from 'react-native'
 import style from './style'
 import { TouchableOpacity, FlatList, TextInput } from 'react-native-gesture-handler'
-import moment from 'moment';
+import 'moment';
+import 'moment/locale/pt-br';
+import moment from 'moment-timezone';
+moment().locale('pt-br');
 import Responses from '../Responses/Responses'
 import Add_Comments from '../Add_Comments/Add_Comments'
 import { useNavigation, useRoute } from '@react-navigation/native'
