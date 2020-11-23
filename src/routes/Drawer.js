@@ -33,6 +33,9 @@ export default DrawerNavigation = () => {
             } else {
                 setLevel(1)
             }
+        } else {
+            setProgresso(0)
+            setLevel(0)
         }
     }, [user])
 
@@ -68,6 +71,7 @@ export default DrawerNavigation = () => {
                 level,
                 progresso,
                 witdhDrawer,
+                user,
                 activeTintColor: color1,
                 itemStyle: {
                     width: '100%',

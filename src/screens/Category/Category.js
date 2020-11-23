@@ -32,7 +32,7 @@ export default Category = (props) => {
                     }
                 />),
             headerRight: () => (
-                <Filter setPost={setPosts} />
+                <Filter setPost={setPosts} category={category} setLoading={setLoading}/>
             )
         })
     }, [loading])

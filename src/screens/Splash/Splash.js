@@ -40,7 +40,7 @@ export default Splash = ({ setAppIsLoading } : Props) => {
                         }),
                       }],
                 }]}>
-                <Text style={style.title}>Hepfy</Text>
+                <Text style={style.title}>Helpfy</Text>
             </Animated.View>
         </SafeAreaView>
     )

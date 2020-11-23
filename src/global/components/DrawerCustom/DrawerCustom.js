@@ -32,7 +32,7 @@ const DrawerCustom = ({ ...props }) => {
             </View>
             <View style={style.containerVersion}>
                 <Text style={style.textVersion}>v1.0.0</Text>
-            </View>    
+            </View>
         </ScrollView>
     )
 }
