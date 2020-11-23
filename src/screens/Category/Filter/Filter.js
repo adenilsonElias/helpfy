@@ -13,16 +13,16 @@ export default Filter = ({ setPost, category, setLoading }) => {
     const setMenuRef = ref => {
         setMenu(ref)
     };
-     
+
     const hideMenu = () => {
         menu.hide()
     };
-     
+
     const showMenu = () => {
         menu.show();
     };
 
-    const buttonFilter = 
+    const buttonFilter =
         <TouchableOpacity onPress={showMenu}>
             <Icon name={'sliders'} size={20} color={color1} />
         </TouchableOpacity>
@@ -36,20 +36,26 @@ export default Filter = ({ setPost, category, setLoading }) => {
                     onPress={() => {
                         hideMenu()
                         setLoading(true)
-                        getPostList({ category: category }, { limit: 3 }).then(value => {
+                        getPostList({ category: category }, { limit: 20 }, null).then(value => {
+                            value.sort((a, b) => {
+                                return a.timePost - b.timePost
+                            })
                             setPost(value)
                             setLoading(false)
                         })
-                }}>Antigos</MenuItem>
+                    }}>Antigos</MenuItem>
                 <MenuItem textStyle={{ color: color1 }}
                     onPress={() => {
                         hideMenu()
                         setLoading(true)
-                        getPostList({ category: category }, { limit: 2 }).then(value => {
+                        getPostList({ category: category }, { limit: 20 }, null).then(value => {
+                            value.sort((a, b) => {
+                                return a.timePost - b.timePost
+                            }).reverse()
                             setPost(value)
                             setLoading(false)
                         })
-                }}>Recentes</MenuItem>
+                    }}>Recentes</MenuItem>
             </Menu>
         </View>
     )
