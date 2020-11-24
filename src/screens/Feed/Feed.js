@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
 import style from './style';
 import { SliderBox } from "react-native-image-slider-box";
@@ -7,7 +7,7 @@ import Post from '../../model/post_model';
 import PostList from './components/Post_List/Post_List';
 import Icon from 'react-native-vector-icons/Feather';
 import { color2, color1 } from '../../global/constant/constant'
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getPostList, getPost } from '../../firebase/Post';
 import AuthContext from '../../context/auth_context';
 import PostCarousel from './components/Post_Carousel/PostCarousel'
@@ -18,7 +18,7 @@ import { setLoading } from '../../store/actions/loading'
 export default Feed = () => {
     //@ TODO Resolver problema de que a tela so puxa os post uma vez
     const navigation = useNavigation()
-    const auth = useContext(AuthContext)    
+    const auth = useContext(AuthContext)
     const images = [
         "https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1485550409059-9afb054cada4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80",
@@ -30,6 +30,7 @@ export default Feed = () => {
     const [recentes, setRecentes] = useState([])
     const [mostComments, setMostComments] = useState([])
     const loading = useSelector(state => state.loadingState.loading)
+    const [updateListPost, setUpdateListPost] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -46,13 +47,30 @@ export default Feed = () => {
         getPosts()
     }, [])
 
-    if(loading){
-        return(
+    useFocusEffect(
+        useCallback(() => {
+            async function getPosts() {
+                const liked = await getPostList(null, { limit: 5 }, { field: 'likeNumber', direction: "desc" })
+                setMostLiked(liked)
+                const post = await getPostList(null, { limit: 5 }, { field: 'timePost', direction: 'desc' });
+                setRecentes(post);
+                const comments = await getPostList(null, { limit: 5 }, { field: 'commentNumber', direction: 'desc' })
+                setMostComments(comments)
+            }
+        }, [updateListPost]))
+
+    // Função para fazer atualizar lista de posts
+    const handleUpdatePost = () => {
+        setUpdateListPost(!updateListPost);
+    }
+
+    if (loading) {
+        return (
             <Loading />
         )
     }
 
-    if(auth.loginScreen){
+    if (auth.loginScreen) {
         navigation.navigate('Profile')
     }
 
@@ -68,13 +86,13 @@ export default Feed = () => {
             <Header />
             <View style={style.containerBody}>
                 <ScrollView showsVerticalScrollIndicator={false}
-                    >
+                >
                     <SliderBox images={images}
                         imageLoadingColor={color1}
                         dotColor={color1}
                         inactiveDotColor={color2}
                         circleLoop={true}
-                        autoplay={true} />                    
+                        autoplay={true} />
                     <Text style={style.title}>Destaques</Text>
                     <PostCarousel postList={mostLiked} />
                     {/* <PostList postList={mostLiked} /> */}
@@ -86,7 +104,7 @@ export default Feed = () => {
                     {/* <PostList postList={mostComments} /> */}
                 </ScrollView>
             </View>
-            { AddPost }
+            { AddPost}
         </View>
     )
 }
