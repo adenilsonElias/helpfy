@@ -54,8 +54,10 @@ const Search = () => {
     });
 
     useEffect(()=>{
-        getPostList({title : value},{limit: 10}).then((response)=>{
-            setPostList(response);
+        getPostList().then((response)=>{
+            setPostList(response.filter((item) => {
+                return item.title.toLowerCase().includes(value.toLowerCase())
+            }));
         })
     } , [value])
 

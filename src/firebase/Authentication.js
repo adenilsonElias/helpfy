@@ -137,7 +137,6 @@ export async function getUserByRef(ref: FirebaseFirestoreTypes.DocumentReference
 }
 
 export function setUserListener(uid: String, setUser: Function) {
-    console.log(uid)
     const makeUnsub = Firestore().collection('User').doc(uid).onSnapshot(setUser)
     unsub = () => {
         console.info("desativando listener do user ", uid);

@@ -35,8 +35,9 @@ export default Register = () => {
 	const ref2 = useRef(null)
 
 	function handleCreateUser() {
+		let emailFormat = email.toLowerCase()
 		const user = new User({
-			email, name, senha: password, birthDay: birth,
+			email: emailFormat, name, senha: password, birthDay: birth,
 			state, city, profileImage: null, score: 0
 		})
 		auth.createUser(user)
@@ -148,7 +149,6 @@ export default Register = () => {
 					onValueChange={(value, index) => {
 						setStateUf('')
 						if (value != '') {
-							console.log('Valor aqui',value)
 							setStateUf(value)
 							setState(stateList[index - 1].nome);
 							getCitiesFunction(value)

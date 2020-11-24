@@ -27,7 +27,7 @@ export function StackProfile() {
                 }} />
             <Stack.Screen name="MyPosts" component={MyPosts}
                 options={{
-                    title: 'Meus Posts',
+                    title: 'Posts Realizados',
                     headerStyle: {
                         backgroundColor: color2,
                     },
