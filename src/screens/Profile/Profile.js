@@ -6,7 +6,7 @@ import ProfileInfoBot from './components/ProfileInfoBot/ProfileInfoBot'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import User from '../../model/user';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View, BackHandler } from 'react-native';
 import { color1, color2 } from '../../global/constant/constant';
 import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
@@ -44,6 +44,12 @@ const ProfileScreen = ({ userProps }: Props) => {
             dispatch(setBottomBar(false))
         }
     }, [isMyProfile])
+    
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', function() {
+        navigation.goBack()
+        dispatch(setBottomBar(false))
+        return true
+    })
 
     const actions = [
         {

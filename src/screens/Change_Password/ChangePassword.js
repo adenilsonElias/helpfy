@@ -39,9 +39,11 @@ export default ChangePassword = () => {
     }
 
     function handleChangePassword(){
-        dispatch(setLoading(true))
-        if(newPassword != confirmPass){
+        // dispatch(setLoading(true))
+        if(newPassword != confirmPass || newPassword.length < 6){
             // senha não conferem
+            Toast.show("Verifique se todos os campos estão preenchido corretamente", Toast.LONG)
+            dispatch(setLoading(false))
             return
         }
         changePassword(newPassword,password).then(()=>{
@@ -52,9 +54,11 @@ export default ChangePassword = () => {
             switch(error){
                 case "Erro ao reautenticar":
                     // provavelmente senha errada
+                    Toast.show("Verifique se a senha atual está correta", Toast.LONG)
                     break 
                 case "Erro ao alterar a senha":
                     // nova senha invalida
+                    Toast.show("Nova senha inválida", Toast.LONG)
                     break
                 default :
                     // erro aleatorio

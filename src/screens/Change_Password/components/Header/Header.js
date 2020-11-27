@@ -26,8 +26,7 @@ export default Header = ({ password, newPassword, confirmPass, setPassFunction }
                 <Text style={style.titleText}>Editar Senha</Text>
             </View>
             <TouchableOpacity onPress={password.length != 0 && newPassword.length != 0
-                && confirmPass.length != 0 ? setPassFunction : 
-                Toast.show("Verifique se todos os campos estão preenchidos", Toast.LONG)}>
+                && confirmPass.length != 0 ? setPassFunction : null}>
                 <Icon name={'save'} size={25} color={color1} />
             </TouchableOpacity>
         </View>
