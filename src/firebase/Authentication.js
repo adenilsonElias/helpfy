@@ -78,7 +78,7 @@ export async function updateUser(newUser: User, password: String, newEmail: Stri
         let imageUrl = "";
         let bucketReference = null
         if (newUser.profileImage != null && !newUser.profileImage.includes("firebasestorage")) {
-            bucketReference = Storage().ref(`User/${newUser.id}/${newUser.profileImage.split('/').pop()}`);
+            bucketReference = Storage().ref(`User/${newUser.id}/profile/${newUser.profileImage.split('/').pop()}`);
             await bucketReference.putFile(newUser.profileImage).then(async() => {
                 imageUrl = await bucketReference.getDownloadURL()
             })
@@ -86,7 +86,7 @@ export async function updateUser(newUser: User, password: String, newEmail: Stri
         }
         imageUrl = null
         if (newUser.converImage != null && !newUser.converImage.includes("firebasestorage")) {
-            bucketReference = Storage().ref(`User/${newUser.id}/${newUser.converImage.split('/').pop()}`);
+            bucketReference = Storage().ref(`User/${newUser.id}/cover/${newUser.converImage.split('/').pop()}`);
             await bucketReference.putFile(newUser.converImage).then(async() => {
                 imageUrl = await bucketReference.getDownloadURL()
             })
