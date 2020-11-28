@@ -52,6 +52,14 @@ export default TheChat = () => {
     }, [])
 
     useEffect(() => {
+        if(!preview){
+            navigation.setOptions({
+                headerShown: true
+            })
+        }
+    }, [preview])
+
+    useEffect(() => {
         return messageListener(user.id, receiver.id, (message: FirebaseFirestoreTypes.QuerySnapshot) => {
             if (message) {
                 setMessages(message.docs.map(snapshot => {

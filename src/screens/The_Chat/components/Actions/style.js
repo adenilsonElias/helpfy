@@ -5,7 +5,8 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginLeft: 5
     }
 })
 
