@@ -14,7 +14,7 @@ export default InfoBoard = ({ index, item, userIdLogged }) => {
                 <Text style={styleUser}>{index + 1}</Text>
             </View>
             <View style={style.nameContainer}>
-                <Text style={styleUser}>{item.name}</Text>
+                <Text style={styleUser} numberOfLines={1}>{item.name}</Text>
             </View>
             <View style={style.pointsContainer}>
                 <Text style={style.boldText}>{item.score}</Text>

@@ -13,7 +13,10 @@ const Header = (props) => {
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Icon name={'menu'} size={30} color={color1} />
             </TouchableOpacity>
-            <Text style={[style.titleText, style.colorText]}>{props.title} </Text>
+            <View style={style.titleContainer}>
+                <Text style={[style.titleText, style.colorText]}
+                    numberOfLines={1}>{props.title}</Text>
+            </View>
             {props.icon ? <Icon name={props.icon} size={30} color={color1} /> : <View />}
         </View>
     )

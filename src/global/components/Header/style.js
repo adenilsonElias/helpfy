@@ -14,6 +14,10 @@ const style = StyleSheet.create({
     titleText: styleTitle,
     colorText: {
         color: color1
+    },
+    titleContainer: {
+        paddingHorizontal: 5,
+        width: '80%'
     }
 })
 
