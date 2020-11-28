@@ -1,5 +1,5 @@
-import React from 'react';
-import { ImageBackground, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { ImageBackground, TouchableOpacity, View, BackHandler } from 'react-native';
 import style from './style'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,15 @@ export default BackgroundTop = ({ isMyProfile, user }) => {
     const navigation = useNavigation()
     const visibleBar = useSelector(state => state.loadingState.bottomBar)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        const backScreen = () => {
+            navigation.goBack()
+            dispatch(setBottomBar(false))
+            return true
+        }
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backScreen)
+    }, [])
     
     return (
         <ImageBackground source={!user ? require('../../../../assets/imgs/coverDefault.png') : 
