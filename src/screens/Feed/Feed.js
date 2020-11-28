@@ -73,6 +73,7 @@ export default Feed = () => {
 
     if (auth.loginScreen) {
         navigation.navigate('Profile')
+        auth.setLoginScreen(false)
     }
 
     const AddPost = auth.isLogged ?
