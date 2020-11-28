@@ -127,6 +127,7 @@ export default Edit = () => {
 				dispatch(setLoading(false))
 				navigation.goBack()
 			}).catch((error) => {
+				dispatch(setLoading(false))
 				switch (error) {
 					case 'Erro ao reautenticar':
 						// senha errada provavelmente

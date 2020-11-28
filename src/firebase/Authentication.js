@@ -65,6 +65,7 @@ export async function updateUser(newUser: User, password: String, newEmail: Stri
     try {
         await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email, password))
     } catch (e) {
+        console.error(e)
         throw "Erro ao reautenticar"
     }
     try {
@@ -111,7 +112,7 @@ export async function changePassword(newPassword: String, oldPassword: String) {
     try {
         await authentication.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(authentication.currentUser.email, oldPassword))
     } catch (e) {
-        // console.error(e)
+        console.error(e)
         throw "Erro ao reautenticar"
     }
     try {
