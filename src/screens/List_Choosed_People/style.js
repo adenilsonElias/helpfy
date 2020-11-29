@@ -10,34 +10,36 @@ const style = StyleSheet.create({
     },
     containerListItem: {
         flexDirection: 'row',
-        height: 60,
         justifyContent: "center",
         alignContent: 'center',
-        padding: 10,
-        // borderWidth: 1,
+        width: '100%',
+        paddingVertical: 10,
     },
     ListItem: {
-        flex: 1,
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: "center",
+        width: '65%',
+        paddingLeft: 10,
     },
     name: {
         marginLeft: 10,
         color: color1,
-        fontSize: 20
+        fontSize: 20,
+        flexShrink: 1,
     },
     containerButtons: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 5,
+        justifyContent: "space-around",
+        width: '35%',
+        paddingHorizontal: 5,
         paddingVertical: 5,
     },
     button: {
         borderWidth: 1,
         borderColor: color1,
         padding: 5,
-        marginRight: 15,
         borderRadius: 5
     },
     text: {

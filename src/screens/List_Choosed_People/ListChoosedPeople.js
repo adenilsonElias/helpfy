@@ -34,7 +34,6 @@ export default ListChoosedPeople = () => {
 
     useEffect(() => {
         async function collect() {
-            console.log("lalala")
             setUserList(await getWantPeople(post))
         }
         collect()
@@ -42,7 +41,6 @@ export default ListChoosedPeople = () => {
 
     useEffect(()=>{
         return wantListListener(post,(documentSnapshot : FirebaseFirestoreTypes.DocumentSnapshot)=>{
-            console.log("esta aqui senhor ?")
             updateT = !updateT
             setUpdate(updateT);
         })
@@ -81,7 +79,7 @@ export default ListChoosedPeople = () => {
                     <View style={style.containerListItem}>
                         <View style={style.ListItem}>
                             <OtherAvatar size={40} image={item.profileImage} />
-                            <Text style={style.name}>{item.name}</Text>
+                            <Text style={style.name} numberOfLines={1}>{item.name}</Text>
                         </View>
                         <View style={style.containerButtons}>
                             <TouchableOpacity style={[style.button, { backgroundColor: choose ? color1 : color2 }]}
