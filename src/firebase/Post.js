@@ -3,7 +3,7 @@ import Storage from '@react-native-firebase/storage'
 import SendNotification from '../model/notification';
 import Post from '../model/post_model';
 import User from '../model/user';
-import { addPoint } from './Gamification'
+import { addPoint, removePoint } from './Gamification'
 
 export async function createPost(post: Post, userId: String) {
     try {
@@ -136,17 +136,28 @@ export async function editPost(post: Post) {
 
 }
 
-export async function deletePost(id: String) {
+export async function deletePost(post: Post, userId: String) {
     try {
-        await Firestore().collection('Post').doc(id).delete()
+        if(post.donationStatus == 2){
+            throw 'Post em processo de doacao'
+        }
+        if(post.donationStatus == 3){
+            throw 'Post ja finalizado'
+        }
+        await Firestore().collection('Post').doc(post.IdPost).delete()
+        removePoint(userId)
     }
     catch (e) {
         console.error(e)
+        if(e == 'Post em processo de doacao'){
+            throw e
+        }
+        if(e == 'Post ja finalizado'){
+            throw e
+        }
         throw "Erro ao deletar post"
     }
 }
-
-
 
 export async function addLike(post: Post, userId: String) {
     try {

@@ -27,3 +27,19 @@ export async function addPoint(userId: String) {
         throw "Erro ao adicionar pontos"
     }
 }
+
+export async function removePoint(userId: String) {
+    try {
+        const userRef = Firestore().collection('User').doc(userId)
+
+        await Firestore().runTransaction(async (transaction) => {
+            transaction.update(userRef, {
+                score: Firestore.FieldValue.increment(-1)
+            })
+        })
+    }
+    catch (e) {
+        console.error(e)
+        throw "Erro ao remover pontos"
+    }
+}

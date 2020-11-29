@@ -18,6 +18,7 @@ import Loading from '../Loading/Loading'
 import Icon from 'react-native-vector-icons/Feather'
 import Header from './components/Header/Header'
 import Toast from 'react-native-simple-toast'
+import DeleteButton from './components/Delete_Button/Delete_Button'
 
 export default AddPost = () => {
     const user: User | null = useSelector(state => state.userState.user);
@@ -156,6 +157,10 @@ export default AddPost = () => {
                             // autoFocus={true}
                             value={description} onChangeText={setDescription} />
                     </View>
+                    {
+                        postParam ? <DeleteButton post={postParam} setLoading={setLoading}
+                            userId={user.id}/> : null
+                    }
                     <ImageView glideAlways images={previewImages}
                         imageIndex={imageIndex} animationType="fade"
                         isVisible={visible} onClose={() => setVisible(false)} />
