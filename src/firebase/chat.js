@@ -39,7 +39,7 @@ export async function sendMessageWithImage(sender: User, receiver: User, message
     // tentar manda imagem pro storage
     let bucketReference = null
     try {
-        bucketReference = Storage().ref(`chatImage/${maior}/${menor}/${image.split('/').pop()}`);
+        bucketReference = Storage().ref(`chatImage/${maior}/${menor}/${image.split('/').pop().split(".")[0]}${Date.now()}`);
         let imageUrl = "";
         await bucketReference.putFile(image).then(async () => {
             imageUrl = await bucketReference.getDownloadURL()
