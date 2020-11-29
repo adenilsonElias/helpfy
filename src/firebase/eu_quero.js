@@ -15,7 +15,6 @@ export async function getPostListWant(userId: String) {
         for(let i = 0; i < idList.length; i+= 1){
             finalPost.push(await Firestore().collection('Post').doc(idList[i]).get())
         }
-        console.log(finalPost)
         return finalPost.filter((value)=>value.exists).map(post => new Post({ ...post.data(), IdPost: post.id }))
     }
     catch (e) {
