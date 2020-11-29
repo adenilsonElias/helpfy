@@ -97,6 +97,9 @@ const ThePost = () => {
     useEffect(() => {
         dispatch(setLoading(true))
         const sub = post.listener((documentSnapshot: FirebaseFirestoreTypes.DocumentSnapshot) => {
+            if(documentSnapshot.exists){
+                navigation.goBack();
+            }
             console.info("listener chamado com sucesso")
             setPost(new Post({ ...documentSnapshot.data(), IdPost: documentSnapshot.id }));
             dispatch(setLoading(false))
