@@ -60,6 +60,14 @@ export const categorys = [{
     id: Math.random(),
     image: require('../../assets/imgs/roupas.png'),
     title: 'Roupas'
+},{
+    id: Math.random(),
+    image: require('../../assets/imgs/roupas.png'),
+    title: 'Eletroeletrônicos'
+},{
+    id: Math.random(),
+    image: require('../../assets/imgs/roupas.png'),
+    title: 'Outros'
 }]
 
 export const converTime = () => {

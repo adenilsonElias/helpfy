@@ -1,4 +1,4 @@
-import Firestore from '@react-native-firebase/firestore'
+import Firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import Storage from '@react-native-firebase/storage'
 import SendNotification from '../model/notification';
 import Post from '../model/post_model';
@@ -44,11 +44,11 @@ export async function getPost(id: String) {
 }
 
 interface filter {
-    category: 'Brinquedos' | 'Calçados' | 'Eletrodomésticos' | 'Higiene Pessoal' |
-    'Livros' | 'Material de Construção' | 'Material de Limpeza' |
-    'Livros' | 'Material de Construção' | 'Material de Limpeza' |
-    'Livros' | 'Material de Construção' | 'Material de Limpeza' |
-    'Material Escolar' | 'Móveis' | 'Roupas',
+    category: 
+    'Brinquedos' | 'Calçados' | 'Eletrodomésticos' | 
+    'Higiene Pessoal' | 'Livros' | 'Material de Construção' | 
+    'Material de Limpeza' | 'Material Escolar' | 'Móveis'  |   
+    'Roupas' | 'Eletroeletrônicos' | 'Outros',
     author: String,
     userId: String,
     title: String,
@@ -102,8 +102,11 @@ export async function getPostListLike(userId: String) {
         const idList = postsRef.docs.map((value) => {
             return value.id
         })
-        const finalPost = await Firestore().collection('Post').where(Firestore.FieldPath.documentId(), 'in', idList).get();
-        return finalPost.docs.map(post => new Post({ ...post._data, IdPost: post.id }))
+        const finalPost : FirebaseFirestoreTypes.DocumentSnapshot[] = []
+        for(let i = 0; i < idList.length; i+= 1){
+            finalPost.push(await Firestore().collection('Post').doc(idList[i]).get());
+        }
+        return finalPost.filter((value)=> value.exists).map(post => new Post({ ...post._data, IdPost: post.id }))
     }
     catch (e) {
         console.error(e)

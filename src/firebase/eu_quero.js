@@ -1,4 +1,4 @@
-import Firestore from '@react-native-firebase/firestore'
+import Firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import Post from "../model/post_model"
 import User from "../model/user"
 
@@ -11,12 +11,16 @@ export async function getPostListWant(userId: String) {
         const idList = postsRef.docs.map((value) => {
             return value.id
         })
-        const finalPost = await Firestore().collection('Post').where(Firestore.FieldPath.documentId(), 'in', idList).get();
-        return finalPost.docs.map(post => new Post({ ...post._data, IdPost: post.id }))
+        const finalPost :FirebaseFirestoreTypes.DocumentSnapshot[] = [];
+        for(let i = 0; i < idList.length; i+= 1){
+            finalPost.push(await Firestore().collection('Post').doc(idList[i]).get())
+        }
+        console.log(finalPost)
+        return finalPost.filter((value)=>value.exists).map(post => new Post({ ...post.data(), IdPost: post.id }))
     }
     catch (e) {
         console.error(e)
-        throw "Erro ao coletar posts com likes do usuario"
+        throw "Erro ao coletar posts no eu quero"
     }
 }
 
