@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useContext, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import AuthContext from '../../context/auth_context';
 import { View, Text, Image, FlatList } from 'react-native';
 import style from './style'
@@ -21,13 +21,15 @@ export default LeaderBoard = () => {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        setLoading(true)
-        getPeople().then(value => {
-            setData(value)
-            setLoading(false)
-        })
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            setLoading(true)
+            getPeople().then(value => {
+                setData(value)
+                setLoading(false)
+            })
+        }, [])
+    )
 
     const nameUser = auth.isLogged ? name.user.name : 'Anônimo'
     const profile = auth.isLogged ? 
