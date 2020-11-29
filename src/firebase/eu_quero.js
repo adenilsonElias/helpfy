@@ -82,3 +82,7 @@ export async function isWanted(post: Post, userId: String) {
     const wanted = await Firestore().collection('Post').doc(post.IdPost).collection('want').where('user', '==', Firestore().collection('User').doc(userId)).get()
     return wanted.empty
 }
+
+export function wantListListener(post : Post, callBack : Function){
+    return Firestore().collection('Post').doc(post.IdPost).collection('want').onSnapshot(callBack);
+}

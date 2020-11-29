@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './style'
 import { View, Image, Text, TouchableOpacity, FlatList } from 'react-native';
-import { getWantPeople } from '../../firebase/eu_quero';
+import { getWantPeople, wantListListener } from '../../firebase/eu_quero';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { color1, color2 } from '../../global/constant/constant';
 import Icon from 'react-native-vector-icons/Feather';
@@ -11,6 +11,8 @@ import OtherAvatar from '../../global/components/Other_Avatar/OtherAvatar'
 import Animations from './components/Animation/Animations'
 import { useDispatch, useSelector } from 'react-redux';
 import { setBottomBar } from '../../store/actions/loading'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export default ListChoosedPeople = () => {
     const navigation = useNavigation()
@@ -20,6 +22,8 @@ export default ListChoosedPeople = () => {
     const [loading, setLoading] = useState(false)
     const chooseText = choose ? 'Escolhido' : 'Escolher'
     const donation = useSelector(state => state.loadingState.bottomBar)
+    const [update,setUpdate] = useState(false);
+    let updateT = false;
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -29,13 +33,20 @@ export default ListChoosedPeople = () => {
     }, [donation])
 
     useEffect(() => {
-        setLoading(true)
         async function collect() {
+            console.log("lalala")
             setUserList(await getWantPeople(post))
-            setLoading(false)
         }
         collect()
-    }, [])
+    }, [update])
+
+    useEffect(()=>{
+        return wantListListener(post,(documentSnapshot : FirebaseFirestoreTypes.DocumentSnapshot)=>{
+            console.log("esta aqui senhor ?")
+            updateT = !updateT
+            setUpdate(updateT);
+        })
+    },[])
 
     function handleGrantee(idGrantee: String) {
         dispatch(setBottomBar(true))
