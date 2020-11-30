@@ -34,6 +34,10 @@ export const categorys = [{
     title: 'Eletrodomésticos'
 },{
     id: Math.random(),
+    image: require('../../assets/imgs/eletroeletronicos.png'),
+    title: 'Eletroeletrônicos'
+},{
+    id: Math.random(),
     image: require('../../assets/imgs/higienePessoal.png'),
     title: 'Higiene Pessoal'
 },{
@@ -58,16 +62,12 @@ export const categorys = [{
     title: 'Móveis'
 },{
     id: Math.random(),
+    image: require('../../assets/imgs/outros.png'),
+    title: 'Outros'
+},{
+    id: Math.random(),
     image: require('../../assets/imgs/roupas.png'),
     title: 'Roupas'
-},{
-    id: Math.random(),
-    image: require('../../assets/imgs/roupas.png'),
-    title: 'Eletroeletrônicos'
-},{
-    id: Math.random(),
-    image: require('../../assets/imgs/roupas.png'),
-    title: 'Outros'
 }]
 
 export const converTime = () => {
