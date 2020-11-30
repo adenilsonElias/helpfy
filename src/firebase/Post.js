@@ -14,7 +14,7 @@ export async function createPost(post: Post, userId: String) {
 
         // for para salvar todas as imagens no store
         for (let i = 0; i < images.length; i += 1) {
-            const bucketReference = Storage().ref(`Post/${postReference.id}/${i}`);
+            const bucketReference = Storage().ref(`Post/${postReference.id}/${i}${Date.now()}`);
             await bucketReference.putFile(images[i]).then(async () => {
                 imagesUrl.push(await bucketReference.getDownloadURL())
             })
@@ -122,7 +122,7 @@ export async function editPost(post: Post) {
             }
             else {
                 let imageUrl = "";
-                const bucketReference = Storage().ref(`Post/${post.IdPost}/${image.split('/').pop()}`);
+                const bucketReference = Storage().ref(`Post/${post.IdPost}/${image.split('/').pop()}${Date.now()}`);
                 await bucketReference.putFile(image).then(async () => {
                     imageUrl = await bucketReference.getDownloadURL()
                 })
