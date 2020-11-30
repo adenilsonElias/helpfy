@@ -114,8 +114,8 @@ export default AddPost = () => {
 
     //Converter toda imagem salva no array Images para o preview
     useEffect(() => {
-        convertImagePreview(images)
-    }, [images])
+        convertImagePreview(displayImages)
+    }, [displayImages])
 
 
     if (loading) {
@@ -149,7 +149,6 @@ export default AddPost = () => {
                     <SliderImages pickerImage={pickImage} setVisible={setVisible}
                         images={images} setImages={setImages} displayImages={displayImages}
                         setDisplayImages={setDisplayImages} />
-                    {/* <SliderBoxImg images={images} pickerImage={pickImage}/> */}
                     <Title title={'Descrição'} />
                     <View style={[style.inputContainer, style.inputDescriptionContainer]}>
                         <TextInput style={style.input} placeholder='Insira a descrição...'
