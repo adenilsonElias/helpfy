@@ -16,10 +16,11 @@ import { setBottomBar } from '../../../../store/actions/loading'
 
 type Props = {
     post: Post,
-    setPost: any
+    setPost: any,
+    donationAnimation: any,
 }
 
-const Buttons = ({ post, setPost }: Props) => {
+const Buttons = ({ post, setPost, setDonationAnimation }: Props) => {
     const auth = useContext(AuthContext)
     const [notLiked, setNotLiked] = useState(true)
     const [notWant, setNotWant] = useState(true);
@@ -101,10 +102,12 @@ const Buttons = ({ post, setPost }: Props) => {
     }
 
     function handleAccept(){
+        setDonationAnimation(true)
         dispatch(setBottomBar(true))
         upDonationStage(post, user.id).then(()=>{
             console.info("donatario recebeu a doação")
             setTimeout(() => {
+                setDonationAnimation(false)
                 dispatch(setBottomBar(false))
             }, 3000)
         })

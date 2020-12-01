@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useCallback } from 'react'
 import { SafeAreaView, View, Text, Image, ScrollView, TouchableOpacity, Button } from 'react-native'
 import style from './style'
 import Buttons from './components/Buttons/Buttons'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 import { color1, color2, styleTitle } from '../../global/constant/constant'
 import Post from '../../model/post_model'
 import Comments from './components/Comments/Comments'
@@ -42,7 +42,7 @@ const ThePost = () => {
     const [typeComment, setTypeComment] = useState('')
     const [author, setAuthor] = useState(null)
     const loading = useSelector(state => state.loadingState.loading)
-    const donationAnimation = useSelector(state => state.loadingState.bottomBar)
+    const [donationAnimation, setDonationAnimation] = useState(false)
     const dispatch = useDispatch()
     const parameter = {
         message,
@@ -59,34 +59,37 @@ const ThePost = () => {
         setTypeComment(type)
     }
 
-    useEffect(() => {        
-        navigation.setOptions({       
-            title: '',
-            // headerStyle: {
-            //     backgroundColor: color2,
-            // },
-            // headerTitleStyle: styleTitle,
-            headerShown: !loading,
-            headerTintColor: color1,
-            headerTitleAlign: 'center',
-            // headerTitle: () => {
-            //     return(
-            //         <Text style={style.titleHeader} adjustsFontSizeToFit={true} 
-            //             allowFontScaling={true}>{post.title}</Text>
-            //     )
-            // },
-            headerRight: () => {
-                if (user && user.id == post.authorRef.id) {
-                    return (
-                        <TouchableOpacity style={style.editTouch}
-                            onPress={() => { navigation.navigate('AddPost', { post: post }) }}>
-                            <Icon name={'edit'} size={25} color={color1} />
-                        </TouchableOpacity>
-                    )
+    useFocusEffect(
+        useCallback(() => {
+            navigation.setOptions({       
+                title: '',
+                // headerStyle: {
+                //     backgroundColor: color2,
+                // },
+                // headerTitleStyle: styleTitle,
+                headerShown: !loading,
+                headerTintColor: color1,
+                headerTitleAlign: 'center',
+                // headerTitle: () => {
+                //     return(
+                //         <Text style={style.titleHeader} adjustsFontSizeToFit={true} 
+                //             allowFontScaling={true}>{post.title}</Text>
+                //     )
+                // },
+                headerRight: () => {
+                    if (user && user.id == post.authorRef.id) {
+                        return (
+                            <TouchableOpacity style={style.editTouch}
+                                onPress={() => { navigation.navigate('AddPost', { post: post }) }}>
+                                <Icon name={'edit'} size={25} color={color1} />
+                            </TouchableOpacity>
+                        )
+                    }
                 }
-            }
-        })
-    }, [loading])
+            })
+            dispatch(setBottomBar(false))
+        }, [loading])
+    )
 
     useEffect(() => {
         navigation.setOptions({
@@ -150,7 +153,7 @@ const ThePost = () => {
                 showsVerticalScrollIndicator={false}>
                 <PreviewImages image={post.image} />
                 <Description post={post} author={author}/>
-                <Buttons post={post} setPost={setPost} />
+                <Buttons post={post} setPost={setPost} setDonationAnimation={setDonationAnimation}/>
                 <View style={style.comentarioTitleContainer}>
                     <Text style={style.comentariosTitle}>Comentários</Text>
                     <Filter post={post} setComentarios={setComentarios} />

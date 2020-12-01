@@ -21,7 +21,7 @@ export default ListChoosedPeople = () => {
     const [choose, setChoose] = useState(false)
     const [loading, setLoading] = useState(false)
     const chooseText = choose ? 'Escolhido' : 'Escolher'
-    const donation = useSelector(state => state.loadingState.bottomBar)
+    const [donation, setDonation] = useState(false)
     const [update,setUpdate] = useState(false);
     let updateT = false;
     const dispatch = useDispatch()
@@ -47,11 +47,13 @@ export default ListChoosedPeople = () => {
     },[])
 
     function handleGrantee(idGrantee: String) {
+        setDonation(true)
         dispatch(setBottomBar(true))
         upDonationStage(post,idGrantee).then(()=>{
             console.info("estado de doação alterado com sucesso")
             setTimeout(() => {
                 navigation.goBack()
+                setDonation(false)
                 dispatch(setBottomBar(false))
             }, 3000)
         })

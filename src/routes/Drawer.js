@@ -29,7 +29,7 @@ export default DrawerNavigation = () => {
             let score = user.score        
             setProgresso((score % 10 ) * 0.1)
             if(Math.floor(score / 10) !== 0){
-                setLevel(Math.floor(score / 10))
+                setLevel(Math.floor(score / 10) + 1)
             } else {
                 setLevel(1)
             }
